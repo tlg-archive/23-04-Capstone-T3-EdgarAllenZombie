@@ -1,4 +1,4 @@
-package PACKAGE_NAME;class main {
+class main {
     // static methods (if any)
     
     // instance variables
