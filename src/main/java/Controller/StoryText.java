@@ -69,8 +69,10 @@ public class StoryText {
                 red, colorReset, green, colorReset, green, colorReset, red, colorReset, doubleLines);
     }
 
-    public static void main(String[] args) {
-        gameStart();
+    public static void textHelp(){
+        System.out.printf("%s\nTo control Edgar, use basic commands like '%sGo%s %sNorth%s', '%sGet%s %sKnife%s', '%sLook%s' or '%sSearch%s %sdesk%s'\n %s.\n\n",
+                doubleLines, green, colorReset,red, colorReset, green, colorReset,
+                red, colorReset, green, colorReset, green, colorReset, red, colorReset, doubleLines);
     }
 
 }   // END OF CLASS

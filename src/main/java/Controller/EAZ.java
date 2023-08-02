@@ -1,10 +1,13 @@
 package Controller;
 
 import java.util.Scanner;
+import Controller.StoryText;
+
+import static Controller.StoryText.textHelp;
 
 public class EAZ {
 
-    public static boolean runGame;
+    public static boolean runGame = true;
 
 
     public static void quitGame() {
@@ -20,13 +23,20 @@ public class EAZ {
     public static void run() {
         System.out.println("Would you like to play?");
         String newGameOption = TextParser.GetInput();
-        if(newGameOption == "yes") {
+        if(newGameOption.equals("yes")) {
             while(runGame) {
                 // Have game logic here
+                String input = TextParser.GetInput();
+                if(input.equals("help")){
+                    textHelp();
+                }
+
             }
 
         } else {
             quitGame();
         }
     }
+
+
 }
