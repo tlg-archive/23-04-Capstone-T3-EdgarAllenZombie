@@ -1,4 +1,6 @@
-class combat {
+package Main;
+
+class main {
     // static methods (if any)
 
     // instance variables
