@@ -3,11 +3,17 @@ import java.util.Scanner;
 
 public class TextParser {
 
-    public static String[] GetInput() {
+
+    public static String GetInput() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please enter a Command: ");
+        return scanner.nextLine().toLowerCase();
+    }
+
+    public static String[] ParseInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("PLease enter a Command: ");
         String input = scanner.nextLine().toLowerCase();
-
         // Parse the input
         String[] words = input.split(" ");
         String verb = words[0];
