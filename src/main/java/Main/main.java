@@ -1,20 +1,11 @@
 package Main;
 
-class main {
-    // static methods (if any)
+import Controller.StoryText;
 
-    // instance variables
+public class main {
+    public static void main(String[] args) {
+        StoryText.introScreen();
 
-    // constructors
 
-    // accessor methods
-
-    // business methods
-
-    // compareTo (ifAny)
-    // hashCode (ifAny)
-    // equals (ifAny)
-
-    // toString
-
+    }
 }   // END OF CLASS
