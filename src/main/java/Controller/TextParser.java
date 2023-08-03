@@ -52,7 +52,7 @@ public class TextParser {
             }
         }
         else System.out.println("Sorry, that command is not recognized.  Please use basic commands like " +
-                    "“Go North”, “Get Knife”, “Look” or “Search desk");
+                    "'Go North', 'Get Knife', 'Look' or 'Search desk'");
         scanner.close();
         return new String[]{verb, noun};
     }
