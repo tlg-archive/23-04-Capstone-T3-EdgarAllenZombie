@@ -19,12 +19,14 @@ public class EAZ {
         }
     }
 
+
     public static void run() {
         System.out.println("Would you like to play?");
         String newGameOption = TextParser.GetInput();
         if(newGameOption.equals("yes")) {
             clearScreen();
             gameStart();
+//            Player player = JsonReader.getPlayer();
             while(runGame) {
                 // Have game logic here
                 String input = TextParser.GetInput();
