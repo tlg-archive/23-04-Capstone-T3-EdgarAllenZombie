@@ -1,3 +1,25 @@
 {
-
+"locations": [
+  {
+    "name": "Foyer",
+    "directions": {
+      "north": "Hallway 1"
+    },
+    "description": "Kevins description of Foyer",
+    "items": [
+    ]
+  },
+  {
+    "name": "Hallway 1",
+    "directions": {
+      "northWest": "Kitchen",
+      "southWest": "Butler's Room",
+      "northEast": "Hallway 2",
+      "southEast": "Coat Closet"
+    },
+    "description": "Kevins description 2",
+    "items": [
+    ]
+  }
+]
 }
