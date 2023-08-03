@@ -1,9 +1,8 @@
-package Controller;
+package Model;
 
-import java.util.Scanner;
-import Controller.StoryText;
+import Controller.TextParser;
 
-import static Controller.StoryText.textHelp;
+import static View.StoryText.textHelp;
 
 public class EAZ {
 
@@ -38,5 +37,9 @@ public class EAZ {
         }
     }
 
+
+    /*
+    Monster zombie = getCharacter(Zombie);
+     */
 
 }

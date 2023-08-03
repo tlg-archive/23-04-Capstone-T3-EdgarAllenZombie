@@ -1,6 +1,6 @@
-package Main;
-import Controller.EAZ;
-import Controller.StoryText;
+package Controller;
+import Model.EAZ;
+import View.StoryText;
 
 public class main {
     public static void main(String[] args) {
