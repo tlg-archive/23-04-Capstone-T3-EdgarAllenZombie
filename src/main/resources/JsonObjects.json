@@ -6,8 +6,7 @@
       "north": "Hallway 1"
     },
     "description": "Kevins description of Foyer",
-    "items": [
-    ]
+    "items": []
   },
   {
     "name": "Hallway 1",
@@ -18,8 +17,7 @@
       "southEast": "Coat Closet"
     },
     "description": "Kevins description 2",
-    "items": [
-    ]
+    "items": []
   }
 ],
 
