@@ -10,7 +10,6 @@ class JsonReader {
     public static void main(String[] args) {
         getPlayer();
 
-
     }
     private String item;
     private String room;
