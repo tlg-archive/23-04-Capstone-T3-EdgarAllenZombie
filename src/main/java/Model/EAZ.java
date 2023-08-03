@@ -2,7 +2,7 @@ package Model;
 
 import Controller.TextParser;
 
-import static View.StoryText.textHelp;
+import static View.StoryText.*;
 
 public class EAZ {
 
@@ -23,6 +23,8 @@ public class EAZ {
         System.out.println("Would you like to play?");
         String newGameOption = TextParser.GetInput();
         if(newGameOption.equals("yes")) {
+            clearScreen();
+            gameStart();
             while(runGame) {
                 // Have game logic here
                 String input = TextParser.GetInput();
