@@ -6,31 +6,35 @@ import java.util.Map;
 
 public class Location {
     private String name;
+    private String[] directions;
     private String description;
-    private Map<String, String> directions;
+    private String[] items;
 
-    public Location(String name, String description) {
+
+    public Location(String name, String[] directions, String description, String[] items) {
         this.name = name;
+        this.directions = directions;
         this.description = description;
-        this.directions = new HashMap<>();
+        this.items = items;
+//        this.directions = new HashMap<>();
     }
 
-    public void addDirection(String direction, String destination) {
-        directions.put(direction.toLowerCase(), destination);
-    }
+//    public void addDirection(String direction, String destination) {
+//        directions.put(direction.toLowerCase(), destination);
+//    }
 
     // Getters and Setters (You can use Lombok or manually create them if needed)
 
-    public static void main(String[] args) {
-        // Sample usage to create a location
-        Location location = new Location("Fayer", "This is the starting room.");
-        location.addDirection("north", "north_room");
-        location.addDirection("east", "east_room");
-        location.addDirection("south", "south_room");
-        location.addDirection("west", "west_room");
-
-        Gson gson = new Gson();
-        String locationJson = gson.toJson(location);
-        System.out.println(locationJson);
-    }
+//    public static void main(String[] args) {
+//        // Sample usage to create a location
+//        Location location = new Location("Fayer", "This is the starting room.");
+//        location.addDirection("north", "north_room");
+//        location.addDirection("east", "east_room");
+//        location.addDirection("south", "south_room");
+//        location.addDirection("west", "west_room");
+//
+//        Gson gson = new Gson();
+//        String locationJson = gson.toJson(location);
+//        System.out.println(locationJson);
+//    }
 }
