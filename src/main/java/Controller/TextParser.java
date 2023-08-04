@@ -36,7 +36,7 @@ public class TextParser {
                     break;
                 case "quit":
                     quitGame();
-
+                    break;
                 default:
                     System.out.println("Invalid command. Try again.");
                     verb = "";
