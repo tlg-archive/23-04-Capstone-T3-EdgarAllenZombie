@@ -2,20 +2,23 @@ package View;
 
 public class StoryText {
 
+    static String doubleLines = "=============================================================================================\n";
+    static String singleLines = "---------------------------------------------------------------------------------------------\n";
+    static String starLines =   "*********************************************************************************************\n";
+    static String red = "\u001B[31m";
+    static String green = "\u001B[32m";
+    static String colorReset = "\u001B[0m";
+
     public static void introScreen(){
         clearScreen();
         titleScreen();
     }
 
     public static void clearScreen(){
-        System.out.println("");System.out.println("");System.out.println("");System.out.println("");System.out.println("");
-        System.out.println("");System.out.println("");System.out.println("");System.out.println("");System.out.println("");
-        System.out.println("");System.out.println("");System.out.println("");System.out.println("");System.out.println("");
-        System.out.println("");System.out.println("");System.out.println("");System.out.println("");System.out.println("");
-        System.out.println("");System.out.println("");System.out.println("");System.out.println("");System.out.println("");
-        System.out.println("");System.out.println("");System.out.println("");System.out.println("");System.out.println("");
-        System.out.println("");System.out.println("");System.out.println("");System.out.println("");System.out.println("");
-        System.out.println("");System.out.println("");System.out.println("");System.out.println("");System.out.println("");
+        int i;
+        for (i = 0; i < 41; i++){
+            System.out.println();
+        }
     }
 
     public static void titleScreen() {
@@ -43,11 +46,17 @@ public class StoryText {
                 "                                    Uncover your dark side and grow to epic proportions!     \n");
     }
 
-    static String doubleLines = "=============================================================================================\n";
-    static String singleLines = "---------------------------------------------------------------------------------------------\n";
-    static String red = "\u001B[31m";
-    static String green = "\u001B[32m";
-    static String colorReset = "\u001B[0m";
+
+
+    public static void printDoubleLine(){
+        System.out.println(doubleLines);
+    }
+    public static void printSingleLine(){
+        System.out.println(singleLines);
+    }
+    public static void printStarLine(){
+        System.out.println(starLines);
+    }
 
     public static void gameStart(){
         System.out.printf("%s " +
