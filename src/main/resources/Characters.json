@@ -1,0 +1,18 @@
+{
+  "characters": [
+    {
+      "type": "enemy",
+      "name": "zombie",
+      "health": 10,
+      "damage": 5,
+      "description": "zombie description"
+    },
+    {
+      "type": "npc",
+      "name": "Sara",
+      "health": 5,
+      "damage": 5,
+      "description": "Your sister Sara"
+    }
+  ]
+}
