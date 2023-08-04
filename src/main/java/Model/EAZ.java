@@ -30,9 +30,7 @@ public class EAZ {
             while(runGame) {
                 // Have game logic here
                 String input = TextParser.GetInput();
-                if(input.equals("help")){
-                    textHelp();
-                }
+
 
             }
 

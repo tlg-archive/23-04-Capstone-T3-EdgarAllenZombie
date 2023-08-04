@@ -1,6 +1,9 @@
 package Controller;
 import java.util.Scanner;
 
+import static Model.EAZ.quitGame;
+import static View.StoryText.textHelp;
+
 public class TextParser {
 
     public static String GetInput() {
@@ -28,6 +31,11 @@ public class TextParser {
                 case "use":
                     verb = words[0];
                     break;
+                case "help":
+                    textHelp();
+                    break;
+                case "quit":
+                    quitGame();
 
                 default:
                     System.out.println("Invalid command. Try again.");
