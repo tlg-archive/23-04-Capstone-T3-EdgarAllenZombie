@@ -24,7 +24,6 @@ public class TextParser {
         // Validate the inputs
         if (words.length == 1) {
             switch (verb) {
-                case "look":
                 case "take":
                 case "use":
                     // For look, take, and use commands, keep verb as is, and reset the noun to an empty string
@@ -44,14 +43,28 @@ public class TextParser {
                     break;
             }
         } else if (words.length == 2) {
-            if (verb.equals("go")) {
-                JsonReader.move(noun);
+            switch(verb){
+                case "look":
+                    Look.look(noun);
+                    break;
+                case "go":
+                    JsonReader.move(noun);
+                    break;
+                default:
+                    System.out.println("Sorry, that command is not recognized. Please use basic commands like " +
+                            "'Go North', 'Get Knife', 'Look' or 'Search desk'");
+                    verb = "";
+                    noun = "";
             }
-        } else {
-            System.out.println("Sorry, that command is not recognized. Please use basic commands like " +
-                    "'Go North', 'Get Knife', 'Look' or 'Search desk'");
-            verb = "";
-            noun = "";
+
+//            if (verb.equals("go")) {
+//                JsonReader.move(noun);
+//            }
+//        } else {
+//            System.out.println("Sorry, that command is not recognized. Please use basic commands like " +
+//                    "'Go North', 'Get Knife', 'Look' or 'Search desk'");
+//            verb = "";
+//            noun = "";
         }
         return new String[]{verb, noun};
     }

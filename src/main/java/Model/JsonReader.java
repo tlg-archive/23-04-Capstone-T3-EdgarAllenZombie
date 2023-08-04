@@ -59,7 +59,7 @@ public class JsonReader {
     static public class Locations {
         String name;
         JsonObject directions;
-        String description;
+        public String description;
         String[] items;
     }
 }

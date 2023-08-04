@@ -24,8 +24,6 @@ public class EAZ {
         String quitResponse = TextParser.GetInput();
         if (quitResponse.equals("yes")) {
             runGame = false;
-        } else {
-            return;
         }
     }
 
@@ -40,18 +38,13 @@ public class EAZ {
 //            Player player = JsonReader.getPlayer();
             while (runGame) {
                 // Have game logic here
-                StoryText.printDoubleLine();
+                StoryText.printStarLine();
                 System.out.println("You are currently in: " + getCurrentLocationName());
-//                StoryText.printSingleLine();
                 System.out.println();
                 System.out.println(Objects.requireNonNull(getLocationByName(getCurrentLocationName())).description);
-                StoryText.printSingleLine();
                 System.out.println("Available directions are: " + Objects.requireNonNull(getLocationByName(getCurrentLocationName())).directions.keySet());
-                StoryText.printSingleLine();
                 System.out.println("In the room, you see: " + Arrays.toString(Objects.requireNonNull(getLocationByName(getCurrentLocationName())).items));
                 String[] gameCommands = TextParser.ParseInput();
-                StoryText.printStarLine();
-
             }
             scanner.close();
         } else {
