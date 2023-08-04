@@ -37,6 +37,17 @@ public class JsonReader {
         System.out.println("You can't go that way.");
     }
 
+    public static Locations getLocationByName(String currentLocationName) throws IOException {
+//        return readJson(LocationData.class);
+        LocationData locationData = readJson(LocationData.class);
+        for(Locations location : locationData.locations) {
+            if(location.name.equalsIgnoreCase(currentLocationName)){
+                return location;
+            }
+        }
+        return null;
+    }
+
     public static String getCurrentLocationName() {
         return currentLocationName;
     }
