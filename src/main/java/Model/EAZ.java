@@ -10,7 +10,7 @@ public class EAZ {
 
 
     public static void quitGame() {
-        System.out.println("Are you sure you want to quit?");
+        System.out.println("Are you sure you want to quit? (yes/no)");
         String quitResponse = TextParser.GetInput();
         if(quitResponse == "yes") {
             runGame = false;
@@ -19,9 +19,8 @@ public class EAZ {
         }
     }
 
-
     public static void run() {
-        System.out.println("Would you like to play?");
+        System.out.println("Would you like to play? (yes/no");
         String newGameOption = TextParser.GetInput();
         if(newGameOption.equals("yes")) {
             clearScreen();
@@ -30,8 +29,6 @@ public class EAZ {
             while(runGame) {
                 // Have game logic here
                 String input = TextParser.GetInput();
-
-
             }
 
         } else {
