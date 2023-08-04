@@ -6,7 +6,6 @@ import static View.StoryText.textHelp;
 
 public class TextParser {
 
-
     public static String GetInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter a Command: ");
