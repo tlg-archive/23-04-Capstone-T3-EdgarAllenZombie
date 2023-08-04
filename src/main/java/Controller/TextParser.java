@@ -38,6 +38,7 @@ public class TextParser {
                     break;
                 default:
                     System.out.println("Invalid command. Try again.");
+                    StoryText.textHelp();
                     verb = "";
                     noun = "";
                     break;
