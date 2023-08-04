@@ -11,10 +11,10 @@
     {
       "name": "Hallway 1",
       "directions": {
-        "northWest": "Kitchen",
-        "southWest": "Butler's Room",
-        "northEast": "Hallway 2",
-        "southEast": "Coat Closet"
+        "west": "Kitchen",
+        "south": "Butler's Room",
+        "north": "Hallway 2",
+        "East": "Coat Closet"
       },
       "description": "Kevins description 2",
       "items": []
@@ -34,7 +34,9 @@
         "west": "Butler's Room"
       },
       "description": "A hidden room filled with mysterious items",
-      "items": ["chain bat"]
+      "items": [
+        "chain bat"
+      ]
     },
     {
       "name": "Kitchen",
@@ -43,8 +45,12 @@
         "east": "Dining Room"
       },
       "description": "A spacious kitchen with various cooking tools",
-      "items": ["Knife"],
-      "characters": ["zombie"]
+      "items": [
+        "Knife"
+      ],
+      "characters": [
+        "zombie"
+      ]
     },
     {
       "name": "Dining Room",
@@ -53,7 +59,9 @@
         "east": "Hallway 2"
       },
       "description": "A grand dining room with an elegant table",
-      "items": ["Plate of food"]
+      "items": [
+        "Plate of food"
+      ]
     },
     {
       "name": "Hallway 2",
@@ -91,7 +99,9 @@
         "east": "Hallway 2"
       },
       "description": "A study room with a large desk and bookshelves",
-      "items": ["key"]
+      "items": [
+        "key"
+      ]
     },
     {
       "name": "Hallway 3",
@@ -111,7 +121,9 @@
         "south": "Hallway 3"
       },
       "description": "A cozy bedroom with a comfortable bed",
-      "items": ["diary"]
+      "items": [
+        "diary"
+      ]
     },
     {
       "name": "Master Bedroom",
@@ -120,7 +132,9 @@
       },
       "description": "The master bedroom of the house",
       "items": [],
-      "characters": ["zombie"]
+      "characters": [
+        "zombie"
+      ]
     },
     {
       "name": "Bathroom",
@@ -137,8 +151,12 @@
         "east": "Home Office"
       },
       "description": "A room filled with shelves of books and ancient knowledge",
-      "items": ["Grimoire"],
-      "characters": ["zombie"]
+      "items": [
+        "Grimoire"
+      ],
+      "characters": [
+        "zombie"
+      ]
     }
   ],
   "characters": [
