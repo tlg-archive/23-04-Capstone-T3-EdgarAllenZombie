@@ -51,7 +51,7 @@ public class StoryText {
 
     public static void gameStart(){
         System.out.printf("%s " +
-                "   You are 18 year old Edgar Allen, \n" +
+                "  You are 18 year old Edgar Allen, \n" +
                 "   known to your friends as Edgar Allen \"Zombie\" \n " +
                 "  due to your unique fascination with all things dark and grim. \n " +
                 "  You enjoy searching through abandoned buildings others deem haunted,\n " +
@@ -70,7 +70,7 @@ public class StoryText {
     }
 
     public static void textHelp(){
-        System.out.printf("%s\nTo control Edgar, use basic commands like '%sGo%s %sNorth%s', '%sGet%s %sKnife%s', '%sLook%s' or '%sSearch%s %sdesk%s'\n %s.\n\n",
+        System.out.printf("%s\nTo control Edgar, use basic commands like '%sGo%s %sNorth%s', '%sGet%s %sKnife%s', '%sLook%s' or '%sSearch%s %sdesk%s'.\n %s\n\n",
                 doubleLines, green, colorReset,red, colorReset, green, colorReset,
                 red, colorReset, green, colorReset, green, colorReset, red, colorReset, doubleLines);
     }

@@ -2,6 +2,8 @@ package Model;
 
 import Controller.TextParser;
 
+import java.util.Scanner;
+
 import static View.StoryText.*;
 
 public class EAZ {
@@ -12,7 +14,7 @@ public class EAZ {
     public static void quitGame() {
         System.out.println("Are you sure you want to quit? (yes/no)");
         String quitResponse = TextParser.GetInput();
-        if(quitResponse == "yes") {
+        if(quitResponse.equals("yes")) {
             runGame = false;
         } else {
             return;
@@ -20,6 +22,7 @@ public class EAZ {
     }
 
     public static void run() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Would you like to play? (yes/no)");
         String newGameOption = TextParser.GetInput();
         String CurrentLocation = "Current location";
@@ -32,10 +35,11 @@ public class EAZ {
                 System.out.println(CurrentLocation);
                 String[] gameCommands = TextParser.ParseInput();
             }
-
+            scanner.close();
         } else {
             quitGame();
         }
+
     }
 
 
