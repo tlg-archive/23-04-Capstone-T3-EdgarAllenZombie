@@ -9,8 +9,8 @@ import java.io.IOException;
 
 public class main {
     public static void main(String[] args) throws IOException {
-//        StoryText.introScreen();
-//        EAZ.run();
+        StoryText.introScreen();
+        EAZ.run();
 
 //        JsonReader.LocationData locationData = JsonReader.getLocation();
 //
