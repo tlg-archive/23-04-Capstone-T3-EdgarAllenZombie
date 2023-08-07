@@ -2,6 +2,7 @@ package Controller;
 
 import Model.EAZ;
 import Model.JsonReader;
+import Model.Look;
 import View.StoryText;
 
 import java.io.IOException;
