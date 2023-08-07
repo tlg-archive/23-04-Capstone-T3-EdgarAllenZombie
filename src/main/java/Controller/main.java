@@ -1,16 +1,19 @@
 package Controller;
 import Model.EAZ;
+import Model.Item;
 import Model.JsonReader;
 
 import View.StoryText;
 import com.google.gson.JsonObject;
+import Model.Item.ItemList;
 
 import java.io.IOException;
+import java.util.List;
 
 public class main {
     public static void main(String[] args) throws IOException {
-        StoryText.introScreen();
-        EAZ.run();
+//        StoryText.introScreen();
+//        EAZ.run();
 
 //        JsonReader.LocationData locationData = JsonReader.getLocation();
 //
