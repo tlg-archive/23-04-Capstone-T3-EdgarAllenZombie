@@ -1,18 +1,16 @@
-package Model;
+package eaz.model;
 
-import Controller.TextParser;
-import View.StoryText;
-import com.google.gson.JsonElement;
+import eaz.controller.TextParser;
+import eaz.view.StoryText;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 
-import static Model.JsonReader.*;
-import static View.StoryText.clearScreen;
-import static View.StoryText.gameStart;
+import static eaz.model.JsonReader.*;
+import static eaz.view.StoryText.clearScreen;
+import static eaz.view.StoryText.gameStart;
 
 public class EAZ {
 

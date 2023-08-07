@@ -1,9 +1,9 @@
-package Controller;
+package eaz.controller;
 
-import Model.EAZ;
-import Model.JsonReader;
-import Model.Look;
-import View.StoryText;
+import eaz.model.EAZ;
+import eaz.model.JsonReader;
+import eaz.model.Look;
+import eaz.view.StoryText;
 
 import java.io.IOException;
 import java.util.Scanner;

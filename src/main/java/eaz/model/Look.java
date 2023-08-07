@@ -1,11 +1,10 @@
-package Model;
+package eaz.model;
 
-import View.StoryText;
+import eaz.view.StoryText;
 
 import java.io.IOException;
-import java.util.Objects;
 
-import static Model.JsonReader.*;
+import static eaz.model.JsonReader.*;
 import static java.util.Objects.requireNonNull;
 
 public class Look {

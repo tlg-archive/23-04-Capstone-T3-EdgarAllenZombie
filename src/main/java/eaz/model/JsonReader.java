@@ -1,10 +1,10 @@
-package Model;
+package eaz.model;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 
 public class JsonReader {
@@ -17,8 +17,8 @@ public class JsonReader {
 
     public static <T> T readJson(Class<T> clazz) throws IOException {
         Gson gson = new Gson();
-        String filename = "src/main/resources/JsonObjects.json";
-        try (Reader reader = new FileReader(filename)) {
+        String filename = "JsonObjects.json";
+        try (Reader reader = new InputStreamReader(JsonReader.class.getClassLoader().getResourceAsStream(filename))) {
             return gson.fromJson(reader, clazz);
         }
     }
