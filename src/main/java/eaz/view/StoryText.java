@@ -1,4 +1,4 @@
-package View;
+package eaz.view;
 
 public class StoryText {
 
