@@ -1,8 +1,6 @@
 package eaz.controller;
 
-import eaz.model.EAZ;
-import eaz.model.JsonReader;
-import eaz.model.Look;
+import eaz.model.*;
 import eaz.view.StoryText;
 
 import java.io.IOException;
@@ -10,14 +8,14 @@ import java.util.Scanner;
 
 public class TextParser {
 
-    public static String GetInput() {
+    public static String getInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter a Command: ");
         return scanner.nextLine().toLowerCase();
     }
 
-    public static String[] ParseInput() throws IOException {
-        String[] words = GetInput().split(" ");
+    public static String[] parseInput(Mansion mansion) throws IOException {
+        String[] words = getInput().split(" ");
 
         String verb = words[0];
         String noun = words.length > 1 ? words[1] : "";
@@ -46,10 +44,10 @@ public class TextParser {
         } else if (words.length == 2) {
             switch(verb){
                 case "look":
-                    Look.look(noun);
+                    Look.look(noun, mansion.getCurrentLocation());
                     break;
                 case "go":
-                    JsonReader.move(noun);
+                    mansion.move(noun);
                     break;
                 default:
                     System.out.println("Sorry, that command is not recognized. Please use basic commands like " +
@@ -58,14 +56,6 @@ public class TextParser {
                     noun = "";
             }
 
-//            if (verb.equals("go")) {
-//                JsonReader.move(noun);
-//            }
-//        } else {
-//            System.out.println("Sorry, that command is not recognized. Please use basic commands like " +
-//                    "'Go North', 'Get Knife', 'Look' or 'Search desk'");
-//            verb = "";
-//            noun = "";
         }
         return new String[]{verb, noun};
     }
