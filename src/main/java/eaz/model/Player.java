@@ -1,11 +1,54 @@
 package eaz.model;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
-class Player {
-    private String name = "Edgar Allen Zombie";
+public class Player {
+    private final String name = "Edgar Allen Zombie";
+    private final List<String> inventory = new LinkedList<>();
+
     private int health;
     private int damage;
-    private String[] inventory;
+
+    public String getName() {
+        return name;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public List<String> getInventory() {
+        return inventory;
+    }
+
+    public int increaseHealth(int delta){
+     return health += delta;
+    }
+
+    public int decreaseHealth(int delta){
+        return health -= delta;
+    }
+
+    public int increaseDamage(int delta){
+        return damage += delta;
+    }
+
+    public int decreaseDamage(int delta){
+        return damage -= delta;
+    }
 
 }   // END OF CLASS

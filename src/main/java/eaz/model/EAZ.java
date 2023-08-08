@@ -12,6 +12,7 @@ import static eaz.model.JsonReader.*;
 import static eaz.view.StoryText.*;
 
 public class EAZ {
+    private static Mansion mansion;
 
     public static boolean runGame = true;
     public static String name = "Edgar Allen Zombie";
@@ -22,7 +23,7 @@ public class EAZ {
 
     public static void quitGame() {
         System.out.println("Are you sure you want to quit? (yes/no)");
-        String quitResponse = TextParser.GetInput();
+        String quitResponse = TextParser.getInput();
         if (quitResponse.equals("yes")) {
             runGame = false;
         }
@@ -31,22 +32,24 @@ public class EAZ {
     public static void run() throws IOException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Would you like to play? (yes/no)");
-        String newGameOption = TextParser.GetInput();
-        LocationData locationData = new LocationData();
+        String newGameOption = TextParser.getInput();
+//        LocationData locationData = new LocationData();
+        mansion = JsonReader.readMansion();
+//        locations = JsonReader.readLocations();
         if (newGameOption.equals("yes")) {
             clearScreen();
             gameStart();
-//            Player player = JsonReader.getPlayer();
             while (runGame) {
                 // Have game logic here
                 StoryText.displayPlayerStats(name, health, inventory);
                 StoryText.printStarLine();
-                System.out.println("You are currently in: " + getCurrentLocationName());
+                Location currentLocation = mansion.getCurrentLocation();
+                System.out.println("You are currently in: " + currentLocation.getName());
                 System.out.println();
-                System.out.println(Objects.requireNonNull(getLocationByName(getCurrentLocationName())).description);
-                System.out.println("Available directions are: " + Objects.requireNonNull(getLocationByName(getCurrentLocationName())).directions.keySet());
-                System.out.println("In the room, you see: " + Arrays.toString(Objects.requireNonNull(getLocationByName(getCurrentLocationName())).items));
-                String[] gameCommands = TextParser.ParseInput();
+                System.out.println(currentLocation.getDescription());
+                System.out.println("Available directions are: " + currentLocation.getDirections().keySet());
+                System.out.println("In the room, you see: " + currentLocation.getItems());
+                String[] gameCommands = TextParser.parseInput(mansion);
                 System.out.println();
                 System.out.println("You take 3 damage");
                 health -= 3;
