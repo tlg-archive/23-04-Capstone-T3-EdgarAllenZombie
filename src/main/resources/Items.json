@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "type": "weapon",
+      "name": "knife",
+      "description": "Sharp looking chef's knife (You're in the kitchen, what do you expect",
+      "location": "kitchen",
+      "modifier": 5
+    },
+    {
+      "type": "weapon",
+      "name": "chain bat",
+      "description": "The most epic looking bat you've seen so far tonight.  It has a heavy chain wrapped around the receiving end.",
+      "location": "secret room",
+      "modifier": 10
+    },
+    {
+      "type": "armor",
+      "name": "leather jacket",
+      "description": "Brown leather jacket that obviously cost someone a pretty penny",
+      "location": "coat closet",
+      "modifier": 10
+    },
+    {
+      "type": "book",
+      "name": "grimoire",
+      "description": "A book with a dark an ominous presence about it",
+      "location": "library",
+      "modifier": 0
+    }
+  ]
+}
