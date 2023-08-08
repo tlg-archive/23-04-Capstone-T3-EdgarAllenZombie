@@ -1,7 +1,7 @@
 package eaz.controller;
 
 import eaz.model.*;
-import eaz.view.StoryText;
+import eaz.view.ViewMain;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -16,6 +16,7 @@ public class TextParser {
 
     public static String[] parseInput(Mansion mansion) throws IOException {
         String[] words = getInput().split(" ");
+        ViewMain viewMain = new ViewMain();
 
         String verb = words[0];
         String noun = words.length > 1 ? words[1] : "";
@@ -29,14 +30,14 @@ public class TextParser {
                     noun = "";
                     break;
                 case "help":
-                    StoryText.textHelp();
+                    viewMain.textHelp();
                     break;
                 case "quit":
                     EAZ.quitGame();
                     break;
                 default:
                     System.out.println("Invalid command. Try again.");
-                    StoryText.textHelp();
+                    viewMain.textHelp();
                     verb = "";
                     noun = "";
                     break;
