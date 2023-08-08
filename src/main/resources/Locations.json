@@ -1,0 +1,162 @@
+{
+  "locations": [
+    {
+      "name": "Foyer",
+      "directions": {
+        "north": "Hallway 1"
+      },
+      "description": "You stand in the entry foyer of the mansion,\n You hear a faint whisper of 'It puts the lotion on it's skin or else it gets the hose again'",
+      "items": []
+    },
+    {
+      "name": "Hallway 1",
+      "directions": {
+        "west": "Kitchen",
+        "south": "Butler's Room",
+        "north": "Hallway 2",
+        "East": "Coat Closet"
+      },
+      "description": "Kevins description 2",
+      "items": []
+    },
+    {
+      "name": "Butler's Room",
+      "directions": {
+        "east": "Secret Room",
+        "north": "Hallway 1"
+      },
+      "description": "A small room where the butler used to rest",
+      "items": []
+    },
+    {
+      "name": "Secret Room",
+      "directions": {
+        "west": "Butler's Room"
+      },
+      "description": "A hidden room filled with mysterious items",
+      "items": [
+        "chain bat"
+      ]
+    },
+    {
+      "name": "Kitchen",
+      "directions": {
+        "south": "Hallway 1",
+        "east": "Dining Room"
+      },
+      "description": "A spacious kitchen with various cooking tools",
+      "items": [
+        "Knife"
+      ],
+      "characters": [
+        "zombie"
+      ]
+    },
+    {
+      "name": "Dining Room",
+      "directions": {
+        "west": "Kitchen",
+        "east": "Hallway 2"
+      },
+      "description": "A grand dining room with an elegant table",
+      "items": [
+        "Plate of food"
+      ]
+    },
+    {
+      "name": "Hallway 2",
+      "directions": {
+        "south": "Hallway 1",
+        "west": "Dining Room",
+        "east": "Ballroom",
+        "east2": "Storage Room",
+        "west2": "Home Office",
+        "north": "Hallway 3"
+      },
+      "description": "A long hallway connecting different rooms",
+      "items": []
+    },
+    {
+      "name": "Ballroom",
+      "directions": {
+        "west": "Hallway 2"
+      },
+      "description": "An extravagant ballroom with a shiny chandelier",
+      "items": []
+    },
+    {
+      "name": "Storage Room",
+      "directions": {
+        "west": "Hallway 2"
+      },
+      "description": "A room filled with old and unused items",
+      "items": []
+    },
+    {
+      "name": "Home Office",
+      "directions": {
+        "west": "Library",
+        "east": "Hallway 2"
+      },
+      "description": "A study room with a large desk and bookshelves",
+      "items": [
+        "key"
+      ]
+    },
+    {
+      "name": "Hallway 3",
+      "directions": {
+        "east": "Bedroom",
+        "north": "Master Bedroom",
+        "south": "Hallway 2",
+        "east1": "Bathroom",
+        "east2": "Library"
+      },
+      "description": "A hallway leading to different bedrooms",
+      "items": []
+    },
+    {
+      "name": "Bedroom",
+      "directions": {
+        "south": "Hallway 3"
+      },
+      "description": "A cozy bedroom with a comfortable bed",
+      "items": [
+        "diary"
+      ]
+    },
+    {
+      "name": "Master Bedroom",
+      "directions": {
+        "south": "Hallway 3"
+      },
+      "description": "The master bedroom of the house",
+      "items": [],
+      "characters": [
+        "zombie"
+      ]
+    },
+    {
+      "name": "Bathroom",
+      "directions": {
+        "east": "Hallway 3"
+      },
+      "description": "A well-maintained bathroom with modern amenities",
+      "items": []
+    },
+    {
+      "name": "Library",
+      "directions": {
+        "north": "Hallway 3",
+        "east": "Home Office"
+      },
+      "description": "A room filled with shelves of books and ancient knowledge",
+      "items": [
+        "Grimoire"
+      ],
+      "characters": [
+        "zombie"
+      ]
+    }
+  ]
+}
