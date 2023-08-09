@@ -29,6 +29,9 @@ public class TextParser {
                     // For look, take, and use commands, keep verb as is, and reset the noun to an empty string
                     noun = "";
                     break;
+                case "heal":
+                    player.increaseHealth(10);
+                    break;
                 case "help":
                 case "info":
                     viewMain.textHelp();
@@ -56,6 +59,11 @@ public class TextParser {
                         viewMain.displayPlayerInventory(player.getInventory());
                     } else {
                         Look.look(noun, mansion.getCurrentLocation());
+                    }
+                    break;
+                case "heal":
+                    if (noun.equals("player")){
+                    player.increaseHealth(10);
                     }
                     break;
                 case "go":

@@ -35,6 +35,7 @@ public class Player {
         return inventory;
     }
 
+    //we call this function in the textParser for now but have to change in the future. 
     public int increaseHealth(int delta){
      return health += delta;
     }
