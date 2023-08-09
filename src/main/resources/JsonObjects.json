@@ -14,7 +14,7 @@
       "description": "You stand in the entry foyer of the mansion,\n You hear a faint whisper of 'It puts the lotion on it's skin or else it gets the hose again'",
       "items": ["knife"],
       "characters": [
-        "zombie"
+        "ghost"
       ]
     },
     {
@@ -26,7 +26,10 @@
         "East": "Coat Closet"
       },
       "description": "Kevins description 2",
-      "items": []
+      "items": [],
+      "characters": [
+        "zombie"
+      ]
     },
     {
       "name": "Butler's Room",
@@ -174,8 +177,16 @@
       "name": "zombie",
       "health": 10,
       "damage": 5,
-      "description": "zombie description",
+      "description": "Exactly what you'd expect an undead monster would look like... Beautiful!",
       "dialog": ["Rawrrrrr Brainzzzzz!!!!"]
+    },
+    {
+      "type": "enemy",
+      "name": "ghost",
+      "health": 10,
+      "damage": 5,
+      "description": "A floating humanoid entity",
+      "dialog": ["Please don't hurt me, I'm not one of the bad ones", "I can tell you're new here, by the fact you're still....you know.... breathing"]
     },
     {
       "type": "npc",

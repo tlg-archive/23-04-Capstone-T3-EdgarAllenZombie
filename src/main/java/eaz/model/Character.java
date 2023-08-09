@@ -1,6 +1,6 @@
 package eaz.model;
 
-class Character {
+public class Character {
       private String type;
       private String name;
       private String health;
