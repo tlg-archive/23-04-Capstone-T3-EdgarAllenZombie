@@ -30,9 +30,12 @@ public class TextParser {
                     noun = "";
                     break;
                 case "help":
+                case "info":
                     viewMain.textHelp();
                     break;
                 case "quit":
+                case "exit":
+                case "stop":
                     EAZ.quitGame();
                     break;
                 case "inventory":
@@ -48,6 +51,7 @@ public class TextParser {
         } else if (words.length == 2) {
             switch(verb){
                 case "look":
+                case "search":
                     if ("inventory".equals(noun)) {
                         viewMain.displayPlayerInventory(player.getInventory());
                     } else {
@@ -55,9 +59,11 @@ public class TextParser {
                     }
                     break;
                 case "go":
+                case "move":
                     mansion.move(noun);
                     break;
                 case "take":
+                case "get":
                     mansion.pickUpItem(noun);
                     break;
                 default:
