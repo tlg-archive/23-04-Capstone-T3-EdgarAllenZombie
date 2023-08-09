@@ -15,10 +15,6 @@ public class EAZ {
     private static Mansion mansion;
 
     public static boolean runGame = true;
-    public static String name = "Edgar Allen Zombie";
-    public static int health = 25;
-    public static String[] inventory = {"knife", "bat"};
-
 
     public static void quitGame() {
         System.out.println("Are you sure you want to quit? (yes/no)");
@@ -36,13 +32,14 @@ public class EAZ {
         String newGameOption = TextParser.getInput();
 //        LocationData locationData = new LocationData();
         mansion = JsonReader.readMansion();
+        Player player = mansion.getPlayer();
 //        locations = JsonReader.readLocations();
         if (newGameOption.equals("yes")) {
             viewMain.clearScreen();
             viewMain.gameStart();
             while (runGame) {
                 // Have game logic here
-                viewMain.loopDisplay(name, health, inventory, mansion);
+                viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
                 String[] gameCommands = TextParser.parseInput(mansion);
                 System.out.println();
                 viewMain.doubleLine();
