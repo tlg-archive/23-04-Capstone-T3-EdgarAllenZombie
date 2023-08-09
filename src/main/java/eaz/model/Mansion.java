@@ -62,22 +62,22 @@ public class Mansion {
 
 
     public Location move(String noun) throws IOException {
-        //  LocationData locationData = getLocation();
-        Location location = null;
+        Location newLocation = null;
+
         for (Location loc : locations) {
             if (loc.getName().equals(currentLocationName)) {
-                String currentLocationName = loc.getDirections().get(noun);
-                if (currentLocationName != null) {
-                    location = loc;
-                    currentLocation = loc;
-                    this.currentLocationName = currentLocationName;
-                    //System.out.println("You have moved to " + currentLocationName + ".");
+                String newLocationName = loc.getDirections().get(noun);
+                if (newLocationName != null) {
+                    newLocation = getLocationByName(newLocationName);
+                    if (newLocation != null) {
+                        this.currentLocation = newLocation;
+                        this.currentLocationName = newLocationName;
+                    }
                     break;
                 }
             }
         }
-        //System.out.println("You can't go that way.");
-        return location;
+        return newLocation;
     }
 
     public String pickUpItem(String itemName){
@@ -93,6 +93,5 @@ public class Mansion {
             return "There is no " + itemName + " here.";
         }
     }
-
 
 }
