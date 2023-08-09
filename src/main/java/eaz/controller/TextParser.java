@@ -77,6 +77,10 @@ public class TextParser {
                 case "drop":
                 case "leave":
                     mansion.dropItem(noun);
+                case "talk":
+                case "speak":
+                    viewMain.charDialog(mansion, noun);
+                    break;
                 default:
                     System.out.println("Sorry, that command is not recognized. Please use basic commands like " +
                             "'Go North', 'Get Knife', 'Look' or 'Search desk'");
