@@ -2,6 +2,7 @@ package eaz.model;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -77,6 +78,20 @@ public class Mansion {
         }
         //System.out.println("You can't go that way.");
         return location;
+    }
+
+    public String pickUpItem(String itemName){
+        Location currentLocation = getCurrentLocation();
+        List<String> inventory = player.getInventory();
+
+        // check if the item is in the current location's item list
+        if (currentLocation != null && currentLocation.getItems().contains(itemName)){
+            currentLocation.getItems().remove(itemName);  // remove the item from the location
+            inventory.add(itemName);  // add the item to the player's inventory
+            return "You picked up the " + itemName + ".";
+        } else{
+            return "There is no " + itemName + " here.";
+        }
     }
 
 

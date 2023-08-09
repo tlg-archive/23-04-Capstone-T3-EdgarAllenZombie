@@ -24,7 +24,6 @@ public class TextParser {
         // Validate the inputs
         if (words.length == 1) {
             switch (verb) {
-                case "take":
                 case "use":
                     // For look, take, and use commands, keep verb as is, and reset the noun to an empty string
                     noun = "";
@@ -49,6 +48,9 @@ public class TextParser {
                     break;
                 case "go":
                     mansion.move(noun);
+                    break;
+                case "take":
+                    mansion.pickUpItem(noun);
                     break;
                 default:
                     System.out.println("Sorry, that command is not recognized. Please use basic commands like " +
