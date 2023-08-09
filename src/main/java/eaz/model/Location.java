@@ -10,6 +10,7 @@ public class Location {
     private Map<String, String> directions;
     private String description;
     private List<String> items;
+    private String[] characters;
 
 
     public static Location[] getLocations() {
@@ -34,5 +35,8 @@ public class Location {
 
     public List<String> getItems() {
         return items;
+    }
+    public String[] getCharacters(){
+        return characters;
     }
 }

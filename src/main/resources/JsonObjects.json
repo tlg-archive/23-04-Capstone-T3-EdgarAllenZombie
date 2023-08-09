@@ -12,7 +12,10 @@
         "north": "Hallway 1"
       },
       "description": "You stand in the entry foyer of the mansion,\n You hear a faint whisper of 'It puts the lotion on it's skin or else it gets the hose again'",
-      "items": ["knife"]
+      "items": ["knife"],
+      "characters": [
+        "zombie"
+      ]
     },
     {
       "name": "Hallway 1",
@@ -171,7 +174,8 @@
       "name": "zombie",
       "health": 10,
       "damage": 5,
-      "description": "zombie description"
+      "description": "zombie description",
+      "dialog": ["Rawrrrrr Brainzzzzz!!!!"]
     },
     {
       "type": "npc",

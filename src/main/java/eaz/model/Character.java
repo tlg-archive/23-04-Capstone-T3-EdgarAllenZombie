@@ -1,18 +1,19 @@
 package eaz.model;
 
 class Character {
-      private String enemy;
+      private String type;
       private String name;
       private String health;
       private String damage;
-      private String Description;
+      private String description;
+      private String[] dialog;
 
-    public String getEnemy() {
-        return enemy;
+    public String getType() {
+        return type;
     }
 
-    public void setEnemy(String enemy) {
-        this.enemy = enemy;
+    public void setType(String enemy) {
+        this.type = type;
     }
 
     public String getName() {
@@ -40,11 +41,19 @@ class Character {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        description = description;
+    }
+
+    public String[] getDialog() {
+        return dialog;
+    }
+
+    public void setDialog(String[] dialog) {
+        this.dialog = dialog;
     }
 
     public static class CharacterList{
