@@ -83,15 +83,33 @@ public class Mansion {
     public String pickUpItem(String itemName){
         Location currentLocation = getCurrentLocation();
         List<String> inventory = player.getInventory();
+        String result = null;
 
         // check if the item is in the current location's item list
-        if (currentLocation != null && currentLocation.getItems().contains(itemName)){
+        if (getCurrentLocation().getItems().contains(itemName)){
             currentLocation.getItems().remove(itemName);  // remove the item from the location
             inventory.add(itemName);  // add the item to the player's inventory
-            return "You picked up the " + itemName + ".";
+            result = "You picked up the " + itemName + ".";
         } else{
-            return "There is no " + itemName + " here.";
+            result = "There is no " + itemName + " here.";
         }
+        return result;
+    }
+
+    public String dropItem(String itemName){
+        Location currentLocation = getCurrentLocation();
+        List<String> inventory = player.getInventory();
+        String result = null;
+
+        // check if the item is in player inventory
+        if (inventory.contains(itemName)){
+            inventory.remove(itemName);  // remove the item from the player's inventory
+            currentLocation.getItems().add(itemName);
+            result = "You dropped the " + itemName + ".";
+        } else{
+            result = "You don't have " + itemName + " in your inventory.";
+        }
+        return result;
     }
 
 }

@@ -66,6 +66,9 @@ public class TextParser {
                 case "get":
                     mansion.pickUpItem(noun);
                     break;
+                case "drop":
+                case "leave":
+                    mansion.dropItem(noun);
                 default:
                     System.out.println("Sorry, that command is not recognized. Please use basic commands like " +
                             "'Go North', 'Get Knife', 'Look' or 'Search desk'");
