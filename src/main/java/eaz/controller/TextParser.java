@@ -1,22 +1,23 @@
-package Controller;
+package eaz.controller;
 
-import Model.EAZ;
-import Model.JsonReader;
-import View.StoryText;
+import eaz.model.*;
+import eaz.view.ViewMain;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 public class TextParser {
 
-    public static String GetInput() {
+    public static String getInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter a Command: ");
         return scanner.nextLine().toLowerCase();
     }
 
-    public static String[] ParseInput() throws IOException {
-        String[] words = GetInput().split(" ");
+    public static String[] parseInput(Mansion mansion) throws IOException {
+        String[] words = getInput().split(" ");
+        ViewMain viewMain = new ViewMain();
+        Player player = mansion.getPlayer();
 
         String verb = words[0];
         String noun = words.length > 1 ? words[1] : "";
@@ -24,20 +25,28 @@ public class TextParser {
         // Validate the inputs
         if (words.length == 1) {
             switch (verb) {
-                case "take":
                 case "use":
                     // For look, take, and use commands, keep verb as is, and reset the noun to an empty string
                     noun = "";
                     break;
+                case "heal":
+                    player.increaseHealth(10);
+                    break;
                 case "help":
-                    StoryText.textHelp();
+                case "info":
+                    viewMain.textHelp();
                     break;
                 case "quit":
+                case "exit":
+                case "stop":
                     EAZ.quitGame();
+                    break;
+                case "inventory":
+                    viewMain.displayPlayerInventory(player.getInventory());
                     break;
                 default:
                     System.out.println("Invalid command. Try again.");
-                    StoryText.textHelp();
+                    viewMain.textHelp();
                     verb = "";
                     noun = "";
                     break;
@@ -45,11 +54,29 @@ public class TextParser {
         } else if (words.length == 2) {
             switch(verb){
                 case "look":
-                    Look.look(noun);
+                case "search":
+                    if ("inventory".equals(noun)) {
+                        viewMain.displayPlayerInventory(player.getInventory());
+                    } else {
+                        Look.look(noun, mansion.getCurrentLocation());
+                    }
+                    break;
+                case "heal":
+                    if (noun.equals("player")){
+                    player.increaseHealth(10);
+                    }
                     break;
                 case "go":
-                    JsonReader.move(noun);
+                case "move":
+                    mansion.move(noun);
                     break;
+                case "take":
+                case "get":
+                    mansion.pickUpItem(noun);
+                    break;
+                case "drop":
+                case "leave":
+                    mansion.dropItem(noun);
                 default:
                     System.out.println("Sorry, that command is not recognized. Please use basic commands like " +
                             "'Go North', 'Get Knife', 'Look' or 'Search desk'");
@@ -57,14 +84,6 @@ public class TextParser {
                     noun = "";
             }
 
-//            if (verb.equals("go")) {
-//                JsonReader.move(noun);
-//            }
-//        } else {
-//            System.out.println("Sorry, that command is not recognized. Please use basic commands like " +
-//                    "'Go North', 'Get Knife', 'Look' or 'Search desk'");
-//            verb = "";
-//            noun = "";
         }
         return new String[]{verb, noun};
     }
