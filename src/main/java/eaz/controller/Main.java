@@ -3,13 +3,14 @@ import eaz.model.EAZ;
 
 import eaz.model.Item;
 import eaz.model.JsonReader;
-import eaz.view.StoryText;
+import eaz.view.ViewMain;
 
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        StoryText.introScreen();
+        ViewMain viewMain = new ViewMain();
+        viewMain.introScreen();
         EAZ.run();
 
     }
