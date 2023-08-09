@@ -1,12 +1,18 @@
 {
   "locations": [
     {
+      "name": "Inventory",
+      "directions": {},
+      "description": "",
+      "items": []
+    },
+    {
       "name": "Foyer",
       "directions": {
         "north": "Hallway 1"
       },
       "description": "You stand in the entry foyer of the mansion,\n You hear a faint whisper of 'It puts the lotion on it's skin or else it gets the hose again'",
-      "items": []
+      "items": ["knife"]
     },
     {
       "name": "Hallway 1",

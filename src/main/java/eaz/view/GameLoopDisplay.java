@@ -6,6 +6,7 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 
 class GameLoopDisplay {
@@ -16,10 +17,10 @@ class GameLoopDisplay {
     String red = genItems.red;
 
 
-    void displayPlayerStats(String name, int health, String[] inventory){
+    void displayPlayerStats(String name, int health, List inventory){
         System.out.println("Name: " + name);
         System.out.println("Your health " + health);
-        System.out.println("Your inventory is: " + Arrays.toString(inventory));
+        System.out.println("Your inventory is: " + inventory);
     }
 
     void textHelp(){
@@ -28,7 +29,11 @@ class GameLoopDisplay {
                 red, colorReset, green, colorReset, green, colorReset, red, colorReset, doubleLines);
     }
 
-    void loopDisplayText(String name, int health, String[] inventory, Mansion mansion){
+    void loopDisplayText(String name, int health, List inventory, Mansion mansion){
+        inventory = mansion.getPlayer().getInventory();
+        name = mansion.getPlayer().getName();
+        health = mansion.getPlayer().getHealth();
+
         displayPlayerStats(name, health, inventory);
         System.out.println(genItems.starLines);
         Location currentLocation = mansion.getCurrentLocation();
