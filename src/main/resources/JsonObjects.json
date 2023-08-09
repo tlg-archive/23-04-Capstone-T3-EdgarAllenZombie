@@ -41,7 +41,7 @@
       },
       "description": "A hidden room filled with mysterious items",
       "items": [
-        "chain bat"
+        "chainbat"
       ]
     },
     {
@@ -52,7 +52,7 @@
       },
       "description": "A spacious kitchen with various cooking tools",
       "items": [
-        "Knife"
+        "knife"
       ],
       "characters": [
         "zombie"
