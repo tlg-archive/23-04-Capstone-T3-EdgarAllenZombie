@@ -45,12 +45,12 @@ class GameLoopDisplay {
         System.out.println();
         System.out.println(currentLocation.getDescription());
         System.out.println("Available directions are: " + currentLocation.getDirections().keySet());
-        System.out.println("In the room, you see: " + currentLocation.getItems());
-        characterDialog(mansion);
+        System.out.println("Items in the room: " + currentLocation.getItems());
+        System.out.println("Creatures in the room: " + Arrays.toString(currentLocation.getCharacters()));
 
     }
 
-    void characterDialog(Mansion mansion) {
+    void characterDialog(Mansion mansion, String name) {
         Location currentLocation = mansion.getCurrentLocation();
         Character[] characters = mansion.getCharacters();
         Random random = new Random();
@@ -62,7 +62,7 @@ class GameLoopDisplay {
                 // Iterate through each character in the Character[] in mansion's Characters
                 for (Character c : characters) {
                     // if characterName at currentLocation equals the name in Character[]
-                    if (characterName.equals(c.getName())) {
+                    if (characterName.equals(c.getName()) && characterName.equals(name)) {
                         int randIndex = random.nextInt(c.getDialog().length); // pick a random index value from the character's dialog length
                         String randDialog = c.getDialog()[randIndex];  // using the randIndex pick a random dialog to return
                         System.out.println(c.getName() + " says: " + randDialog);
