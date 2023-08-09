@@ -17,10 +17,13 @@ class GameLoopDisplay {
     String red = genItems.red;
 
 
-    void displayPlayerStats(String name, int health, List inventory){
+    void displayPlayerStats(String name, int health, List<String> inventory){
         System.out.println("Name: " + name);
         System.out.println("Your health " + health);
-        System.out.println("Your inventory is: " + inventory);
+        displayPlayerInventory(inventory);
+    }
+    void displayPlayerInventory(List<String> inventory){
+        System.out.println("Your inventory items are: " + inventory);
     }
 
     void textHelp(){
@@ -29,7 +32,7 @@ class GameLoopDisplay {
                 red, colorReset, green, colorReset, green, colorReset, red, colorReset, doubleLines);
     }
 
-    void loopDisplayText(String name, int health, List inventory, Mansion mansion){
+    void loopDisplayText(String name, int health, List<String> inventory, Mansion mansion){
         inventory = mansion.getPlayer().getInventory();
         name = mansion.getPlayer().getName();
         health = mansion.getPlayer().getHealth();
