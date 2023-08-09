@@ -8,7 +8,7 @@ public class Player {
     private final String name = "Edgar Allen Zombie";
     private final List<String> inventory = new LinkedList<>();
 
-    private int health = 20;
+    private int health = 50;  // starting health value for player
     private int damage;
 
     public String getName() {
