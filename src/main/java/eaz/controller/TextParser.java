@@ -17,6 +17,7 @@ public class TextParser {
     public static String[] parseInput(Mansion mansion) throws IOException {
         String[] words = getInput().split(" ");
         ViewMain viewMain = new ViewMain();
+        Player player = mansion.getPlayer();
 
         String verb = words[0];
         String noun = words.length > 1 ? words[1] : "";
@@ -34,6 +35,9 @@ public class TextParser {
                 case "quit":
                     EAZ.quitGame();
                     break;
+                case "inventory":
+                    viewMain.displayPlayerInventory(player.getInventory());
+                    break;
                 default:
                     System.out.println("Invalid command. Try again.");
                     viewMain.textHelp();
@@ -44,7 +48,11 @@ public class TextParser {
         } else if (words.length == 2) {
             switch(verb){
                 case "look":
-                    Look.look(noun, mansion.getCurrentLocation());
+                    if ("inventory".equals(noun)) {
+                        viewMain.displayPlayerInventory(player.getInventory());
+                    } else {
+                        Look.look(noun, mansion.getCurrentLocation());
+                    }
                     break;
                 case "go":
                     mansion.move(noun);

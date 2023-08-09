@@ -32,11 +32,14 @@ public class ViewMain {
     public void starLine(){
         System.out.println(genItems.starLines);
     }
-    public void displayPlayerStats(String name, int health, List inventory){
+    public void displayPlayerStats(String name, int health, List<String> inventory){
         gameLoop.displayPlayerStats(name, health, inventory);
     }
+    public void displayPlayerInventory(List<String> inventory){
+        gameLoop.displayPlayerInventory(inventory);
+    }
 
-    public void loopDisplay(String name, int health, List inventory, Mansion mansion) {
+    public void loopDisplay(String name, int health, List<String> inventory, Mansion mansion) {
         gameLoop.loopDisplayText(name, health, inventory, mansion);
     }
 
