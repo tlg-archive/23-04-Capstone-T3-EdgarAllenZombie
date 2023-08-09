@@ -1,6 +1,9 @@
-package eaz.model;
+package eaz.controller;
 
 import eaz.controller.TextParser;
+import eaz.model.JsonReader;
+import eaz.model.Mansion;
+import eaz.model.Player;
 import eaz.view.ViewMain;
 
 import java.io.IOException;
