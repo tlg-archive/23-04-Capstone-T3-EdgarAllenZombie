@@ -33,6 +33,7 @@ public class TextParser {
         Player player = mansion.getPlayer();
         Item item = new Item();
         EAZ eaz = new EAZ();
+        Combat combat = new Combat();
         // Validate the inputs
         switch (verb) {
             case "use":
@@ -79,6 +80,11 @@ public class TextParser {
             case "talk":
             case "speak":
                 viewMain.charDialog(mansion, noun);
+                break;
+            case "attack":
+            case "fight":
+            case "hit":
+                combat.combat(noun);
                 break;
             default:
                 System.out.println("Invalid command. Try again.");
