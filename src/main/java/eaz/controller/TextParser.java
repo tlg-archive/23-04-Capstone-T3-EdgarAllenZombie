@@ -79,7 +79,7 @@ public class TextParser {
             case "attack":
             case "fight":
             case "hit":
-                combat.combat(noun);
+                mansion.fight(noun);
                 break;
             default:
                 System.out.println("Invalid command. Try again.");

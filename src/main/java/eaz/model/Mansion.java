@@ -101,7 +101,12 @@ public class Mansion {
         item.leaveItem(itemName, currentLocation, inventory);
     }
 
-
+    public void fight(String target){
+        Combat combat = new Combat();
+        Location currentLocation = getCurrentLocation();
+        String[] character = currentLocation.getCharacters();
+        combat.combat(target, character);
+    }
 
 
 }

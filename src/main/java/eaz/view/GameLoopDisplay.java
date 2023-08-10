@@ -37,8 +37,8 @@ class GameLoopDisplay {
         inventory = mansion.getPlayer().getInventory();
         name = mansion.getPlayer().getName();
         health = mansion.getPlayer().getHealth();
-
         displayPlayerStats(name, health, inventory);
+
         System.out.println(genItems.starLines);
         Location currentLocation = mansion.getCurrentLocation();
         System.out.println("You are currently in: " + currentLocation.getName());
