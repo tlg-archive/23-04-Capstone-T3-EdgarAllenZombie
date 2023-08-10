@@ -10,6 +10,5 @@ public class Combat {
         } else {
             System.out.println(target + " does not exist at this location");
         }
-
     }
 }   // END OF CLASS
