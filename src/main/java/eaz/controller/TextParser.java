@@ -45,11 +45,6 @@ public class TextParser {
             case "info":
                 viewMain.textHelp();
                 break;
-            case "quit":
-            case "exit":
-            case "stop":
-                eaz.quitGame();
-                break;
             case "inventory":
                 viewMain.displayPlayerInventory(player.getInventory());
                 break;
