@@ -80,39 +80,28 @@ public class Mansion {
         return newLocation;
     }
 
-    public String pickUpItem(String itemName){
+    public void pickUpItem(String itemName) {
+        Item item = new Item();
+        // set the parameters from mansion to use in getItem
+        itemName = itemName;
         Location currentLocation = getCurrentLocation();
         List<String> inventory = player.getInventory();
-        String result;
-
-        // check if the item is in the current location's item list
-        if (getCurrentLocation().getItems().contains(itemName)){
-            currentLocation.getItems().remove(itemName);  // remove the item from the location
-            inventory.add(itemName);  // add the item to the player's inventory
-            result = "You picked up the " + itemName + ".";
-        } else{
-            result = "There is no " + itemName + " here.";
-        }
-        System.out.println(result);
-        return result;
+        // call getItem and pass mansion variables
+        item.getItem(itemName, currentLocation, inventory);
     }
 
-    public String dropItem(String itemName){
+
+    public void dropItem(String itemName){
+        Item item = new Item();
+        // set the parameters from mansion to use in dropItem
         Location currentLocation = getCurrentLocation();
         List<String> inventory = player.getInventory();
         String result = null;
-
-        // check if the item is in player inventory
-        if (inventory.contains(itemName)){
-            inventory.remove(itemName);  // remove the item from the player's inventory
-            currentLocation.getItems().add(itemName);
-            result = "You dropped the " + itemName + ".";
-        } else{
-            result = "You don't have " + itemName + " in your inventory.";
-        }
-        System.out.println(result);
-        return result;
+        // call leaveItem and pass mansion variables
+        item.leaveItem(itemName, currentLocation, inventory);
     }
+
+
 
 
 }
