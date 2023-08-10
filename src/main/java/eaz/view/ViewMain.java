@@ -43,8 +43,8 @@ public class ViewMain {
         gameLoop.loopDisplayText(name, health, inventory, mansion);
     }
 
-    public void charDialog(Mansion mansion){
-        gameLoop.characterDialog(mansion);
+    public void charDialog(Mansion mansion, String name){
+        gameLoop.characterDialog(mansion, name);
     }
 
 }   // END OF CLASS
