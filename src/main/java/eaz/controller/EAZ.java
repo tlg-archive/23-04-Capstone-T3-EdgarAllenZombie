@@ -62,7 +62,7 @@ public class EAZ {
                 inputVerb = gameCommands[0];
                 inputNoun = gameCommands[1];
 
-                // if quit is typed, run quitGame in loop
+                // if quit, exit or stop are typed, run quitGame in loop
                 if(inputVerb.equals("quit") || inputVerb.equals("exit") || inputVerb.equals("stop")){
                     quitGame();
                 }
