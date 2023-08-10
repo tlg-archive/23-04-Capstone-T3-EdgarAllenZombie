@@ -45,6 +45,7 @@ public class EAZ {
             viewMain.clearScreen();  // print 40 blank lines to clear the screen
             viewMain.gameStart();    // display the game start text
             while (runGame) {
+
                 // Have game logic here
                 viewMain.clearScreen();
                 // check to make sure verb isn't blank (prevents error message on first entry)
@@ -60,6 +61,11 @@ public class EAZ {
                 String[] gameCommands = TextParser.parseInput(mansion);
                 inputVerb = gameCommands[0];
                 inputNoun = gameCommands[1];
+
+                // if quit is typed, run quitGame in loop
+                if(inputVerb.equals("quit") || inputVerb.equals("exit") || inputVerb.equals("stop")){
+                    quitGame();
+                }
             }
             scanner.close();  // close scanner from parser
         } else {
