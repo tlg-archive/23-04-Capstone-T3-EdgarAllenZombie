@@ -28,7 +28,7 @@ class StoryText {
         System.out.printf(
                 "  Tonight you find yourself in another ordinary abandoned mansion, \n" +
                 "  determined to enjoy the thrill for as long as you can.  \n" +
-                "  There’s plenty of rooms in this one that could hold untold mysteries. \n" +
+                "  There\'s plenty of rooms in this one that could hold untold mysteries. \n" +
                 "  Why not enjoy it while it lasts.\n" +
                 "%s", singleLines);
         System.out.println("             Press Enter to continue.....");
