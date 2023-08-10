@@ -15,11 +15,12 @@ import static eaz.model.JsonReader.*;
 
 
 public class EAZ {
-    private static Mansion mansion;
+    private Mansion mansion;
+    ViewMain viewMain = new ViewMain();
 
-    public static boolean runGame = true;
+    public boolean runGame = true;
 
-    public static void quitGame() {
+    public void quitGame() {
         System.out.println("Are you sure you want to quit? (yes/no)");
         String quitResponse = TextParser.getInput();
         if (quitResponse.equals("yes")) {
@@ -27,29 +28,42 @@ public class EAZ {
         }
     }
 
-    public static void run() throws IOException, InterruptedException {
+    public void run() throws IOException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
-        ViewMain viewMain = new ViewMain();
+
 
         System.out.println("Would you like to play? (yes/no)");
         String newGameOption = TextParser.getInput();
-//        LocationData locationData = new LocationData();
-        mansion = JsonReader.readMansion();
+
+        mansion = JsonReader.readMansion();  // populate the mansion from the JsonObjects.json
         Player player = mansion.getPlayer();
-//        locations = JsonReader.readLocations();
+
+        String inputVerb = "";
+        String inputNoun = "";
+
         if (newGameOption.equals("yes")) {
-            viewMain.clearScreen();
-            viewMain.gameStart();
+            viewMain.clearScreen();  // print 40 blank lines to clear the screen
+            viewMain.gameStart();    // display the game start text
             while (runGame) {
                 // Have game logic here
+                viewMain.clearScreen();
+                // check to make sure verb isn't blank (prevents error message on first entry)
+                if(!Objects.equals(inputVerb, "")){
+                    TextParser.handleInput(mansion, inputVerb, inputNoun);  // pass previous verb and noun into the switch case
+                }
+                System.out.println(inputVerb);
+                System.out.println(inputNoun);
+                viewMain.starLine();  // print star line divider between previous input result and status text
+                // persistent status text
                 viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
+                // this loop's input
                 String[] gameCommands = TextParser.parseInput(mansion);
-                System.out.println();
-                viewMain.doubleLine();
+                inputVerb = gameCommands[0];
+                inputNoun = gameCommands[1];
             }
-            scanner.close();
+            scanner.close();  // close scanner from parser
         } else {
-            quitGame();
+            quitGame();  // sets rungame to false and closes runGame loop
         }
 
     }
