@@ -83,7 +83,7 @@ public class Mansion {
     public String pickUpItem(String itemName){
         Location currentLocation = getCurrentLocation();
         List<String> inventory = player.getInventory();
-        String result = null;
+        String result;
 
         // check if the item is in the current location's item list
         if (getCurrentLocation().getItems().contains(itemName)){
@@ -93,6 +93,7 @@ public class Mansion {
         } else{
             result = "There is no " + itemName + " here.";
         }
+        System.out.println(result);
         return result;
     }
 
@@ -109,6 +110,7 @@ public class Mansion {
         } else{
             result = "You don't have " + itemName + " in your inventory.";
         }
+        System.out.println(result);
         return result;
     }
 
