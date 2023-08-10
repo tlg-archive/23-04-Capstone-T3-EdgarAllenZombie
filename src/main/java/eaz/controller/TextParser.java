@@ -31,6 +31,7 @@ public class TextParser {
     public static void handleInput(Mansion mansion, String verb, String noun) throws IOException {
         ViewMain viewMain = new ViewMain();
         Player player = mansion.getPlayer();
+        Item item = new Item();
         EAZ eaz = new EAZ();
         // Validate the inputs
         switch (verb) {
