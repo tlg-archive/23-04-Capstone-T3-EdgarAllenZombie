@@ -30,31 +30,25 @@ public class EAZ {
 
     public void run() throws IOException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
-
+        mansion = JsonReader.readMansion();  // populate the mansion from the JsonObjects.json
+        Player player = mansion.getPlayer();
+        String inputVerb = "";  // initialization to pull verb out of loop
+        String inputNoun = "";  // initialization to pull noun outside of loop
 
         System.out.println("Would you like to play? (yes/no)");
         String newGameOption = TextParser.getInput();
-
-        mansion = JsonReader.readMansion();  // populate the mansion from the JsonObjects.json
-        Player player = mansion.getPlayer();
-
-        String inputVerb = "";
-        String inputNoun = "";
 
         if (newGameOption.equals("yes")) {
             viewMain.clearScreen();  // print 40 blank lines to clear the screen
             viewMain.gameStart();    // display the game start text
             while (runGame) {
-
                 // Have game logic here
-                viewMain.clearScreen();
+                viewMain.clearScreen();  // clear screen at the start of each loop
                 // check to make sure verb isn't blank (prevents error message on first entry)
                 if(!Objects.equals(inputVerb, "")){
                     TextParser.handleInput(mansion, inputVerb, inputNoun);  // pass previous verb and noun into the switch case
+                    viewMain.starLine();
                 }
-                System.out.println(inputVerb);
-                System.out.println(inputNoun);
-                viewMain.starLine();  // print star line divider between previous input result and status text
                 // persistent status text
                 viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
                 // this loop's input
