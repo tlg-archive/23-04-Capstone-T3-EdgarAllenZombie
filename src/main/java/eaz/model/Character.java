@@ -8,9 +8,9 @@ public class Character {
     @Expose
     private String name;
     @Expose
-    private String health;
+    private int health;
     @Expose
-    private String damage;
+    private int damage;
     @Expose
     private String description;
     @Expose
@@ -32,19 +32,19 @@ public class Character {
         this.name = name;
     }
 
-    public String getHealth() {
+    public int getHealth() {
         return health;
     }
 
-    public void setHealth(String health) {
-        this.health = health;
+    public void setHealth(int damage) {
+        health -= damage;
     }
 
-    public String getDamage() {
+    public int getDamage() {
         return damage;
     }
 
-    public void setDamage(String damage) {
+    public void setDamage(int damage) {
         this.damage = damage;
     }
 

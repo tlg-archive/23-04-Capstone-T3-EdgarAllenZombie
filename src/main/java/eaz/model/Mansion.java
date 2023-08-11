@@ -116,8 +116,8 @@ public class Mansion {
     public void fight(String target){
         Combat combat = new Combat();
         Location currentLocation = getCurrentLocation();
-        String[] character = currentLocation.getCharacters();
-        combat.combat(target, character);
+        Character[] character = getCharacters();
+        combat.combat(target, currentLocation,  character);
     }
 
 
