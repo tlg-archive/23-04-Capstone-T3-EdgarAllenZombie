@@ -1,5 +1,7 @@
 package eaz.model;
 
+import eaz.view.Music;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Mansion {
+    private Music backgroundMusic;
     private Location[] locations;
     private Item[] items;
     private Character[] characters;
@@ -15,6 +18,11 @@ public class Mansion {
     private String currentLocationName  = "Foyer";
     private Player player = new Player();
     private Map<String, Location> locationMap;
+
+    public Music getBackgroundMusic(){
+    return backgroundMusic = new Music("src/main/resources/Raindrop-Flower-Jazz.wav");
+    }
+
 
     public Location getLocationByName(String name) {
         return getLocationMap().get(name);
