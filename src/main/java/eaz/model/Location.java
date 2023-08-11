@@ -1,15 +1,22 @@
 package eaz.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 import java.util.Map;
 
 public class Location {
     private static Location[] locations;
 
+    @Expose
     private String name;
+    @Expose
     private Map<String, String> directions;
+    @Expose
     private String description;
+    @Expose
     private List<String> items;
+    @Expose
     private String[] characters;
 
 

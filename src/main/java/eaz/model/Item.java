@@ -1,12 +1,19 @@
 package eaz.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 
 public class Item {
+    @Expose
     private String type;
+    @Expose
     private String name;
+    @Expose
     private String description;
+    @Expose
     private String location;
+    @Expose
     private int modifier;
 
     

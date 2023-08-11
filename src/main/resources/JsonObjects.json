@@ -4,7 +4,8 @@
       "name": "Inventory",
       "directions": {},
       "description": "",
-      "items": []
+      "items": [],
+      "characters": []
     },
     {
       "name": "Foyer",
@@ -38,7 +39,8 @@
         "north": "Hallway 1"
       },
       "description": "A small room where the butler used to rest",
-      "items": []
+      "items": [],
+      "characters": []
     },
     {
       "name": "Secret Room",
@@ -48,7 +50,8 @@
       "description": "A hidden room filled with mysterious items",
       "items": [
         "chainbat"
-      ]
+      ],
+      "characters": []
     },
     {
       "name": "Kitchen",
@@ -73,7 +76,8 @@
       "description": "A grand dining room with an elegant table",
       "items": [
         "Plate of food"
-      ]
+      ],
+      "characters": []
     },
     {
       "name": "Hallway 2",
@@ -86,7 +90,8 @@
         "north": "Hallway 3"
       },
       "description": "A long hallway connecting different rooms",
-      "items": []
+      "items": [],
+      "characters": []
     },
     {
       "name": "Ballroom",
@@ -94,7 +99,8 @@
         "west": "Hallway 2"
       },
       "description": "An extravagant ballroom with a shiny chandelier",
-      "items": []
+      "items": [],
+      "characters": []
     },
     {
       "name": "Storage Room",
@@ -102,7 +108,8 @@
         "west": "Hallway 2"
       },
       "description": "A room filled with old and unused items",
-      "items": []
+      "items": [],
+      "characters": []
     },
     {
       "name": "Home Office",
@@ -113,7 +120,8 @@
       "description": "A study room with a large desk and bookshelves",
       "items": [
         "key"
-      ]
+      ],
+      "characters": []
     },
     {
       "name": "Hallway 3",
@@ -125,7 +133,8 @@
         "east2": "Library"
       },
       "description": "A hallway leading to different bedrooms",
-      "items": []
+      "items": [],
+      "characters": []
     },
     {
       "name": "Bedroom",
@@ -135,7 +144,8 @@
       "description": "A cozy bedroom with a comfortable bed",
       "items": [
         "diary"
-      ]
+      ],
+      "characters": []
     },
     {
       "name": "Master Bedroom",
@@ -154,7 +164,8 @@
         "east": "Hallway 3"
       },
       "description": "A well-maintained bathroom with modern amenities",
-      "items": []
+      "items": [],
+      "characters": []
     },
     {
       "name": "Library",
@@ -178,7 +189,7 @@
       "health": 10,
       "damage": 5,
       "description": "Exactly what you'd expect an undead monster would look like... Beautiful!",
-      "dialog": ["Rawrrrrr Brainzzzzz!!!!"]
+      "dialog": ["Rawrrrrr Brainzzzzz!!!!", "Yarrrrggggggg", "Ummm good Sir, would you mind handing over your brain?"]
     },
     {
       "type": "enemy",
@@ -186,14 +197,15 @@
       "health": 10,
       "damage": 5,
       "description": "A floating humanoid entity",
-      "dialog": ["Please don't hurt me, I'm not one of the bad ones", "I can tell you're new here, by the fact you're still....you know.... breathing"]
+      "dialog": ["Please don't hurt me, I'm not one of the bad ones", "I can tell you're new here, by the fact you're still....you know.... breathing", "Please, don't go in, there's things here you don't want to see"]
     },
     {
       "type": "npc",
       "name": "Sara",
       "health": 5,
       "damage": 5,
-      "description": "Your sister Sara"
+      "description": "Your sister Sara",
+      "dialog": []
     }
   ],
   "items": [
