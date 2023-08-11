@@ -10,7 +10,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Mansion {
-    private Music backgroundMusic;
+
     private Location[] locations;
     private Item[] items;
     private Character[] characters;
@@ -19,8 +19,10 @@ public class Mansion {
     private Player player = new Player();
     private Map<String, Location> locationMap;
 
+    private final Music backgroundMusic = new Music("src/main/resources/Raindrop-Flower-Jazz.wav");
+
     public Music getBackgroundMusic(){
-    return backgroundMusic = new Music("src/main/resources/Raindrop-Flower-Jazz.wav");
+        return backgroundMusic;
     }
 
 

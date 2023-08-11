@@ -18,7 +18,7 @@ public class Music {
             clip.open(audioStream);
 
             // Initialize volume control
-            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        //    volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -38,21 +38,21 @@ public class Music {
         }
     }
 
-    public void volumeUp() {
-        if (volumeControl != null) {
-            float currentVolume = volumeControl.getValue();
-            float maxVolume = volumeControl.getMaximum();
-            float newVolume = Math.min(currentVolume + 1.0f, maxVolume);
-            volumeControl.setValue(newVolume);
-        }
-    }
-
-    public void volumeDown() {
-        if (volumeControl != null) {
-            float currentVolume = volumeControl.getValue();
-            float minVolume = volumeControl.getMinimum();
-            float newVolume = Math.max(currentVolume - 1.0f, minVolume);
-            volumeControl.setValue(newVolume);
-        }
-    }
+//    public void volumeUp() {
+//        if (volumeControl != null) {
+//            float currentVolume = volumeControl.getValue();
+//            float maxVolume = volumeControl.getMaximum();
+//            float newVolume = Math.min(currentVolume + 1.0f, maxVolume);
+//            volumeControl.setValue(newVolume);
+//        }
+//    }
+//
+//    public void volumeDown() {
+//        if (volumeControl != null) {
+//            float currentVolume = volumeControl.getValue();
+//            float minVolume = volumeControl.getMinimum();
+//            float newVolume = Math.max(currentVolume - 1.0f, minVolume);
+//            volumeControl.setValue(newVolume);
+//        }
+//    }
 }
