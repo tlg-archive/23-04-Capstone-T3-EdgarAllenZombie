@@ -1,12 +1,20 @@
 package eaz.model;
 
+import com.google.gson.annotations.Expose;
+
 public class Character {
-      private String type;
-      private String name;
-      private String health;
-      private String damage;
-      private String description;
-      private String[] dialog;
+    @Expose
+    private String type;
+    @Expose
+    private String name;
+    @Expose
+    private String health;
+    @Expose
+    private String damage;
+    @Expose
+    private String description;
+    @Expose
+    private String[] dialog;
 
     public String getType() {
         return type;
@@ -56,7 +64,7 @@ public class Character {
         this.dialog = dialog;
     }
 
-    public static class CharacterList{
+    public static class CharacterList {
         private Character[] characters;
 
         public Character[] getCharacters() {
