@@ -8,7 +8,7 @@ import java.io.File;
 
 public class Music {
     private Clip clip;
-    private FloatControl volumeControl;
+    //private FloatControl volumeControl;
 
     public Music(String filePath) {
         try {
