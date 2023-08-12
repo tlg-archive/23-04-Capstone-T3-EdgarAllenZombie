@@ -81,12 +81,12 @@ public class TextParser {
             case "hit":
                 mansion.fight(noun);
                 break;
-//            case "off":
-//                mansion.getBackgroundMusic().stop();
-//                break;
-//            case "on":
-//                mansion.getBackgroundMusic().play();
-//                break;
+            case "off":
+                mansion.getBackgroundMusic().stop();
+                break;
+            case "on":
+                mansion.getBackgroundMusic().play();
+                break;
             default:
                 System.out.println("Invalid command. Try again.");
                 viewMain.textHelp();

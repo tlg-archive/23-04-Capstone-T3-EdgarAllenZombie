@@ -12,6 +12,8 @@ public class Character {
     @Expose
     private int damage;
     @Expose
+    private int armor;
+    @Expose
     private String description;
     @Expose
     private String[] dialog;
@@ -47,6 +49,15 @@ public class Character {
     public void setDamage(int damage) {
         this.damage = damage;
     }
+
+    public int getArmor() {
+        return armor;
+    }
+
+    public void setArmor(int armor) {
+        this.armor = armor;
+    }
+
 
     public String getDescription() {
         return description;

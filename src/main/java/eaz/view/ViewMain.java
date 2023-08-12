@@ -1,6 +1,8 @@
 package eaz.view;
 
 import eaz.model.Mansion;
+import eaz.model.Player;
+import eaz.model.Character;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,6 +12,7 @@ public class ViewMain {
     GameLoopDisplay gameLoop = new GameLoopDisplay();
     GeneralViewItems genItems = new GeneralViewItems();
     StoryText storyText = new StoryText();
+    CombatText combatText = new CombatText();
 
     public void introScreen(){
         gameIntro.introScreen();
@@ -45,6 +48,20 @@ public class ViewMain {
 
     public void charDialog(Mansion mansion, String name){
         gameLoop.characterDialog(mansion, name);
+    }
+
+    public void displayCombat(Character c, Player p, int hit){
+        combatText.displayCombatText(c, p, hit);
+    }
+
+    public void displayCombatHealth(Character c){
+        combatText.displayUpdatedHealth(c);
+    }
+    public void combatHit(Character c, int pHit, int hitRoll, int totalHit){
+        combatText.combatHit(c, pHit, hitRoll, totalHit);
+    }
+    public void winGame(){
+        storyText.winGame();
     }
 
 }   // END OF CLASS

@@ -9,7 +9,8 @@ public class Player {
     private final List<String> inventory = new LinkedList<>();
 
     private int health = 50;  // starting health value for player
-    private int damage;
+    private int damage = 3;
+    private int hitChance = 5;
 
     public String getName() {
         return name;
@@ -50,6 +51,14 @@ public class Player {
 
     public int decreaseDamage(int delta){
         return damage -= delta;
+    }
+
+    public int getHitChance() {
+        return hitChance;
+    }
+
+    public void setHitChance(int hitChance) {
+        this.hitChance = hitChance;
     }
 
 }   // END OF CLASS

@@ -23,9 +23,9 @@ public class Mansion {
     private Player player = new Player();
     private Map<String, Location> locationMap;
 
-//    public Music getBackgroundMusic(){
-//        return backgroundMusic = new Music("Raindrop-Flower-Jazz.wav");
-//    }
+    public Music getBackgroundMusic(){
+        return backgroundMusic = new Music("Raindrop-Flower-Jazz.wav");
+    }
 
 
     public Location getLocationByName(String name) {

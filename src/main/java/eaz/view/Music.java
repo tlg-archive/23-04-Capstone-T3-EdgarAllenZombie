@@ -8,7 +8,7 @@ import java.io.File;
 
 public class Music {
     private Clip clip;
-    //private FloatControl volumeControl;
+    private FloatControl volumeControl;
 
     public Music(String filePath) {
         try {
@@ -18,7 +18,7 @@ public class Music {
             clip.open(audioStream);
 
             // Initialize volume control
-        //    volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         } catch (Exception e) {
             e.printStackTrace();
         }
