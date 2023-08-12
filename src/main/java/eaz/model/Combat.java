@@ -44,6 +44,7 @@ public class Combat {
         int totalHit = pHit + hitRoll;  // add them up
         int targetArmor = c.getArmor();  // get character armor value
         if(totalHit > targetArmor){  // compare it to enemy armor value
+            // display output to player
             viewMain.combatHit(c, pHit, hitRoll, totalHit);
             int damage = player.getDamage();
             c.setHealth(damage);

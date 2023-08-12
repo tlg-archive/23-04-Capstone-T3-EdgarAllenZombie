@@ -42,4 +42,18 @@ class StoryText {
         genItems.clearScreen();
     }
 
+    void winGame(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.printf("%s " +
+                "                              CONGRATULATIONS, \n" +
+                "              You have completed the current version of this game! \n " +
+                "             EAZ is still in development and there is more to come. \n " +
+                "     Like and subscribe to get regular emails as we get them pushed out.\n " +
+                "  You can visit our socials %sGroup2IsAwesome%s for the most up to date info\n " +
+                "  We hope you enjoyed your time playing and we hope you have the day you deserve \n " +
+                "%s ",doubleLines, green, colorReset, singleLines);
+        System.out.println("             Press Enter to continue.....");
+        scanner.nextLine();
+    }
+
 }   // END OF CLASS

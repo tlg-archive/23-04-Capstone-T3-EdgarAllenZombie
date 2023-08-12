@@ -35,6 +35,7 @@ public class EAZ {
         String inputVerb = "";  // initialization to pull verb out of loop
         String inputNoun = "";  // initialization to pull noun outside of loop
 
+
         System.out.println("Would you like to play? (yes/no)");
         String newGameOption = TextParser.getInput();
 
@@ -48,6 +49,12 @@ public class EAZ {
                 if(!Objects.equals(inputVerb, "")){
                     TextParser.handleInput(mansion, inputVerb, inputNoun);  // pass previous verb and noun into the switch case
                     viewMain.starLine();
+                    // if you pick up the grimoire the game ends (currently in development)
+                    if(player.getInventory().contains("grimoire")){
+                        viewMain.winGame();
+                        runGame = false;
+                        return;
+                    }
                 }
                 // persistent status text
                 viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
@@ -62,13 +69,13 @@ public class EAZ {
                 }
             }
             scanner.close();  // close scanner from parser
-        } else {
+        } else if (newGameOption.equals("no")) {
             quitGame();  // sets rungame to false and closes runGame loop
+        } else{
+            System.out.println("Would you like to play? (yes/no)");
+            newGameOption = TextParser.getInput();
         }
-
     }
-
-
     /*
     Monster zombie = getCharacter(Zombie);
      */

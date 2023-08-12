@@ -60,5 +60,8 @@ public class ViewMain {
     public void combatHit(Character c, int pHit, int hitRoll, int totalHit){
         combatText.combatHit(c, pHit, hitRoll, totalHit);
     }
+    public void winGame(){
+        storyText.winGame();
+    }
 
 }   // END OF CLASS
