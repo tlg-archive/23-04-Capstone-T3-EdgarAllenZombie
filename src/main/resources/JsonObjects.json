@@ -188,6 +188,7 @@
       "name": "zombie",
       "health": 10,
       "damage": 5,
+      "armor": 12,
       "description": "Exactly what you'd expect an undead monster would look like... Beautiful!",
       "dialog": ["Rawrrrrr Brainzzzzz!!!!", "Yarrrrggggggg", "Ummm good Sir, would you mind handing over your brain?"]
     },
@@ -196,6 +197,7 @@
       "name": "ghost",
       "health": 10,
       "damage": 5,
+      "armor": 15,
       "description": "A floating humanoid entity",
       "dialog": ["Please don't hurt me, I'm not one of the bad ones", "I can tell you're new here, by the fact you're still....you know.... breathing", "Please, don't go in, there's things here you don't want to see"]
     },
@@ -204,6 +206,7 @@
       "name": "Sara",
       "health": 5,
       "damage": 5,
+      "armor": 3,
       "description": "Your sister Sara",
       "dialog": []
     }
