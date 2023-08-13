@@ -1,6 +1,7 @@
 package eaz.controller;
 
 import eaz.controller.TextParser;
+import eaz.model.CopyState;
 import eaz.model.JsonReader;
 import eaz.model.Mansion;
 import eaz.model.Player;
@@ -65,6 +66,7 @@ public class EAZ {
 
                 // if quit, exit or stop are typed, run quitGame in loop
                 if(inputVerb.equals("quit") || inputVerb.equals("exit") || inputVerb.equals("stop")){
+                    CopyState.createSavedMansion(mansion);
                     quitGame();
                 }
             }

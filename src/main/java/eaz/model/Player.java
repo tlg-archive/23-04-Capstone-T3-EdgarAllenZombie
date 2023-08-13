@@ -1,16 +1,22 @@
 package eaz.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 public class Player {
+    @Expose
     private final String name = "Edgar Allen Zombie";
+    @Expose
     private final List<String> inventory = new LinkedList<>();
-
-    private int health = 50;  // starting health value for player
-    private int damage = 3;
-    private int hitChance = 5;
+    @Expose
+    private int health;  // starting health value for player
+    @Expose
+    private int damage;
+    @Expose
+    private int hitChance;
 
     public String getName() {
         return name;
