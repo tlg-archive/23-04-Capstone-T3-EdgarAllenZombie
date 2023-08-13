@@ -38,20 +38,21 @@ public class Combat {
         } return null;
     }
 
-    private boolean checkForHit(Character c){
+    private void checkForHit(Character c){
+        boolean hit = false;
         int pHit = player.getHitChance();  // save player hit
         int hitRoll = Randomizer.randomizer(20);  // save random hit chance
         int totalHit = pHit + hitRoll;  // add them up
         int targetArmor = c.getArmor();  // get character armor value
+        int damage = player.getDamage();
+
         if(totalHit > targetArmor){  // compare it to enemy armor value
             // display output to player
-            viewMain.combatHit(c, pHit, hitRoll, totalHit);
-            int damage = player.getDamage();
+            viewMain.combatHit(c, pHit, hitRoll, totalHit, true, damage);
             c.setHealth(damage);
-            return true;
+        }else{
+            viewMain.combatHit(c, pHit, hitRoll, totalHit, false, damage);
         }
-        System.out.println("You failed to hit");
-        return false;
     }
 
 }   // END OF CLASS
