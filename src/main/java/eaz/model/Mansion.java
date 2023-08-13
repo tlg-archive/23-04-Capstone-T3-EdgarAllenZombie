@@ -20,7 +20,8 @@ public class Mansion {
     private Character[] characters;
     private Location currentLocation;
     private String currentLocationName  = "Foyer";
-    private Player player = new Player();
+    @Expose
+    private Player player;
     private Map<String, Location> locationMap;
 
     public Music getBackgroundMusic(){

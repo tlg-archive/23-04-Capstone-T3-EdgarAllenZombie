@@ -278,5 +278,12 @@
       "location": "library",
       "modifier": 0
     }
-  ]
+  ],
+  "player": {
+    "name": "Edgar Allen Zombie",
+    "inventory": [],
+    "health": 25,
+    "damage": 3,
+    "hitChance": 5
+  }
 }

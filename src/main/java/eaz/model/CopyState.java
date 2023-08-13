@@ -8,7 +8,6 @@ import java.io.IOException;
 
 public class CopyState {
 
-
     public static void createSavedMansion(Mansion mansion) throws IOException {
 
         try (JsonWriter writer = new JsonWriter(new FileWriter("saved.json"))) {
@@ -19,6 +18,7 @@ public class CopyState {
             // cast the retrieved mansion.getItems into a Json Array
             JsonArray savedItems = (JsonArray) new Gson().toJsonTree(mansion.getItems());
 
+            JsonElement savedPlayer = new Gson().toJsonTree(mansion.getPlayer());
             // creating a new Json object
             JsonObject mergedArrays = new JsonObject();
 
@@ -26,6 +26,7 @@ public class CopyState {
             mergedArrays.add("locations",savedLocations);
             mergedArrays.add("characters", savedCharacters);
             mergedArrays.add("items", savedItems);
+            mergedArrays.add("players", savedPlayer);
 
             // converting our mergedArrays JsonObject into a String type
             String finalJs = new Gson().toJson(mergedArrays);
