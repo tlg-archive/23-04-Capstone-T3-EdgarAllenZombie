@@ -26,10 +26,13 @@ class CombatText {
         System.out.println("Targets health = " + newHealth);
     }
 
-    void combatHit(Character c, int pHit, int hitRoll, int totalHit){
-        System.out.println("You rolled a: " + hitRoll + ", plus your hit chance of: " + pHit + " caused you to hit with a total " + totalHit);
-        System.out.println("You hit the " + c.getName());
-
+    void combatHit(Character c, int pHit, int hitRoll, int totalHit, boolean hit, int damage){
+        System.out.println("You rolled a: " + hitRoll + ", plus your hit chance of: " + pHit + " for a total " + totalHit);
+        if(hit){
+            System.out.println("You hit the " + c.getName() + " for " + damage + " damage");
+        }else{
+            System.out.println("You missed the " + c.getName());
+        }
     }
 
 

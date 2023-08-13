@@ -57,8 +57,8 @@ public class ViewMain {
     public void displayCombatHealth(Character c){
         combatText.displayUpdatedHealth(c);
     }
-    public void combatHit(Character c, int pHit, int hitRoll, int totalHit){
-        combatText.combatHit(c, pHit, hitRoll, totalHit);
+    public void combatHit(Character c, int pHit, int hitRoll, int totalHit, boolean hit, int damage){
+        combatText.combatHit(c, pHit, hitRoll, totalHit, hit, damage);
     }
     public void winGame(){
         storyText.winGame();
