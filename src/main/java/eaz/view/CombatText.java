@@ -21,9 +21,13 @@ class CombatText {
         System.out.println("Targets health " + c.getHealth());
     }
 
-    void displayUpdatedHealth(Character c){
+    void displayEnemyHealth(Character c){
         int newHealth = c.getHealth();
         System.out.println("Targets health = " + newHealth);
+    }
+    void displayUpdatedPlayerHealth(Player player){
+        int newHealth = player.getHealth();
+        System.out.println("Your health = " + newHealth);
     }
 
     void combatHit(Character c, int pHit, int hitRoll, int totalHit, boolean hit, int damage){
@@ -32,6 +36,14 @@ class CombatText {
             System.out.println("You hit the " + c.getName() + " for " + damage + " damage");
         }else{
             System.out.println("You missed the " + c.getName());
+        }
+    }
+    void enemyHit(Character c, int eHit, int hitRoll, int totalHit, boolean hit, int damage){
+        System.out.println("The " + c.getName() + " rolled a: " + hitRoll + ", plus a hit chance of: " + eHit + " for a total " + totalHit);
+        if(hit){
+            System.out.println("The " + c.getName() + " hit you for " + damage + " damage");
+        }else{
+            System.out.println("The " + c.getName() + " missed you!");
         }
     }
 

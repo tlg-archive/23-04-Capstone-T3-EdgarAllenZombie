@@ -118,7 +118,9 @@ public class Mansion {
         Combat combat = new Combat();
         Location currentLocation = getCurrentLocation();
         Character[] character = getCharacters();
-        combat.combat(target, currentLocation,  character);
+        player = getPlayer();
+
+        combat.combat(target, currentLocation,  character, player);
     }
 
 

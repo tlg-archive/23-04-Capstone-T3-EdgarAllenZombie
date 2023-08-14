@@ -54,12 +54,21 @@ public class ViewMain {
         combatText.displayCombatText(c, p, hit);
     }
 
-    public void displayCombatHealth(Character c){
-        combatText.displayUpdatedHealth(c);
+    public void displayEnemyHealth(Character c){
+        combatText.displayEnemyHealth(c);
     }
+    public void displayPlayerHealth(Player player){
+        combatText.displayUpdatedPlayerHealth(player);
+    }
+
     public void combatHit(Character c, int pHit, int hitRoll, int totalHit, boolean hit, int damage){
         combatText.combatHit(c, pHit, hitRoll, totalHit, hit, damage);
     }
+
+    public void enemyHit(Character c, int eHit, int hitRoll, int totalHit, boolean hit, int damage){
+        combatText.enemyHit(c, eHit, hitRoll, totalHit, hit, damage);
+    }
+
     public void winGame(){
         storyText.winGame();
     }
