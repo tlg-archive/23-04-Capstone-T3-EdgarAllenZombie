@@ -235,7 +235,7 @@
       "type": "enemy",
       "name": "ghost",
       "health": 10,
-      "damage": 5,
+      "damage": 3,
       "hit": 7,
       "armor": 15,
       "description": "A floating humanoid entity",
@@ -285,8 +285,8 @@
   "player": {
     "name": "Edgar Allen Zombie",
     "inventory": [],
-    "health": 25,
-    "armor": 10,
+    "health": 50,
+    "armor": 13,
     "damage": 3,
     "hitChance": 5
   }
