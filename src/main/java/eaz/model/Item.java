@@ -1,10 +1,19 @@
 package eaz.model;
 
+import com.google.gson.annotations.Expose;
+
+import java.util.List;
+
 public class Item {
+    @Expose
     private String type;
+    @Expose
     private String name;
+    @Expose
     private String description;
+    @Expose
     private String location;
+    @Expose
     private int modifier;
 
     
@@ -31,6 +40,39 @@ public class Item {
     }
 
     
+
+
+
+
+    // item functions:
+    public void getItem(String itemName, Location currentLocation, List<String> inventory){
+        String result;
+
+        // check if the item is in the current location's item list
+        if (currentLocation.getItems().contains(itemName)){
+            currentLocation.getItems().remove(itemName);  // remove the item from the location
+            inventory.add(itemName);  // add the item to the player's inventory
+            result = "You picked up the " + itemName + ".";
+        } else{
+            result = "There is no " + itemName + " here.";
+        }
+        System.out.println(result);
+    }
+
+    public void leaveItem(String itemName, Location currentLocation, List<String> inventory){
+        String result;
+
+        // check if the item is in player inventory
+        if (inventory.contains(itemName)){
+            inventory.remove(itemName);  // remove the item from the player's inventory
+            currentLocation.getItems().add(itemName);
+            result = "You dropped the " + itemName + ".";
+        } else{
+            result = "You don't have " + itemName + " in your inventory.";
+        }
+        System.out.println(result);
+    }
+
     // public wrapper class for all items:
     public static class ItemList{
         private Item[] items;
@@ -40,18 +82,5 @@ public class Item {
         }
     }
 
-    /* To call items do:
-            Item.ItemList itemList = JsonReader.readJson(Item.ItemList.class);
-        Item[] items = itemList.getItems();
-
-        for(Item item : items){
-            System.out.println("Type: " + item.getType());
-            System.out.println("Name: " + item.getName());
-            System.out.println("Description: " + item.getDescription());
-            System.out.println("Location: " + item.getLocation());
-            System.out.println("Modifier: " + item.getModifier());
-            System.out.println();
-        }
-     */
 }
 

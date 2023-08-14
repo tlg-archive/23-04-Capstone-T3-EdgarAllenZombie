@@ -4,53 +4,80 @@
       "name": "Inventory",
       "directions": {},
       "description": "",
-      "items": []
+      "items": [],
+      "characters": []
     },
     {
       "name": "Foyer",
       "directions": {
-        "north": "Hallway 1"
+        "north": "Hallway 1E"
       },
-      "description": "You stand in the entry foyer of the mansion,\n You hear a faint whisper of 'It puts the lotion on it's skin or else it gets the hose again'",
-      "items": ["knife"]
+      "description": "You stand in the entry foyer of the mansion,\n You hear a faint whisper of 'It puts the lotion on it's skin or else it gets the hose again' \n As you look around, you see a ghost... should you talk to it, or do you think you can fight it?",
+      "items": ["knife"],
+      "characters": [
+        "ghost"
+      ]
     },
     {
-      "name": "Hallway 1",
+      "name": "Hallway 1E",
       "directions": {
-        "west": "Kitchen",
-        "south": "Butler's Room",
-        "north": "Hallway 2",
-        "East": "Coat Closet"
+        "west": "Hallway 1W",
+        "east": "Coat Closet",
+        "north": "Hallway 2S",
+        "south": "Foyer"
       },
-      "description": "Kevins description 2",
-      "items": []
+      "description": "You stand in a long hallway that continues to the West. \nTo the north you see another hallway with several other rooms. \nTo the East is a closed door.",
+      "items": [],
+      "characters": []
+    },
+    {
+      "name": "Hallway 1W",
+      "directions": {
+        "north": "Kitchen",
+        "south": "Butler's Room",
+        "east": "Hallway 1E"
+      },
+      "description": "You stand to the west of the initial hallway you walked in. \nYou see doors to the North and South",
+      "items": [],
+      "characters": []
+    },
+    {
+      "name": "Coat Closet",
+      "directions": {
+        "west": "Hallway 1E"
+      },
+      "description": "You see a rack of coats and one very nice looking leather jacket",
+      "items": ["leather jacket"],
+      "characters": []
     },
     {
       "name": "Butler's Room",
       "directions": {
         "east": "Secret Room",
-        "north": "Hallway 1"
+        "north": "Hallway 1W"
       },
       "description": "A small room where the butler used to rest",
-      "items": []
+      "items": [],
+      "characters": []
     },
     {
       "name": "Secret Room",
       "directions": {
         "west": "Butler's Room"
       },
-      "description": "A hidden room filled with mysterious items",
+      "description": "A hidden room, maybe there's something good in here",
       "items": [
-        "chainbat"
-      ]
+        "chain bat"
+      ],
+      "characters": []
     },
     {
       "name": "Kitchen",
       "directions": {
-        "south": "Hallway 1",
+        "south": "Hallway 1W",
         "east": "Dining Room"
       },
-      "description": "A spacious kitchen with various cooking tools",
+      "description": "A spacious kitchen with various cooking tools,\nIt's obvious whoever owns this house is not the one that uses this room",
       "items": [
         "knife"
       ],
@@ -62,81 +89,108 @@
       "name": "Dining Room",
       "directions": {
         "west": "Kitchen",
-        "east": "Hallway 2"
+        "east": "Hallway 2S"
       },
       "description": "A grand dining room with an elegant table",
       "items": [
-        "Plate of food"
-      ]
+        "plate of food"
+      ],
+      "characters": []
     },
     {
-      "name": "Hallway 2",
+      "name": "Hallway 2S",
       "directions": {
-        "south": "Hallway 1",
+        "south": "Hallway 1E",
         "west": "Dining Room",
         "east": "Ballroom",
-        "east2": "Storage Room",
-        "west2": "Home Office",
-        "north": "Hallway 3"
+        "north": "Hallway 2N"
       },
-      "description": "A long hallway connecting different rooms",
-      "items": []
+      "description": "A long hallway connecting different rooms.\nYou see doors to the East and West, and the hallway continuing North. \nSouth will lead you back to the entry hall",
+      "items": [],
+      "characters": []
+    },
+    {
+      "name": "Hallway 2N",
+      "directions": {
+        "south": "Hallway 2S",
+        "west": "Home Office",
+        "east": "Storage Room",
+        "north": "Hallway 3E"
+      },
+      "description": "A long hallway connecting different rooms. \nYou see doors to the East and West, another hallway North, and South the hallway continues",
+      "items": [],
+      "characters": []
     },
     {
       "name": "Ballroom",
       "directions": {
-        "west": "Hallway 2"
+        "west": "Hallway 2S"
       },
       "description": "An extravagant ballroom with a shiny chandelier",
-      "items": []
+      "items": [],
+      "characters": []
     },
     {
       "name": "Storage Room",
       "directions": {
-        "west": "Hallway 2"
+        "west": "Hallway 2N"
       },
       "description": "A room filled with old and unused items",
-      "items": []
+      "items": [],
+      "characters": []
     },
     {
       "name": "Home Office",
       "directions": {
         "west": "Library",
-        "east": "Hallway 2"
+        "east": "Hallway 2N"
       },
       "description": "A study room with a large desk and bookshelves",
       "items": [
         "key"
-      ]
+      ],
+      "characters": []
     },
     {
-      "name": "Hallway 3",
+      "name": "Hallway 3E",
       "directions": {
-        "east": "Bedroom",
-        "north": "Master Bedroom",
-        "south": "Hallway 2",
-        "east1": "Bathroom",
-        "east2": "Library"
+        "north": "Bedroom",
+        "west": "Hallway 3W",
+        "south": "Hallway 2N"
       },
-      "description": "A hallway leading to different bedrooms",
-      "items": []
+      "description": "To the North you see a door.\nThe hallway continues West, and South will take you to back towards the entrance",
+      "items": [],
+      "characters": []
+    },
+    {
+      "name": "Hallway 3W",
+      "directions": {
+        "east": "Hallway 3E",
+        "north": "Master Bedroom",
+        "west": "Bathroom",
+        "south": "Library"
+      },
+      "description": "You see doors to the North, West and South, \nand the hallway continuing East",
+      "items": [],
+      "characters": []
     },
     {
       "name": "Bedroom",
       "directions": {
-        "south": "Hallway 3"
+        "south": "Hallway 3E"
       },
-      "description": "A cozy bedroom with a comfortable bed",
+      "description": "A cozy bedroom with a comfortable bed. \nyou see what looks like a diary on the desk",
       "items": [
         "diary"
-      ]
+      ],
+      "characters": []
     },
     {
       "name": "Master Bedroom",
       "directions": {
-        "south": "Hallway 3"
+        "south": "Hallway 3W"
       },
-      "description": "The master bedroom of the house",
+      "description": "The master bedroom of the house. \nYou see a grotesque figure slowly walking towards you",
       "items": [],
       "characters": [
         "zombie"
@@ -145,20 +199,21 @@
     {
       "name": "Bathroom",
       "directions": {
-        "east": "Hallway 3"
+        "east": "Hallway 3W"
       },
       "description": "A well-maintained bathroom with modern amenities",
-      "items": []
+      "items": [],
+      "characters": []
     },
     {
       "name": "Library",
       "directions": {
-        "north": "Hallway 3",
+        "north": "Hallway 3W",
         "east": "Home Office"
       },
       "description": "A room filled with shelves of books and ancient knowledge",
       "items": [
-        "Grimoire"
+        "grimoire"
       ],
       "characters": [
         "zombie"
@@ -171,14 +226,30 @@
       "name": "zombie",
       "health": 10,
       "damage": 5,
-      "description": "zombie description"
+      "hit": 5,
+      "armor": 12,
+      "description": "Exactly what you'd expect an undead monster would look like... Beautiful!",
+      "dialog": ["Rawrrrrr Brainzzzzz!!!!", "Yarrrrggggggg", "Ummm good Sir, would you mind handing over your brain?"]
+    },
+    {
+      "type": "enemy",
+      "name": "ghost",
+      "health": 10,
+      "damage": 3,
+      "hit": 7,
+      "armor": 15,
+      "description": "A floating humanoid entity",
+      "dialog": ["Please don't hurt me, I'm not one of the bad ones", "I can tell you're new here, by the fact you're still....you know.... breathing", "Please, don't go in, there's things here you don't want to see"]
     },
     {
       "type": "npc",
       "name": "Sara",
       "health": 5,
       "damage": 5,
-      "description": "Your sister Sara"
+      "hit": 3,
+      "armor": 3,
+      "description": "Your sister Sara",
+      "dialog": []
     }
   ],
   "items": [
@@ -210,5 +281,13 @@
       "location": "library",
       "modifier": 0
     }
-  ]
+  ],
+  "player": {
+    "name": "Edgar Allen Zombie",
+    "inventory": [],
+    "health": 50,
+    "armor": 13,
+    "damage": 3,
+    "hitChance": 5
+  }
 }

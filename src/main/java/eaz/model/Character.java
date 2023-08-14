@@ -1,18 +1,31 @@
 package eaz.model;
 
-class Character {
-      private String enemy;
-      private String name;
-      private String health;
-      private String damage;
-      private String Description;
+import com.google.gson.annotations.Expose;
 
-    public String getEnemy() {
-        return enemy;
+public class Character {
+    @Expose
+    private String type;
+    @Expose
+    private String name;
+    @Expose
+    private int health;
+    @Expose
+    private int damage;
+    @Expose
+    private int hit;
+    @Expose
+    private int armor;
+    @Expose
+    private String description;
+    @Expose
+    private String[] dialog;
+
+    public String getType() {
+        return type;
     }
 
-    public void setEnemy(String enemy) {
-        this.enemy = enemy;
+    public void setType(String enemy) {
+        this.type = type;
     }
 
     public String getName() {
@@ -23,31 +36,52 @@ class Character {
         this.name = name;
     }
 
-    public String getHealth() {
+    public int getHealth() {
         return health;
     }
 
-    public void setHealth(String health) {
-        this.health = health;
+    public void setHealth(int damage) {
+        health -= damage;
     }
 
-    public String getDamage() {
+    public int getDamage() {
         return damage;
     }
 
-    public void setDamage(String damage) {
+    public void setDamage(int damage) {
         this.damage = damage;
     }
 
+    public int getHit() {
+        return hit;
+    }
+
+    public int getArmor() {
+        return armor;
+    }
+
+    public void setArmor(int armor) {
+        this.armor = armor;
+    }
+
+
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        description = description;
     }
 
-    public static class CharacterList{
+    public String[] getDialog() {
+        return dialog;
+    }
+
+    public void setDialog(String[] dialog) {
+        this.dialog = dialog;
+    }
+
+    public static class CharacterList {
         private Character[] characters;
 
         public Character[] getCharacters() {

@@ -1,5 +1,8 @@
 package eaz.model;
 
+import com.google.gson.annotations.Expose;
+import eaz.view.Music;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -8,13 +11,23 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Mansion {
+    private Music backgroundMusic;
+    @Expose
     private Location[] locations;
+    @Expose
     private Item[] items;
+    @Expose
     private Character[] characters;
     private Location currentLocation;
     private String currentLocationName  = "Foyer";
-    private Player player = new Player();
+    @Expose
+    private Player player;
     private Map<String, Location> locationMap;
+
+    public Music getBackgroundMusic(){
+        return backgroundMusic = new Music("Raindrop-Flower-Jazz.wav");
+    }
+
 
     public Location getLocationByName(String name) {
         return getLocationMap().get(name);
@@ -80,36 +93,34 @@ public class Mansion {
         return newLocation;
     }
 
-    public String pickUpItem(String itemName){
+    public void pickUpItem(String itemName) {
+        Item item = new Item();
+        // set the parameters from mansion to use in getItem
+        itemName = itemName;
         Location currentLocation = getCurrentLocation();
         List<String> inventory = player.getInventory();
-        String result = null;
-
-        // check if the item is in the current location's item list
-        if (getCurrentLocation().getItems().contains(itemName)){
-            currentLocation.getItems().remove(itemName);  // remove the item from the location
-            inventory.add(itemName);  // add the item to the player's inventory
-            result = "You picked up the " + itemName + ".";
-        } else{
-            result = "There is no " + itemName + " here.";
-        }
-        return result;
+        // call getItem and pass mansion variables
+        item.getItem(itemName, currentLocation, inventory);
     }
 
-    public String dropItem(String itemName){
+
+    public void dropItem(String itemName){
+        Item item = new Item();
+        // set the parameters from mansion to use in dropItem
         Location currentLocation = getCurrentLocation();
         List<String> inventory = player.getInventory();
         String result = null;
+        // call leaveItem and pass mansion variables
+        item.leaveItem(itemName, currentLocation, inventory);
+    }
 
-        // check if the item is in player inventory
-        if (inventory.contains(itemName)){
-            inventory.remove(itemName);  // remove the item from the player's inventory
-            currentLocation.getItems().add(itemName);
-            result = "You dropped the " + itemName + ".";
-        } else{
-            result = "You don't have " + itemName + " in your inventory.";
-        }
-        return result;
+    public void fight(String target){
+        Combat combat = new Combat();
+        Location currentLocation = getCurrentLocation();
+        Character[] character = getCharacters();
+        player = getPlayer();
+
+        combat.combat(target, currentLocation,  character, player);
     }
 
 

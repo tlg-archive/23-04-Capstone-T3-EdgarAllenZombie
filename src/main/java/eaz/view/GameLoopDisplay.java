@@ -1,12 +1,13 @@
 package eaz.view;
 
+import eaz.controller.EAZ;
+import eaz.model.Character;
 import eaz.model.Location;
 import eaz.model.Mansion;
-import org.w3c.dom.Text;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 
 class GameLoopDisplay {
@@ -36,17 +37,40 @@ class GameLoopDisplay {
         inventory = mansion.getPlayer().getInventory();
         name = mansion.getPlayer().getName();
         health = mansion.getPlayer().getHealth();
-
         displayPlayerStats(name, health, inventory);
+
         System.out.println(genItems.starLines);
         Location currentLocation = mansion.getCurrentLocation();
         System.out.println("You are currently in: " + currentLocation.getName());
         System.out.println();
         System.out.println(currentLocation.getDescription());
         System.out.println("Available directions are: " + currentLocation.getDirections().keySet());
-        System.out.println("In the room, you see: " + currentLocation.getItems());
-
+        System.out.println("Items in the room: " + currentLocation.getItems());
+        System.out.println("Creatures in the room: " + Arrays.toString(currentLocation.getCharacters()));
 
     }
+
+    void characterDialog(Mansion mansion, String name) {
+        Location currentLocation = mansion.getCurrentLocation();
+        Character[] characters = mansion.getCharacters();
+        Random random = new Random();
+
+        // if characters at currentLocation is not null
+        if (currentLocation.getCharacters() != null) {
+            // for each characterName in currentLocation's list of characters (to leave room for multiple later)
+            for (String characterName : currentLocation.getCharacters()) {
+                // Iterate through each character in the Character[] in mansion's Characters
+                for (Character c : characters) {
+                    // if characterName at currentLocation equals the name in Character[]
+                    if (characterName.equals(c.getName()) && characterName.equals(name)) {
+                        int randIndex = random.nextInt(c.getDialog().length); // pick a random index value from the character's dialog length
+                        String randDialog = c.getDialog()[randIndex];  // using the randIndex pick a random dialog to return
+                        System.out.println(c.getName() + " says: " + randDialog);
+                    }
+                }
+            }
+        }
+    }
+
 
 }   // END OF CLASS
