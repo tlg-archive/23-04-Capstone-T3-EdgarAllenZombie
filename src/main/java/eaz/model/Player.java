@@ -14,6 +14,8 @@ public class Player {
     @Expose
     private int health;  // starting health value for player
     @Expose
+    private int armor;
+    @Expose
     private int damage;
     @Expose
     private int hitChance;
@@ -26,8 +28,13 @@ public class Player {
         return health;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public void setHealth(int damage) {
+
+        health -= damage;
+    }
+
+    public int getArmor() {
+        return armor;
     }
 
     public int getDamage() {

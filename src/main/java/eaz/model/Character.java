@@ -12,6 +12,8 @@ public class Character {
     @Expose
     private int damage;
     @Expose
+    private int hit;
+    @Expose
     private int armor;
     @Expose
     private String description;
@@ -48,6 +50,10 @@ public class Character {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public int getHit() {
+        return hit;
     }
 
     public int getArmor() {

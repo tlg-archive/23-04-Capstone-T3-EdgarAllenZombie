@@ -9,7 +9,7 @@ public class Combat {
     ViewMain viewMain = new ViewMain();
     Player player = new Player();
 
-    public void combat(String target, Location currentLocation, Character[] characters) {  // once player health matters return should be an int
+    public void combat(String target, Location currentLocation, Character[] characters, Player player) {  // once player health matters return should be an int
         // check the target against characters
         Character c = getTarget(target, currentLocation, characters);
         assert c != null;
@@ -18,11 +18,15 @@ public class Combat {
         String attackChoice = TextParser.getInput();
 
         if (attackChoice.equals("yes")) {
-            checkForHit(c);
+            checkForHit(c, player);
+            System.out.println();
+            viewMain.displayEnemyHealth(c);
+            enemyAttack(c, player);
+            viewMain.displayPlayerHealth(player);
         }
 //        viewMain.displayCombat(c, player, hit);
+//        viewMain.displayCombatHealth(c);
 
-        viewMain.displayCombatHealth(c);
 
     }
 
@@ -38,7 +42,7 @@ public class Combat {
         } return null;
     }
 
-    private void checkForHit(Character c){
+    private void checkForHit(Character c, Player player){
         boolean hit = false;
         int pHit = player.getHitChance();  // save player hit
         int hitRoll = Randomizer.randomizer(20);  // save random hit chance
@@ -55,4 +59,19 @@ public class Combat {
         }
     }
 
+    private void enemyAttack(Character c, Player player){
+        boolean hit = false;
+        int eHit = c.getHit();  // save enemy hit chance
+        int hitRoll = Randomizer.randomizer(20);
+        int totalHit = eHit + hitRoll;
+        int playerArmor = player.getArmor();
+        int damage = c.getDamage();
+
+        if(totalHit > playerArmor){
+            viewMain.enemyHit(c, eHit, hitRoll, totalHit, true, damage);
+            player.setHealth(damage);
+        }else{
+            viewMain.enemyHit(c, eHit, hitRoll, totalHit, false, damage);
+        }
+    }
 }   // END OF CLASS
