@@ -123,5 +123,27 @@ public class Mansion {
         combat.combat(target, currentLocation,  character, player);
     }
 
+    public void lookAtItem(String itemName){
+        Location currentLocation = getCurrentLocation();
+        List<String> inventory = player.getInventory();
+        if (currentLocation.getItems().contains(itemName)) {
+            iterateItem(itemName);
+        } else if(inventory.contains(itemName)){
+            System.out.println("Your looking at " + itemName + " in your inventory");
+            iterateItem(itemName);
+        }
+        else {
+            System.out.println("you can not look at " + itemName + " it's not in this room!");
+        }
+    }
+
+    public void iterateItem(String itemName) {
+        for (Item curItem : items) {
+            if(curItem.getName().equalsIgnoreCase(itemName)) {
+                System.out.println(curItem.getDescription());
+            }
+        }
+    }
+
 
 }

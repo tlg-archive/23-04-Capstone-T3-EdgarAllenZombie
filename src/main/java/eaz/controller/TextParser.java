@@ -53,7 +53,7 @@ public class TextParser {
                 if ("inventory".equals(noun)) {
                     viewMain.displayPlayerInventory(player.getInventory());
                 } else {
-                    Look.look(noun, mansion.getCurrentLocation());
+                    mansion.lookAtItem(noun);
                 }
                 break;
             case "heal":
