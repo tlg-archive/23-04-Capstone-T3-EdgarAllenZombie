@@ -3,8 +3,15 @@ package eaz.model;
 import com.google.gson.annotations.Expose;
 
 import java.util.List;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Item {
+    private static Item[] items;
     @Expose
     private String type;
     @Expose
@@ -30,6 +37,25 @@ public class Item {
     public String getLocation() {
         return location;
     }
+    public Item[] getItems() {
+        return items;
+    }
+
+    public static void setItems(Item[] items) {
+        Item.items = items;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public static void setItems(){
+        Item.items = items;
+    }
 
     public void setLocation(String location) {
         this.location = location;
@@ -38,9 +64,6 @@ public class Item {
     public int getModifier() {
         return modifier;
     }
-
-    
-
 
 
 
@@ -73,14 +96,6 @@ public class Item {
         System.out.println(result);
     }
 
-    // public wrapper class for all items:
-    public static class ItemList{
-        private Item[] items;
-
-        public Item[] getItems() {
-            return items;
-        }
-    }
 
 }
 
