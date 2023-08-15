@@ -10,55 +10,42 @@ public class GUI {
     JFrame gameWindow;
     Container container;
     JPanel titlePanel;
+    JPanel startButtonPanel;
+    JButton startButton;
     JLabel titleLabel;
     Font titleFont = new Font("Times New Roman", Font.BOLD, 60);
+    Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 16);
 
     //Ctor
     public GUI(){
-        // Initialize the JFrame window
         gameWindow = new JFrame();
-
-        // Sets the size of the game window to 800x600 pixels
         gameWindow.setSize(800, 600);
-
-        // Defines what happens when the user closes the window (exit the application)
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Sets the background color of the content pane of the window to dark gray
         gameWindow.getContentPane().setBackground(Color.darkGray);
-
-        // Disables the layout manager, allowing manual positioning of components
         gameWindow.setLayout(null);
-
-        // Makes the game window visible to the user
         gameWindow.setVisible(true);
-
-        // Get the content pane of the game window and store it in the 'container' variable
         container = gameWindow.getContentPane();
 
-        // Create a JPanel for the title
         titlePanel = new JPanel();
-
-        // Set the position and size of the title panel
         titlePanel.setBounds(100, 100, 600, 150);
-
-        // Set the background color of the title panel to red
-        titlePanel.setBackground(Color.RED);
-
-        // Create a JLabel for the title text
+        titlePanel.setBackground(Color.BLACK);
         titleLabel = new JLabel("Edgar Allen Zombie");
-
-        // Set the text color of the title label to black
-        titleLabel.setForeground(Color.BLACK);
-
-        // Set the font of the title label
+        titleLabel.setForeground(Color.RED);
         titleLabel.setFont(titleFont);
 
-        // Add the title label to the title panel
-        titlePanel.add(titleLabel);
+        startButtonPanel = new JPanel();
+        startButtonPanel.setBounds(300,400,200,100);
+        startButtonPanel.setBackground(Color.BLACK);
 
-        // Add the title panel to the main content pane
+        startButton = new JButton("START");
+        startButton.setBackground(Color.RED);
+        startButton.setForeground(Color.BLACK);
+        startButton.setFont(startButtonFont);
+
+        titlePanel.add(titleLabel);
+        startButtonPanel.add(startButton);
         container.add(titlePanel);
+        container.add(startButtonPanel);
     }
 
     //This main is for testing purposes only, to periodically test adjustments to the GUI.
