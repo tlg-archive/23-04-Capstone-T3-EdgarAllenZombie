@@ -10,5 +10,7 @@ public class Main {
         EAZ eaz = new EAZ();
         viewMain.introScreen();
         eaz.run();
+
+        //to incorporate the option, prompt the user for 1) play console base/2)GUI based
     }
 }

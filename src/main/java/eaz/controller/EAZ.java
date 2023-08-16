@@ -17,6 +17,7 @@ import static eaz.model.JsonReader.*;
 
 
 public class EAZ {
+    @SuppressWarnings("FieldCanBeLocal")
     private Mansion mansion;
     ViewMain viewMain = new ViewMain();
 
