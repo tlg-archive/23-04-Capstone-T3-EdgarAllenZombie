@@ -16,7 +16,7 @@ class StoryText {
         Scanner scanner = new Scanner(System.in);
         System.out.printf("%s " +
                 "  You are 18 year old Edgar Allen, \n" +
-                "   known to your friends as Edgar Allen \"Zombie\" \n " +
+                "  known to your friends as Edgar Allen \"Zombie\" \n " +
                 "  due to your unique fascination with all things dark and grim. \n " +
                 "  You enjoy searching through abandoned buildings others deem haunted,\n " +
                 "  just to get that feeling of excitement and the tingle of unknown, \n " +
@@ -44,6 +44,8 @@ class StoryText {
 
     void winGame(){
         Scanner scanner = new Scanner(System.in);
+        Music winFX = new Music("fx", "audioFiles/win.wav");
+        winFX.play("fx");
         System.out.printf("%s " +
                 "                              CONGRATULATIONS, \n" +
                 "              You have completed the current version of this game! \n " +

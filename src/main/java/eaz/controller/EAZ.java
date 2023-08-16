@@ -5,6 +5,7 @@ import eaz.model.CopyState;
 import eaz.model.JsonReader;
 import eaz.model.Mansion;
 import eaz.model.Player;
+import eaz.view.Music;
 import eaz.view.ViewMain;
 
 import java.io.IOException;
@@ -20,6 +21,8 @@ public class EAZ {
     ViewMain viewMain = new ViewMain();
 
     public boolean runGame = true;
+    public static Music backgroundMusic = new Music("music", "audioFiles/hauntedCastle.wav");
+    public static boolean playFX = true;
 
     public void quitGame() {
         System.out.println("Are you sure you want to quit? (yes/no)");
@@ -35,6 +38,8 @@ public class EAZ {
         Player player = mansion.getPlayer();
         String inputVerb = "";  // initialization to pull verb out of loop
         String inputNoun = "";  // initialization to pull noun outside of loop
+
+
 
 
         System.out.println("Would you like to play? (yes/no)");
