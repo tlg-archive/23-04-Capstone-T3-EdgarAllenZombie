@@ -5,6 +5,7 @@ import eaz.model.CopyState;
 import eaz.model.JsonReader;
 import eaz.model.Mansion;
 import eaz.model.Player;
+import eaz.view.GeneralViewItems;
 import eaz.view.Music;
 import eaz.view.ViewMain;
 
@@ -18,6 +19,10 @@ import static eaz.model.JsonReader.*;
 
 public class EAZ {
     @SuppressWarnings("FieldCanBeLocal")
+    GeneralViewItems genItems = new GeneralViewItems();
+    String white = genItems.white;
+    String green = genItems.green;
+
     private Mansion mansion;
     ViewMain viewMain = new ViewMain();
     public boolean runGame = true;
@@ -26,14 +31,14 @@ public class EAZ {
 
     public void quitGame() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Are you sure you want to quit (yes/no)? > ");
+        System.out.print(white + "Are you sure you want to quit (yes/no)? > ");
         String quitResponse = scanner.nextLine().trim().toLowerCase();
         if (quitResponse.equals("yes")) {
             runGame = false;
         }
     }
 
-    public void run() throws IOException, InterruptedException {
+    public void run() throws IOException {
         mansion = JsonReader.readMansion("JsonObjects.json");  // populate the mansion from the JsonObjects.json
         Player player = mansion.getPlayer();
         String inputVerb = "";  // initialization to pull verb out of loop
@@ -56,7 +61,7 @@ public class EAZ {
                 // check to make sure verb isn't blank (prevents error message on first entry)
                 if(!Objects.equals(inputVerb, "")){
                     TextParser.handleInput(mansion, inputVerb, inputNoun);  // pass previous verb and noun into the switch case
-                    viewMain.starLine();
+                    //viewMain.starLine();
                     // if you pick up the grimoire the game ends (currently in development)
                     if(player.getInventory().contains("grimoire")){
                         viewMain.winGame();
@@ -78,11 +83,12 @@ public class EAZ {
                 }
             }
             scanner.close();  // close scanner from parser
-        } else if (newGameOption.equals("no")) {
-            quitGame();  // sets rungame to false and closes runGame loop
+//        } else if (newGameOption.equals("no")) {
+//            quitGame();  // sets rungame to false and closes runGame loop
         } else{
-            System.out.println("Are you sure you want to quit (yes/no)? >");
-            newGameOption = scanner.nextLine().trim().toLowerCase();
+            System.out.println(green + "Thank you for stopping by!" + white);
+//            System.out.println("Are you sure you want to quit (yes/no)? >");
+//            newGameOption = scanner.nextLine().trim().toLowerCase();
         }
     }
     /*
