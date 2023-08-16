@@ -25,18 +25,21 @@ class GameLoopDisplay {
     String cyan = genItems.cyan;
 
     void displayPlayerStats(String name, int health, List<String> inventory){
-        System.out.println("Name: " + name);
-        System.out.println("Your health " + health);
+        System.out.println(yellow + "Player Information:");
+        System.out.println(green + doubleLines);
+        System.out.println(green + "Name: " + yellow + name);
+        System.out.println(green + "Your Health: " + yellow + health);
         displayPlayerInventory(inventory);
+        System.out.println(green + doubleLines);
     }
     void displayPlayerInventory(List<String> inventory){
-        System.out.println("Your inventory items are: " + inventory);
+        System.out.println(green + "Your inventory items are: " + yellow + inventory);
     }
 
     void textHelp(){
-        System.out.printf("%s\nTo control Edgar, use basic commands like '%sGo%s %sNorth%s', '%sGet%s %sKnife%s', '%sLook%s' or '%sSearch%s %sdesk%s'.\n %s\n\n",
-                doubleLines, green, colorReset,red, colorReset, green, colorReset,
-                red, colorReset, green, colorReset, green, colorReset, red, colorReset, doubleLines);
+        System.out.printf("\nTo control Edgar, use basic commands like '%sGo%s %sNorth%s', '%sGet%s %sKnife%s', '%sLook%s' or '%sSearch%s %sdesk'.\n %s\n\n",
+                green, colorReset,red, colorReset, green, colorReset,
+                red, colorReset, green, colorReset, green, colorReset, red, colorReset);
     }
 
     void loopDisplayText(String name, int health, List<String> inventory, Mansion mansion){
@@ -45,15 +48,15 @@ class GameLoopDisplay {
         health = mansion.getPlayer().getHealth();
         displayPlayerStats(name, health, inventory);
 
-        System.out.println(genItems.starLines);
         Location currentLocation = mansion.getCurrentLocation();
-        System.out.println("You are currently in: " + currentLocation.getName());
-        System.out.println();
-        System.out.println(currentLocation.getDescription());
-        System.out.println("Available directions are: " + currentLocation.getDirections().keySet());
-        System.out.println("Items in the room: " + currentLocation.getItems());
-        System.out.println("Creatures in the room: " + Arrays.toString(currentLocation.getCharacters()));
-
+        System.out.println(yellow + "\nRoom Information:");
+        System.out.println(green + doubleLines);
+        System.out.println(green + "You are currently in: " + yellow + currentLocation.getName());
+        System.out.println(green + "Description: " + yellow + currentLocation.getDescription());
+        System.out.println(green + "Available directions are: " + yellow + currentLocation.getDirections().keySet());
+        System.out.println(green + "Items in the room: " + yellow + currentLocation.getItems());
+        System.out.println(green + "Creatures in the room: " + yellow + Arrays.toString(currentLocation.getCharacters()));
+        System.out.println(green + doubleLines + white +"\n");
     }
 
 
