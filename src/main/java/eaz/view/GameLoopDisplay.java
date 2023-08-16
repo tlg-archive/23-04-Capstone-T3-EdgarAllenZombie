@@ -5,10 +5,13 @@ import eaz.model.Character;
 import eaz.model.Location;
 import eaz.model.Mansion;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
+import java.util.Scanner;
 
 class GameLoopDisplay {
     GeneralViewItems genItems = new GeneralViewItems();
@@ -16,7 +19,10 @@ class GameLoopDisplay {
     String green = genItems.green;
     String colorReset = genItems.colorReset;
     String red = genItems.red;
-
+    String white = genItems.white;
+    String yellow = genItems.yellow;
+    String purple = genItems.purple;
+    String cyan = genItems.cyan;
 
     void displayPlayerStats(String name, int health, List<String> inventory){
         System.out.println("Name: " + name);
@@ -49,6 +55,7 @@ class GameLoopDisplay {
         System.out.println("Creatures in the room: " + Arrays.toString(currentLocation.getCharacters()));
 
     }
+
 
     void characterDialog(Mansion mansion, String name) {
         Location currentLocation = mansion.getCurrentLocation();

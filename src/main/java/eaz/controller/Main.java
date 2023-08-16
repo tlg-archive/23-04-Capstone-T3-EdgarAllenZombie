@@ -10,7 +10,5 @@ public class Main {
         EAZ eaz = new EAZ();
         viewMain.introScreen();
         eaz.run();
-
-
     }
 }
