@@ -1,5 +1,7 @@
 package eaz.view;
 
+import java.util.Scanner;
+
 class GameIntro {
     GeneralViewItems generalItems = new GeneralViewItems();
 
@@ -9,7 +11,7 @@ class GameIntro {
     }
 
     void titleScreen() {
-         generalItems.printTextFile("textFiles/Welcome_Screen.txt");
+         generalItems.printTextFile("textFiles/Welcome_Screen.txt", generalItems.red);
     }
 
 //        System.out.printf("" +

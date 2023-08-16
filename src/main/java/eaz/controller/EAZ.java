@@ -20,34 +20,35 @@ public class EAZ {
     @SuppressWarnings("FieldCanBeLocal")
     private Mansion mansion;
     ViewMain viewMain = new ViewMain();
-
     public boolean runGame = true;
-    public static Music backgroundMusic = new Music("music", "audioFiles/hauntedCastle.wav");
+    public static Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
     public static boolean playFX = true;
 
     public void quitGame() {
-        System.out.println("Are you sure you want to quit? (yes/no)");
-        String quitResponse = TextParser.getInput();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Are you sure you want to quit (yes/no)? > ");
+        String quitResponse = scanner.nextLine().trim().toLowerCase();
         if (quitResponse.equals("yes")) {
             runGame = false;
         }
     }
 
     public void run() throws IOException, InterruptedException {
-        Scanner scanner = new Scanner(System.in);
         mansion = JsonReader.readMansion("JsonObjects.json");  // populate the mansion from the JsonObjects.json
         Player player = mansion.getPlayer();
         String inputVerb = "";  // initialization to pull verb out of loop
         String inputNoun = "";  // initialization to pull noun outside of loop
 
 
-
-
-        System.out.println("Would you like to play? (yes/no)");
-        String newGameOption = TextParser.getInput();
+        Scanner scanner = new Scanner(System.in);
+        backgroundMusic.setVolume("music", (float) 7/10);
+        backgroundMusic.play("music");
+        System.out.print("Would you like to play (yes/no)? > ");
+        String newGameOption = scanner.nextLine().trim().toLowerCase();
+        //String newGameOption = TextParser.getInput();
 
         if (newGameOption.equals("yes")) {
-            viewMain.clearScreen();  // print 40 blank lines to clear the screen
+            viewMain.clearScreen();  // print 60 blank lines to clear the screen
             viewMain.gameStart();    // display the game start text
             while (runGame) {
                 // Have game logic here
@@ -80,8 +81,8 @@ public class EAZ {
         } else if (newGameOption.equals("no")) {
             quitGame();  // sets rungame to false and closes runGame loop
         } else{
-            System.out.println("Would you like to play? (yes/no)");
-            newGameOption = TextParser.getInput();
+            System.out.println("Are you sure you want to quit (yes/no)? >");
+            newGameOption = scanner.nextLine().trim().toLowerCase();
         }
     }
     /*
