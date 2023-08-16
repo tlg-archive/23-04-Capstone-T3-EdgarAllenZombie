@@ -1,6 +1,8 @@
 package eaz.model;
 
+import eaz.controller.EAZ;
 import eaz.controller.TextParser;
+import eaz.view.Music;
 import eaz.view.ViewMain;
 
 import java.util.Arrays;
@@ -27,6 +29,10 @@ public class Combat {
                 viewMain.displayEnemyHealth(c);
                 enemyAttack(c, player);
                 viewMain.displayPlayerHealth(player);
+                if (EAZ.playFX){
+                    Music attackNPCFX = new Music("fx", "audioFiles/attackNPC.wav");
+                    attackNPCFX.play("fx");
+                }
             }else if(attackChoice.equals("no")){
                 return;
             }

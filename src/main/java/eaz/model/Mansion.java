@@ -1,6 +1,7 @@
 package eaz.model;
 
 import com.google.gson.annotations.Expose;
+import eaz.controller.EAZ;
 import eaz.view.Music;
 
 import java.io.IOException;
@@ -11,7 +12,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Mansion {
-    private Music backgroundMusic;
+
     @Expose
     private Location[] locations;
     @Expose
@@ -23,10 +24,6 @@ public class Mansion {
     @Expose
     private Player player;
     private Map<String, Location> locationMap;
-
-    public Music getBackgroundMusic(){
-        return backgroundMusic = new Music("Raindrop-Flower-Jazz.wav");
-    }
 
 
     public Location getLocationByName(String name) {
@@ -85,6 +82,10 @@ public class Mansion {
                     if (newLocation != null) {
                         this.currentLocation = newLocation;
                         this.currentLocationName = newLocationName;
+                        if (EAZ.playFX){
+                            Music moveRoomFX = new Music("fx", "audioFiles/moveRoom.wav");
+                            moveRoomFX.play("fx");
+                        }
                     }
                     break;
                 }

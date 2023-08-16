@@ -1,6 +1,8 @@
 package eaz.model;
 
 import com.google.gson.annotations.Expose;
+import eaz.controller.EAZ;
+import eaz.view.Music;
 
 import java.util.List;
 import java.io.IOException;
@@ -76,6 +78,10 @@ public class Item {
             currentLocation.getItems().remove(itemName);  // remove the item from the location
             inventory.add(itemName);  // add the item to the player's inventory
             result = "You picked up the " + itemName + ".";
+            if (EAZ.playFX){
+                Music getItemFX = new Music("fx", "audioFiles/getItem.wav");
+                getItemFX.play("fx");
+            }
         } else{
             result = "There is no " + itemName + " here.";
         }
@@ -90,6 +96,10 @@ public class Item {
             inventory.remove(itemName);  // remove the item from the player's inventory
             currentLocation.getItems().add(itemName);
             result = "You dropped the " + itemName + ".";
+            if (EAZ.playFX){
+                Music dropItemFX = new Music("fx", "audioFiles/dropItem.wav");
+                dropItemFX.play("fx");
+            }
         } else{
             result = "You don't have " + itemName + " in your inventory.";
         }

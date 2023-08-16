@@ -2,11 +2,9 @@ package eaz.controller;
 
 import eaz.model.*;
 import eaz.view.ViewMain;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
-
 public class TextParser {
 
     public static String getInput() {
@@ -72,6 +70,7 @@ public class TextParser {
             case "drop":
             case "leave":
                 mansion.dropItem(noun);
+                break;
             case "talk":
             case "speak":
                 viewMain.charDialog(mansion, noun);
@@ -82,10 +81,12 @@ public class TextParser {
                 mansion.fight(noun);
                 break;
             case "off":
-                mansion.getBackgroundMusic().stop();
+                EAZ.backgroundMusic.stop();
+                EAZ.playFX = false;
                 break;
             case "on":
-                mansion.getBackgroundMusic().play();
+                EAZ.backgroundMusic.play("music");
+                EAZ.playFX = true;
                 break;
             default:
                 System.out.println("Invalid command. Try again.");
