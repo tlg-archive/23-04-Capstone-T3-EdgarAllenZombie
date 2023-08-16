@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-class GeneralViewItems {
+public class GeneralViewItems {
     public final String doubleLines = "=============================================================================================";
     public final String singleLines = "---------------------------------------------------------------------------------------------";
     public final String starLines = "*********************************************************************************************";
