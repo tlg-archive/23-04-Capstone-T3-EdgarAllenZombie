@@ -1,11 +1,13 @@
 package eaz.controller;
 
 import eaz.model.*;
+import eaz.view.GeneralViewItems;
 import eaz.view.ViewMain;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 public class TextParser {
+    public static GeneralViewItems genItems = new GeneralViewItems();
 
     public static String getInput() {
         Scanner scanner = new Scanner(System.in);
@@ -88,8 +90,10 @@ public class TextParser {
                 EAZ.backgroundMusic.play("music");
                 EAZ.playFX = true;
                 break;
+            case "quit":
+                break;
             default:
-                System.out.println("Invalid command. Try again.");
+                System.out.println(genItems.red + "Invalid command. Try again." + genItems.white);
                 viewMain.textHelp();
                 verb = "";
                 noun = "";
