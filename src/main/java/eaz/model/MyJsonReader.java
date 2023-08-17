@@ -47,12 +47,8 @@ public class MyJsonReader {
     public static Mansion readMansion(String filename) throws IOException {
         // create a new file object
         File file = new File(filename);
-        // check if the file exists
-        //        return file.exists() ? readJson(Mansion.class, file) : readJson(Mansion.class, "JsonObjects.json");
-        if (file.exists()) {
-            return readJson(Mansion.class, file);
-        } else {
-            return readJson(Mansion.class, "JsonObjects.json");
-        }
+        // ternary operation
+        // check if the file exists if it does load from saved state if it doesn't load original game file
+        return file.exists() ? readJson(Mansion.class, file) : readJson(Mansion.class, "JsonObjects.json");
     }
 }
