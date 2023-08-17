@@ -96,6 +96,12 @@ public class TextParser {
                 EAZ.backgroundMusic.play("music");
                 EAZ.playFX = true;
                 break;
+            case "map":
+                viewMain.clearScreen();
+                genItems.printTextFile("textFiles/Castle_Map.txt", genItems.green);
+                genItems.pauseScreen();
+                viewMain.clearScreen();
+                viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
             case "quit":
                 break;
             default:
