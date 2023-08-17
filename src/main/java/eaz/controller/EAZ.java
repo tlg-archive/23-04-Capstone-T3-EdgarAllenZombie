@@ -24,7 +24,7 @@ public class EAZ {
     String green = genItems.green;
 
     private Mansion mansion;
-    ViewMain viewMain = new ViewMain();
+    public ViewMain viewMain = new ViewMain();
     public boolean runGame = true;
     public static Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
     public static boolean playFX = true;

@@ -28,6 +28,7 @@ public class Item {
 
     GeneralViewItems genItems = new GeneralViewItems();
 
+
     // public getters
     public String getType() {
         return type;
@@ -73,20 +74,23 @@ public class Item {
 
     // item functions:
     public void getItem(String itemName, Location currentLocation, List<String> inventory){
-
+        String printLine;
         // check if the item is in the current location's item list
         if (currentLocation.getItems().contains(itemName)){
             currentLocation.getItems().remove(itemName);  // remove the item from the location
             inventory.add(itemName);  // add the item to the player's inventory
-            System.out.println(genItems.purple + itemName + "has been added to your inventory!\n" + genItems.white);
+            printLine = genItems.purple + itemName + "has been added to your inventory!\n" + genItems.white;
             if (EAZ.playFX){
                 Music getItemFX = new Music("fx", "audioFiles/getItem.wav");
                 getItemFX.play("fx");
             }
         } else if (itemName != ""  && itemName != null) {
             System.out.println(genItems.red + itemName.toUpperCase() + " is not in this Room!!!\n" + genItems.white);
+            genItems.pauseScreen();
         } else {
             System.out.println(genItems.red + "You didn't enter a valid item to get!!!\n" + genItems.white);
+            genItems.pauseScreen();
+
         }
     }
 
@@ -103,8 +107,10 @@ public class Item {
             }
         } else if (itemName != ""  && itemName != null) {
             System.out.println(genItems.red + "You don't have " + itemName.toUpperCase() + " in your inventory!!!\n" + genItems.white);
+            genItems.pauseScreen();
         } else {
             System.out.println(genItems.red + "You didn't enter a valid item to drop!!!\n" + genItems.white);
+            genItems.pauseScreen();
         }
     }
 

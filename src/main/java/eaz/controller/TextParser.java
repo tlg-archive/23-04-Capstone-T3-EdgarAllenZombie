@@ -64,14 +64,20 @@ public class TextParser {
             case "go":
             case "move":
                 mansion.move(noun);
+                viewMain.clearScreen();
+                viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
                 break;
             case "take":
             case "get":
                 mansion.pickUpItem(noun);
+                viewMain.clearScreen();
+                viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
                 break;
             case "drop":
             case "leave":
                 mansion.dropItem(noun);
+                viewMain.clearScreen();
+                viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
                 break;
             case "talk":
             case "speak":

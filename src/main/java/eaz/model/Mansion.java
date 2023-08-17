@@ -92,6 +92,7 @@ public class Mansion {
                     break;
                 } else {
                     System.out.println(genItems.red + "You didn't enter a valid location to move to!!\n" + genItems.white);
+                    genItems.pauseScreen();
                 }
             }
         }
@@ -151,6 +152,4 @@ public class Mansion {
             }
         }
     }
-
-
 }
