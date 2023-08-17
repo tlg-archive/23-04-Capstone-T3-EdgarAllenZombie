@@ -2,6 +2,7 @@ package eaz.model;
 
 import com.google.gson.annotations.Expose;
 import eaz.controller.EAZ;
+import eaz.view.GeneralViewItems;
 import eaz.view.Music;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class Mansion {
     private Player player;
     private Map<String, Location> locationMap;
 
+    GeneralViewItems genItems = new GeneralViewItems();
 
     public Location getLocationByName(String name) {
         return getLocationMap().get(name);
@@ -88,6 +90,8 @@ public class Mansion {
                         }
                     }
                     break;
+                } else {
+                    System.out.println(genItems.red + "You didn't enter a valid location to move to!!\n" + genItems.white);
                 }
             }
         }
@@ -130,11 +134,13 @@ public class Mansion {
         if (currentLocation.getItems().contains(itemName)) {
             iterateItem(itemName);
         } else if(inventory.contains(itemName)){
-            System.out.println("Your looking at " + itemName + " in your inventory");
+            System.out.println(genItems.purple + "Your looking at " + itemName + " in your inventory\n" + genItems.white);
             iterateItem(itemName);
         }
-        else {
-            System.out.println("you can not look at " + itemName + " it's not in this room!");
+        else if (itemName != "" && itemName != null){
+            System.out.println(genItems.red + "You can not look at " + itemName + " it's not in this room or your inventory!!!\n" + genItems.white);
+        } else {
+            System.out.println(genItems.red + "You didn't enter a valid item to look at!!!\n" + genItems.white);
         }
     }
 
