@@ -106,22 +106,15 @@ public class GUI {
         userPromptArea.setEditable(false);
         userPromptPanel.add(userPromptArea);
 
-        userInputPanel = new JPanel();
-        userInputPanel.setBounds(260,userInputY_val,440,25);
-        userInputPanel.setBackground(Color.blue);
-        container.add(userInputPanel);
-
         userInputArea = new JTextArea();
         userInputArea.setBounds(260,userInputY_val,440,25);
         userInputArea.setBackground(Color.black);
         userInputArea.setForeground(Color.white);
-        userInputPanel.add(userInputArea);
+        container.add(userInputArea);
 
-        String userInputPrompt = "Type here..."; //initial prompt
         userInputField = new JTextField();
         userInputField.setBounds(260,userInputY_val,440,25);
         userInputField.setFont(normalFont);
-        userInputField.setForeground(Color.gray); // Set prompt text color
         userInputField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
