@@ -6,7 +6,7 @@ import com.google.gson.GsonBuilder;
 import java.io.*;
 
 public class MyJsonReader {
-FileReader fileReader;
+    FileReader fileReader;
 
     public MyJsonReader(FileReader fileReader) {
         this.fileReader = fileReader;
@@ -29,16 +29,30 @@ FileReader fileReader;
         return readJson(clazz, new FileInputStream(file));
     }
 
-    public void writeJson(Object object, File file) throws IOException {
+    public static void writeJson(Object object, File file) throws IOException {
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
+                .setPrettyPrinting()
                 .create();
         try (Writer writer = new FileWriter(file)) {
             gson.toJson(object, writer);
         }
     }
 
+    public static void writeMansion(Mansion mansion, String filename) throws IOException {
+        File file = new File(filename);
+        writeJson(mansion, file);
+    }
+
     public static Mansion readMansion(String filename) throws IOException {
-        return readJson(Mansion.class, filename);
+        // create a new file object
+        File file = new File(filename);
+        // check if the file exists
+        //        return file.exists() ? readJson(Mansion.class, file) : readJson(Mansion.class, "JsonObjects.json");
+        if (file.exists()) {
+            return readJson(Mansion.class, file);
+        } else {
+            return readJson(Mansion.class, "JsonObjects.json");
+        }
     }
 }
