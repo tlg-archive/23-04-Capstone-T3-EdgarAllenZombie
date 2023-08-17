@@ -2,6 +2,7 @@ package eaz.model;
 
 import com.google.gson.annotations.Expose;
 import eaz.controller.EAZ;
+import eaz.view.GeneralViewItems;
 import eaz.view.Music;
 
 import java.util.List;
@@ -25,7 +26,8 @@ public class Item {
     @Expose
     private int modifier;
 
-    
+    GeneralViewItems genItems = new GeneralViewItems();
+
     // public getters
     public String getType() {
         return type;
@@ -71,41 +73,40 @@ public class Item {
 
     // item functions:
     public void getItem(String itemName, Location currentLocation, List<String> inventory){
-        String result;
 
         // check if the item is in the current location's item list
         if (currentLocation.getItems().contains(itemName)){
             currentLocation.getItems().remove(itemName);  // remove the item from the location
             inventory.add(itemName);  // add the item to the player's inventory
-            result = "You picked up the " + itemName + ".";
+            System.out.println(genItems.purple + itemName + "has been added to your inventory!\n" + genItems.white);
             if (EAZ.playFX){
                 Music getItemFX = new Music("fx", "audioFiles/getItem.wav");
                 getItemFX.play("fx");
             }
-        } else{
-            result = "There is no " + itemName + " here.";
+        } else if (itemName != ""  && itemName != null) {
+            System.out.println(genItems.red + itemName.toUpperCase() + " is not in this Room!!!\n" + genItems.white);
+        } else {
+            System.out.println(genItems.red + "You didn't enter a valid item to get!!!\n" + genItems.white);
         }
-        System.out.println(result);
     }
 
     public void leaveItem(String itemName, Location currentLocation, List<String> inventory){
-        String result;
 
         // check if the item is in player inventory
         if (inventory.contains(itemName)){
             inventory.remove(itemName);  // remove the item from the player's inventory
             currentLocation.getItems().add(itemName);
-            result = "You dropped the " + itemName + ".";
+            System.out.println(genItems.purple + "You dropped the " + itemName + ".\n" + genItems.white);
             if (EAZ.playFX){
                 Music dropItemFX = new Music("fx", "audioFiles/dropItem.wav");
                 dropItemFX.play("fx");
             }
-        } else{
-            result = "You don't have " + itemName + " in your inventory.";
+        } else if (itemName != ""  && itemName != null) {
+            System.out.println(genItems.red + "You don't have " + itemName.toUpperCase() + " in your inventory!!!\n" + genItems.white);
+        } else {
+            System.out.println(genItems.red + "You didn't enter a valid item to drop!!!\n" + genItems.white);
         }
-        System.out.println(result);
     }
-
 
 }
 
