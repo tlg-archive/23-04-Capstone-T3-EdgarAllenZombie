@@ -21,6 +21,7 @@ public class Mansion {
     @Expose
     private Character[] characters;
     private Location currentLocation;
+    @Expose
     private String currentLocationName  = "Foyer";
     @Expose
     private Player player;
