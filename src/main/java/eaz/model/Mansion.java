@@ -2,6 +2,7 @@ package eaz.model;
 
 import com.google.gson.annotations.Expose;
 import eaz.controller.EAZ;
+import eaz.view.GeneralViewItems;
 import eaz.view.Music;
 
 import java.io.IOException;
@@ -20,11 +21,13 @@ public class Mansion {
     @Expose
     private Character[] characters;
     private Location currentLocation;
+    @Expose
     private String currentLocationName  = "Foyer";
     @Expose
     private Player player;
     private Map<String, Location> locationMap;
 
+    GeneralViewItems genItems = new GeneralViewItems();
 
     public Location getLocationByName(String name) {
         return getLocationMap().get(name);
@@ -88,6 +91,9 @@ public class Mansion {
                         }
                     }
                     break;
+                } else {
+                    System.out.println(genItems.red + "You didn't enter a valid location to move to!!\n" + genItems.white);
+                    genItems.pauseScreen();
                 }
             }
         }
@@ -116,31 +122,51 @@ public class Mansion {
     }
 
     public void fight(String target){
-        Combat combat = new Combat();
-        Location currentLocation = getCurrentLocation();
-        Character[] character = getCharacters();
-        player = getPlayer();
+        if (target.length() == 0){
+            System.out.println("please enter who you want to attack");
+        } else {
+            Combat combat = new Combat();
+            Location currentLocation = getCurrentLocation();
+            Character[] character = getCharacters();
+            player = getPlayer();
 
-        combat.combat(target, currentLocation,  character, player);
+            combat.combat(target, currentLocation, character, player);
+        }
     }
 
     public void lookAtItem(String itemName){
+        // get the current location
         Location currentLocation = getCurrentLocation();
+        // get the player inventory
         List<String> inventory = player.getInventory();
+        // if the current location contains the item
         if (currentLocation.getItems().contains(itemName)) {
+            //call the iterateItem function
             iterateItem(itemName);
+            // if the player inventory has the item
         } else if(inventory.contains(itemName)){
+            // print a useful statement
             System.out.println("Your looking at " + itemName + " in your inventory");
+            // call the iterateItem function
+            System.out.println(genItems.purple + "Your looking at " + itemName + " in your inventory\n" + genItems.white);
             iterateItem(itemName);
         }
-        else {
-            System.out.println("you can not look at " + itemName + " it's not in this room!");
+        else if (itemName != "" && itemName != null){
+            System.out.println(genItems.red + "You can not look at " + itemName + " it's not in this room or your inventory!!!\n" + genItems.white);
+        } else {
+            // print a helpful statement
         }
+            System.out.println(genItems.red + "You didn't enter a valid item to look at!!!\n" + genItems.white);
+
     }
 
+// iterate over items in the json file
     public void iterateItem(String itemName) {
+        // for every item in the items section in the json
         for (Item curItem : items) {
+            // if the current item name equals the itemName
             if(curItem.getName().equalsIgnoreCase(itemName)) {
+                // print the description
                 System.out.println(curItem.getDescription());
             }
         }

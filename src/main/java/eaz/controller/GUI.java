@@ -3,8 +3,7 @@ package eaz.controller;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 
 public class GUI {
@@ -12,18 +11,20 @@ public class GUI {
     // Declare objects for the game window
     JFrame gameWindow;
     Container container;
-    JPanel titlePanel, startButtonPanel, gameTextPanel;
+    JPanel titlePanel, startButtonPanel, gameTextPanel, userPromptPanel, userInputPanel;
     JButton startButton;
     JLabel titleLabel;
     Font titleFont = new Font("Times New Roman", Font.BOLD, 60);
     Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 16);
     Font normalFont = new Font("Times New Roman", Font.PLAIN,12);
-    JTextArea gameTextDisplayArea;
+    JTextArea gameTextDisplayArea, userPromptArea, userInputArea;
+    JTextField userInputField;
 
     //This main is for testing purposes only, to periodically test adjustments to the GUI.
     public static void main(String[] args) {
-
-        new GUI();
+        SwingUtilities.invokeLater(() -> {
+            new GUI();
+        });
     }
 
     //Ctor
@@ -52,34 +53,78 @@ public class GUI {
         startButton.setForeground(Color.BLACK);
         startButton.setFont(startButtonFont);
         startButton.addActionListener((event) -> createGameScreen());
+        gameWindow.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    createGameScreen();
+                }
+            }
+        });
 
         titlePanel.add(titleLabel);
         startButtonPanel.add(startButton);
 
         container.add(titlePanel);
         container.add(startButtonPanel);
-        gameWindow.setVisible(true);//set visible need to be called after all contents are set
-        //gameWindow.pack(); //this is something that nick had me do, not a fan if i dont need it.
 
+        gameWindow.setVisible(true);//set visible need to be called after all contents are set
+        gameWindow.setFocusable(true);
+        gameWindow.requestFocus();
     }
 
     public void createGameScreen(){
+        int userInputY_val = 310;
 
         titlePanel.setVisible(false);
         startButtonPanel.setVisible(false);
-        //container.removeAll();
+//______Game Text Area: Displays game text of the story flow______________________________________
         gameTextPanel = new JPanel();
-        gameTextPanel.setBounds(100,100,600,250);
+        gameTextPanel.setBounds(100,50,600,250);
         gameTextPanel.setBackground(Color.blue);//change color later
         container.add(gameTextPanel);
 
         gameTextDisplayArea = new JTextArea("Game Text will be displayed here!!!, Ticket 598 complete!!!");
-        gameTextDisplayArea.setBounds(100,100,600,250);
+        gameTextDisplayArea.setBounds(100,100,400,250);
         gameTextDisplayArea.setBackground(Color.black);//change color to dark grey later
         gameTextDisplayArea.setForeground(Color.white);
         gameTextDisplayArea.setFont(normalFont);
         gameTextDisplayArea.setLineWrap(true);
         gameTextPanel.add(gameTextDisplayArea);
+
+//______User Input Field: Prompts user for input fields____________________________________________
+        userPromptPanel = new JPanel();
+        userPromptPanel.setBounds(100,userInputY_val,150,25);
+        userPromptPanel.setBackground(Color.red);//change the color later
+        container.add(userPromptPanel);
+
+        userPromptArea = new JTextArea("What would you like to do? ");
+        userPromptArea.setBounds(100,userInputY_val,150,25);
+        userPromptArea.setBackground(Color.black);
+        userPromptArea.setForeground(Color.white);
+        userPromptArea.setFont(normalFont);
+        userPromptArea.setEditable(false);
+        userPromptPanel.add(userPromptArea);
+
+        userInputArea = new JTextArea();
+        userInputArea.setBounds(260,userInputY_val,440,25);
+        userInputArea.setBackground(Color.black);
+        userInputArea.setForeground(Color.white);
+        container.add(userInputArea);
+
+        userInputField = new JTextField();
+        userInputField.setBounds(260,userInputY_val,440,25);
+        userInputField.setFont(normalFont);
+        userInputField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String userInput = userInputField.getText().trim();
+                // Process the user input here
+                userInputArea.append("User input: " + userInput + "\n");
+                userInputField.setText(""); // Clear the input field
+            }
+        });
+        userInputArea.add(userInputField);
     }
 
 }

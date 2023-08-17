@@ -1,11 +1,13 @@
 package eaz.controller;
 
 import eaz.model.*;
+import eaz.view.GeneralViewItems;
 import eaz.view.ViewMain;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 public class TextParser {
+    public static GeneralViewItems genItems = new GeneralViewItems();
 
     public static String getInput() {
         Scanner scanner = new Scanner(System.in);
@@ -62,14 +64,20 @@ public class TextParser {
             case "go":
             case "move":
                 mansion.move(noun);
+                viewMain.clearScreen();
+                viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
                 break;
             case "take":
             case "get":
                 mansion.pickUpItem(noun);
+                viewMain.clearScreen();
+                viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
                 break;
             case "drop":
             case "leave":
                 mansion.dropItem(noun);
+                viewMain.clearScreen();
+                viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
                 break;
             case "talk":
             case "speak":
@@ -88,8 +96,16 @@ public class TextParser {
                 EAZ.backgroundMusic.play("music");
                 EAZ.playFX = true;
                 break;
+            case "map":
+                viewMain.clearScreen();
+                genItems.printTextFile("textFiles/Castle_Map.txt", genItems.green);
+                genItems.pauseScreen();
+                viewMain.clearScreen();
+                viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
+            case "quit":
+                break;
             default:
-                System.out.println("Invalid command. Try again.");
+                System.out.println(genItems.red + "Invalid command. Try again." + genItems.white);
                 viewMain.textHelp();
                 verb = "";
                 noun = "";

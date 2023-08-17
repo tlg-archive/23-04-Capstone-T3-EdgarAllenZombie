@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-class GeneralViewItems {
+public class GeneralViewItems {
     public final String doubleLines = "=============================================================================================";
     public final String singleLines = "---------------------------------------------------------------------------------------------";
     public final String starLines = "*********************************************************************************************";
@@ -17,14 +17,14 @@ class GeneralViewItems {
     public final String purple = "\033[1;35;40m";
     public final String colorReset = "\u001B[0m";
 
-    void clearScreen(){
+    public void clearScreen(){
         int i;
         for (i = 0; i < 71; i++){
             System.out.println();
         }
     }
 
-    void pauseScreen(){
+    public void pauseScreen(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Press any key to continue...");
         scanner.nextLine();
@@ -34,7 +34,7 @@ class GeneralViewItems {
         Thread.sleep(1000);
     }
 
-    void printTextFile(String fileName, String color) {
+    public void printTextFile(String fileName, String color) {
         // Prints the opening splash screen
         //noinspection ConstantConditions
         try (BufferedReader br = new BufferedReader(new InputStreamReader(GameLoopDisplay.class.getClassLoader().getResourceAsStream(fileName)))) {
