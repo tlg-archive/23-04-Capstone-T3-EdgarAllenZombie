@@ -34,7 +34,7 @@ public class EAZ {
     }
 
     public void run() throws IOException, InterruptedException {
-        mansion = JsonReader.readMansion("JsonObjects.json");  // populate the mansion from the JsonObjects.json
+        mansion = JsonReader.readMansion("saved.json");  // populate the mansion from the JsonObjects.json
         Player player = mansion.getPlayer();
         String inputVerb = "";  // initialization to pull verb out of loop
         String inputNoun = "";  // initialization to pull noun outside of loop

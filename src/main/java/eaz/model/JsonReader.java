@@ -20,8 +20,25 @@ public class JsonReader {
         }
     }
 
+//    public static <T> T readJson(Class<T> clazz, File file) throws IOException {
+//        return readJson(clazz, new FileInputStream(file));
+////        return readJson(clazz, JsonReader.class.getClassLoader().getResourceAsStream(file.getPath()));
+//    }
+
+    public static String readFileAsString(File file) throws IOException {
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line);
+            }
+        }
+        return content.toString();
+    }
+
     public static <T> T readJson(Class<T> clazz, File file) throws IOException {
-        return readJson(clazz, new FileInputStream(file));
+        String jsonString = readFileAsString(file);
+        return new Gson().fromJson(jsonString, clazz);
     }
 
     public void writeJson(Object object, File file) throws IOException {
@@ -34,6 +51,14 @@ public class JsonReader {
     }
 
     public static Mansion readMansion(String filename) throws IOException {
-        return readJson(Mansion.class, filename);
+        // create a new file object
+        File file = new File(filename);
+        // check if the file exists
+//        return file.exists() ? readJson(Mansion.class, file) : readJson(Mansion.class, "JsonObjects.json");
+        if(file.exists()){
+            return readJson(Mansion.class, file);
+        } else {
+            return readJson(Mansion.class, "JsonObjects.json");
+        }
     }
 }
