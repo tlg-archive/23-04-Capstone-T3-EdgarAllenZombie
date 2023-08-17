@@ -2,6 +2,7 @@ package eaz.model;
 
 import com.google.gson.annotations.Expose;
 import eaz.controller.EAZ;
+import eaz.view.GeneralViewItems;
 import eaz.view.Music;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class Mansion {
     private Player player;
     private Map<String, Location> locationMap;
 
+    GeneralViewItems genItems = new GeneralViewItems();
 
     public Location getLocationByName(String name) {
         return getLocationMap().get(name);
@@ -88,6 +90,9 @@ public class Mansion {
                         }
                     }
                     break;
+                } else {
+                    System.out.println(genItems.red + "You didn't enter a valid location to move to!!\n" + genItems.white);
+                    genItems.pauseScreen();
                 }
             }
         }
@@ -142,13 +147,18 @@ public class Mansion {
             // print a useful statement
             System.out.println("Your looking at " + itemName + " in your inventory");
             // call the iterateItem function
+            System.out.println(genItems.purple + "Your looking at " + itemName + " in your inventory\n" + genItems.white);
             iterateItem(itemName);
         }
-        else {
-            // print a helpful statement if the item can't get looked at
-            System.out.println("you can not look at " + itemName + " it's not in this room!");
+        else if (itemName != "" && itemName != null){
+            System.out.println(genItems.red + "You can not look at " + itemName + " it's not in this room or your inventory!!!\n" + genItems.white);
+        } else {
+            // print a helpful statement
         }
+            System.out.println(genItems.red + "You didn't enter a valid item to look at!!!\n" + genItems.white);
+
     }
+
 // iterate over items in the json file
     public void iterateItem(String itemName) {
         // for every item in the items section in the json
@@ -162,15 +172,4 @@ public class Mansion {
     }
 
 
-    public void addLocation(Location location) {
-    }
-
-    public void addCharacter(Character character) {
-    }
-
-    public void addItem(Item item) {
-    }
-
-    public void setPlayer(Player player) {
-    }
 }
