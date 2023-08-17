@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 public class GUI {
@@ -52,15 +54,24 @@ public class GUI {
         startButton.setForeground(Color.BLACK);
         startButton.setFont(startButtonFont);
         startButton.addActionListener((event) -> createGameScreen());
+        gameWindow.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    createGameScreen();
+                }
+            }
+        });
 
         titlePanel.add(titleLabel);
         startButtonPanel.add(startButton);
 
         container.add(titlePanel);
         container.add(startButtonPanel);
-        gameWindow.setVisible(true);//set visible need to be called after all contents are set
-        //gameWindow.pack(); //this is something that nick had me do, not a fan if i dont need it.
 
+        gameWindow.setVisible(true);//set visible need to be called after all contents are set
+        gameWindow.setFocusable(true);
+        gameWindow.requestFocus();
     }
 
     public void createGameScreen(){
