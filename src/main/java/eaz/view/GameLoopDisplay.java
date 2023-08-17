@@ -37,9 +37,10 @@ class GameLoopDisplay {
     }
 
     void textHelp(){
-        System.out.printf("\nTo control Edgar, use basic commands like '%sGo%s %sNorth%s', '%sGet%s %sKnife%s', '%sLook%s' or '%sSearch%s %sdesk'.\n %s\n\n",
-                green, colorReset,red, colorReset, green, colorReset,
-                red, colorReset, green, colorReset, green, colorReset, red, colorReset);
+        System.out.println(green + "Commands: |" + yellow + "move" + green + "|" + yellow + "take" + green + "|" + yellow + "attack" + green + "|" + yellow + "talk" + green + "|" + yellow + "help" + green + "|" + yellow + "quit" + green + "|\n");
+//        System.out.printf("\nTo control Edgar, use basic commands like '%sGo%s %sNorth%s', '%sGet%s %sKnife%s', '%sLook%s' or '%sSearch%s %sdesk'.\n %s\n",
+//                green, colorReset,red, colorReset, green, colorReset,
+//                red, colorReset, green, colorReset, green, colorReset, red, colorReset);
     }
 
     void loopDisplayText(String name, int health, List<String> inventory, Mansion mansion){
