@@ -6,6 +6,11 @@ import com.google.gson.GsonBuilder;
 import java.io.*;
 
 public class JsonReader {
+FileReader fileReader;
+
+    public JsonReader(FileReader fileReader) {
+        this.fileReader = fileReader;
+    }
 
     public static <T> T readJson(Class<T> clazz, String filename) throws IOException {
         return readJson(clazz, JsonReader.class.getClassLoader().getResourceAsStream(filename));

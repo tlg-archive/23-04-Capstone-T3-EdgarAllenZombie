@@ -116,35 +116,61 @@ public class Mansion {
     }
 
     public void fight(String target){
-        Combat combat = new Combat();
-        Location currentLocation = getCurrentLocation();
-        Character[] character = getCharacters();
-        player = getPlayer();
+        if (target.length() == 0){
+            System.out.println("please enter who you want to attack");
+        } else {
+            Combat combat = new Combat();
+            Location currentLocation = getCurrentLocation();
+            Character[] character = getCharacters();
+            player = getPlayer();
 
-        combat.combat(target, currentLocation,  character, player);
+            combat.combat(target, currentLocation, character, player);
+        }
     }
 
     public void lookAtItem(String itemName){
+        // get the current location
         Location currentLocation = getCurrentLocation();
+        // get the player inventory
         List<String> inventory = player.getInventory();
+        // if the current location contains the item
         if (currentLocation.getItems().contains(itemName)) {
+            //call the iterateItem function
             iterateItem(itemName);
+            // if the player inventory has the item
         } else if(inventory.contains(itemName)){
+            // print a useful statement
             System.out.println("Your looking at " + itemName + " in your inventory");
+            // call the iterateItem function
             iterateItem(itemName);
         }
         else {
+            // print a helpful statement if the item can't get looked at
             System.out.println("you can not look at " + itemName + " it's not in this room!");
         }
     }
-
+// iterate over items in the json file
     public void iterateItem(String itemName) {
+        // for every item in the items section in the json
         for (Item curItem : items) {
+            // if the current item name equals the itemName
             if(curItem.getName().equalsIgnoreCase(itemName)) {
+                // print the description
                 System.out.println(curItem.getDescription());
             }
         }
     }
 
 
+    public void addLocation(Location location) {
+    }
+
+    public void addCharacter(Character character) {
+    }
+
+    public void addItem(Item item) {
+    }
+
+    public void setPlayer(Player player) {
+    }
 }
