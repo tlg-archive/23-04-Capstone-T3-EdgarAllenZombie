@@ -5,10 +5,15 @@ import com.google.gson.GsonBuilder;
 
 import java.io.*;
 
-public class JsonReader {
+public class MyJsonReader {
+FileReader fileReader;
+
+    public MyJsonReader(FileReader fileReader) {
+        this.fileReader = fileReader;
+    }
 
     public static <T> T readJson(Class<T> clazz, String filename) throws IOException {
-        return readJson(clazz, JsonReader.class.getClassLoader().getResourceAsStream(filename));
+        return readJson(clazz, MyJsonReader.class.getClassLoader().getResourceAsStream(filename));
     }
 
     public static <T> T readJson(Class<T> clazz, InputStream stream) throws IOException {

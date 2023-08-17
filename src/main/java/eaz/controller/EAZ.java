@@ -1,8 +1,7 @@
 package eaz.controller;
 
-import eaz.controller.TextParser;
 import eaz.model.CopyState;
-import eaz.model.JsonReader;
+import eaz.model.MyJsonReader;
 import eaz.model.Mansion;
 import eaz.model.Player;
 import eaz.view.GeneralViewItems;
@@ -10,11 +9,8 @@ import eaz.view.Music;
 import eaz.view.ViewMain;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
-
-import static eaz.model.JsonReader.*;
 
 
 public class EAZ {
@@ -41,7 +37,7 @@ public class EAZ {
     }
 
     public void run() throws IOException {
-        mansion = JsonReader.readMansion("JsonObjects.json");  // populate the mansion from the JsonObjects.json
+        mansion = MyJsonReader.readMansion("JsonObjects.json");  // populate the mansion from the JsonObjects.json
         Player player = mansion.getPlayer();
         String inputVerb = "";  // initialization to pull verb out of loop
         String inputNoun = "";  // initialization to pull noun outside of loop
