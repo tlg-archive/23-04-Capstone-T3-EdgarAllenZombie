@@ -4,6 +4,9 @@ package eaz.model;
 import eaz.view.ViewMain;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 
 public class Look {
@@ -12,13 +15,8 @@ public class Look {
     public static void look(String noun, Location location) throws IOException {
         ViewMain viewMain = new ViewMain();
         viewMain.doubleLine();
-        if (noun.equals("room")) {
-            System.out.println(location.getDescription());
-        } else {
-            System.out.println("look at " + noun);
-        }
-        // use that user input to call JsonReader getItem function and retrieve nested description
-
+        System.out.println("wrong look function");
     }
+
 
 }

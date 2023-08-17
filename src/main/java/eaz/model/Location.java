@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Location {
     private static Location[] locations;
@@ -16,6 +17,8 @@ public class Location {
     private String description;
     @Expose
     private List<String> items;
+//    @Expose
+//    private List<Map<String, Object>> itemMap;
     @Expose
     private String[] characters;
 
@@ -51,4 +54,5 @@ public class Location {
     public void setCharacters(String[] characters) {
         this.characters = characters;
     }
+
 }

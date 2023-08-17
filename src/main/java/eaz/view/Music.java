@@ -1,58 +1,70 @@
 package eaz.view;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
-import java.io.File;
+import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
 
 public class Music {
-    private Clip clip;
-    private FloatControl volumeControl;
+    private Clip music;
+    private Clip fx;
 
-    public Music(String filePath) {
+    public Music(String type, String filePath) {
         try {
-//            File audioFile = new File(filePath);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream(filePath));
-            clip = AudioSystem.getClip();
-            clip.open(audioStream);
-
-            // Initialize volume control
-            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(getClass().getClassLoader().getResourceAsStream(filePath)));
+            switch (type) {
+                case "music":
+                    music = AudioSystem.getClip();
+                    music.open(audioInputStream);
+                    break;
+                case "fx":
+                    fx = AudioSystem.getClip();
+                    fx.open(audioInputStream);
+                    break;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void play() {
-        if (clip != null && !clip.isRunning()) {
-            clip.start();
+    public void play(String item) {
+        switch (item) {
+            case "music":
+                music.start();
+                break;
+            case "fx":
+                fx.start();
+                break;
         }
     }
 
     public void stop() {
-        if (clip != null && clip.isRunning()) {
-            clip.stop();
-            clip.setFramePosition(0); 
-            clip.close();
-        }
+        music.stop();
+        music.setFramePosition(0); // Rewind to the beginning
     }
 
-//    public void volumeUp() {
-//        if (volumeControl != null) {
-//            float currentVolume = volumeControl.getValue();
-//            float maxVolume = volumeControl.getMaximum();
-//            float newVolume = Math.min(currentVolume + 1.0f, maxVolume);
-//            volumeControl.setValue(newVolume);
-//        }
-//    }
-//
-//    public void volumeDown() {
-//        if (volumeControl != null) {
-//            float currentVolume = volumeControl.getValue();
-//            float minVolume = volumeControl.getMinimum();
-//            float newVolume = Math.max(currentVolume - 1.0f, minVolume);
-//            volumeControl.setValue(newVolume);
-//        }
-//    }
+    public void setVolume(String item, float volume) {
+
+        switch (item) {
+            case "music":
+                if (music != null) {
+                    FloatControl gainControl = (FloatControl) music.getControl(FloatControl.Type.MASTER_GAIN);
+                    float minVolume = gainControl.getMinimum();
+                    float maxVolume = gainControl.getMaximum();
+                    float volumeRange = maxVolume - minVolume;
+                    float gain = (volume * volumeRange) + minVolume;
+                    gainControl.setValue(gain);
+                }
+                break;
+            case "fx":
+                if (fx != null) {
+                    FloatControl gainControl = (FloatControl) fx.getControl(FloatControl.Type.MASTER_GAIN);
+                    float minVolume = gainControl.getMinimum();
+                    float maxVolume = gainControl.getMaximum();
+                    float volumeRange = maxVolume - minVolume;
+                    float gain = (volume * volumeRange) + minVolume;
+                    gainControl.setValue(gain);
+                }
+                break;
+        }
+    }
 }
