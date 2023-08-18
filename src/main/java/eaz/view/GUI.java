@@ -1,10 +1,16 @@
 package eaz.view;
 
+import eaz.controller.TextParser;
+import eaz.model.Player;
+
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
+import eaz.view.ViewMain;
+import eaz.controller.EAZ;
 
 public class GUI {
 
@@ -29,7 +35,7 @@ public class GUI {
     }
 
     //Ctor
-    public GUI(){
+    public GUI() {
 
         // Set up the main game window
         gameWindow = new JFrame();
@@ -49,7 +55,7 @@ public class GUI {
 
         // Set up the panel for the start button
         startButtonPanel = new JPanel();
-        startButtonPanel.setBounds(300,400,200,100);
+        startButtonPanel.setBounds(300, 400, 200, 100);
         startButtonPanel.setBackground(Color.BLACK);//change color later, this is so i can work on the bounds
 
         //Set up the Start Button
@@ -79,7 +85,9 @@ public class GUI {
         gameWindow.requestFocus();
     }
 
-    public void createGameScreen(){
+    public void createGameScreen() {
+        ViewMain viewMain = new ViewMain();
+
         int userInputY_val = 310;
 
         // Hide the title and start button panels
@@ -89,13 +97,13 @@ public class GUI {
 //______Game Text Area: Displays game text of the story flow______________________________________
         //make the panel to hold the game text
         gameTextPanel = new JPanel();
-        gameTextPanel.setBounds(100,50,600,250);
+        gameTextPanel.setBounds(100, 50, 600, 250);
         gameTextPanel.setBackground(Color.blue);//change color later
         container.add(gameTextPanel);
 
         //add the text area to the panel so it can actually be displayed.
         gameTextDisplayArea = new JTextArea("Game Text will be displayed here!!!, Ticket 598 complete!!!");
-        gameTextDisplayArea.setBounds(100,100,400,250);
+        gameTextDisplayArea.setBounds(100, 100, 400, 250);
         gameTextDisplayArea.setBackground(Color.black);//change color to dark grey later
         gameTextDisplayArea.setForeground(Color.white);
         gameTextDisplayArea.setFont(normalFont);
@@ -103,11 +111,13 @@ public class GUI {
         gameTextPanel.add(gameTextDisplayArea);
 
 //______User Input Field: Prompts user for input fields____________________________________________
+        //creates the area for the user prompt
         userPromptPanel = new JPanel();
         userPromptPanel.setBounds(100,userInputY_val,150,25);
         userPromptPanel.setBackground(Color.red);//change the color later
         container.add(userPromptPanel);
 
+        // adds the text to the area for the user prompt
         userPromptArea = new JTextArea("What would you like to do? ");
         userPromptArea.setBounds(100,userInputY_val,150,25);
         userPromptArea.setBackground(Color.black);
@@ -116,25 +126,44 @@ public class GUI {
         userPromptArea.setEditable(false);
         userPromptPanel.add(userPromptArea);
 
-        userInputArea = new JTextArea();
-        userInputArea.setBounds(260,userInputY_val,440,25);
-        userInputArea.setBackground(Color.black);
-        userInputArea.setForeground(Color.white);
-        container.add(userInputArea);
+       // please dont use!!!
+//        userInputArea = new JTextArea();
+//        userInputArea.setBounds(260,userInputY_val,440,25);
+//        userInputArea.setBackground(Color.black);
+//        userInputArea.setForeground(Color.white);
+//        container.add(userInputArea);
 
+        // creates the text field
         userInputField = new JTextField();
         userInputField.setBounds(260,userInputY_val,440,25);
         userInputField.setFont(normalFont);
-        userInputField.addActionListener(new ActionListener() {
+        userInputField.setBackground(Color.black);
+        userInputField.setForeground(Color.white);
+        container.add(userInputField);
+//
+//        //adding for focus
+//        userInputField.requestFocus();
+
+        // ...
+
+// add key listener
+        userInputField.addKeyListener(new KeyAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String userInput = userInputField.getText().trim();
-                // Process the user input here
-                userInputArea.append("User input: " + userInput + "\n");
-                userInputField.setText(""); // Clear the input field
+            public void keyPressed(KeyEvent e) {
+                String input = userInputField.getText().trim();
+
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+
+                    if (input.equalsIgnoreCase("help")) {
+                        JOptionPane.showMessageDialog(null, "Dialog box: Help");
+//                        JOptionPane.showMessageDialog(null,);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Dialog box: You typed something else");
+                    }
+                    userInputField.setText(""); // Clear the input field after processing
+                }
             }
         });
-        userInputArea.add(userInputField);
-    }
 
+    }
 }
