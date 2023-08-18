@@ -1,16 +1,15 @@
-package eaz.view;
+package eaz.controller;
 
-import eaz.controller.TextParser;
+import eaz.model.Mansion;
+import eaz.model.MyJsonReader;
 import eaz.model.Player;
+import eaz.view.ViewMain;
 
 import javax.swing.*;
-
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
-
-import eaz.view.ViewMain;
-import eaz.controller.EAZ;
 
 public class GUI {
 
@@ -25,18 +24,27 @@ public class GUI {
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 12);  // Normal font
     JTextArea gameTextDisplayArea, userPromptArea, userInputArea;  // Text areas for displaying game text and user input prompt
     JTextField userInputField;  // Text field for user input
-
-
+private final Mansion mansion;
+private final GUIFunctionality helper;
     //This main is for testing purposes only, to periodically test adjustments to the GUI.
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new GUI();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    new GUI();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         });
     }
 
     //Ctor
-    public GUI() {
-
+    public GUI() throws IOException {
+        mansion = MyJsonReader.readMansion("saved.json");
+        Player player;
+        helper = new GUIFunctionality(mansion);
         // Set up the main game window
         gameWindow = new JFrame();
         gameWindow.setSize(800, 600);
@@ -113,20 +121,20 @@ public class GUI {
 //______User Input Field: Prompts user for input fields____________________________________________
         //creates the area for the user prompt
         userPromptPanel = new JPanel();
-        userPromptPanel.setBounds(100,userInputY_val,150,25);
+        userPromptPanel.setBounds(100, userInputY_val, 150, 25);
         userPromptPanel.setBackground(Color.red);//change the color later
         container.add(userPromptPanel);
 
         // adds the text to the area for the user prompt
         userPromptArea = new JTextArea("What would you like to do? ");
-        userPromptArea.setBounds(100,userInputY_val,150,25);
+        userPromptArea.setBounds(100, userInputY_val, 150, 25);
         userPromptArea.setBackground(Color.black);
         userPromptArea.setForeground(Color.white);
         userPromptArea.setFont(normalFont);
         userPromptArea.setEditable(false);
         userPromptPanel.add(userPromptArea);
 
-       // please dont use!!!
+        // please dont use!!!
 //        userInputArea = new JTextArea();
 //        userInputArea.setBounds(260,userInputY_val,440,25);
 //        userInputArea.setBackground(Color.black);
@@ -135,27 +143,15 @@ public class GUI {
 
         // creates the text field
         userInputField = new JTextField();
-        userInputField.setBounds(260,userInputY_val,440,25);
+        userInputField.setBounds(260, userInputY_val, 440, 25);
         userInputField.setFont(normalFont);
         userInputField.setBackground(Color.black);
         userInputField.setForeground(Color.white);
         container.add(userInputField);
 
-// add key listener
-        userInputField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                String input = userInputField.getText().trim();
+        userInputField.addActionListener(event -> helper.handleUserInput(userInputField));
 
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-
-                    if (input.equalsIgnoreCase("help")) {
-                        JOptionPane.showMessageDialog(null,"Commands: | move | take | attack | talk | help | quit");
-                    }
-                    userInputField.setText(""); // Clear the input field after processing
-                }
-            }
-        });
 
     }
+
 }
