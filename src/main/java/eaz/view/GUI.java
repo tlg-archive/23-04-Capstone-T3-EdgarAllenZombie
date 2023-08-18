@@ -1,4 +1,4 @@
-package eaz.controller;
+package eaz.view;
 
 import javax.swing.*;
 
@@ -42,7 +42,7 @@ public class GUI {
         // Set up the panel for the game title
         titlePanel = new JPanel();
         titlePanel.setBounds(100, 100, 600, 150);
-        titlePanel.setBackground(Color.BLACK);//change color later
+        titlePanel.setBackground(Color.black);//change color later
         titleLabel = new JLabel("Edgar Allen Zombie");
         titleLabel.setForeground(Color.RED);
         titleLabel.setFont(titleFont);
