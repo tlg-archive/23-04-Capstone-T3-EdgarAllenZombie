@@ -140,11 +140,6 @@ public class GUI {
         userInputField.setBackground(Color.black);
         userInputField.setForeground(Color.white);
         container.add(userInputField);
-//
-//        //adding for focus
-//        userInputField.requestFocus();
-
-        // ...
 
 // add key listener
         userInputField.addKeyListener(new KeyAdapter() {
@@ -155,10 +150,7 @@ public class GUI {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
                     if (input.equalsIgnoreCase("help")) {
-                        JOptionPane.showMessageDialog(null, "Dialog box: Help");
-//                        JOptionPane.showMessageDialog(null,);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Dialog box: You typed something else");
+                        JOptionPane.showMessageDialog(null,"Commands: | move | take | attack | talk | help | quit");
                     }
                     userInputField.setText(""); // Clear the input field after processing
                 }
