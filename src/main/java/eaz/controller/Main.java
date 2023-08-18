@@ -1,5 +1,6 @@
 package eaz.controller;
 
+import eaz.view.GUI;
 import eaz.view.ViewMain;
 
 import java.io.IOException;
