@@ -39,7 +39,11 @@ class GUIFunctionality {
         }
         String capturedOutput = basicOutput.toString();
 
-        capturedOutput.replaceAll("\u001B\\[[;\\d]*[ -/]*[@-~]", "");
+//        capturedOutput = capturedOutput.replaceAll("\\d{1,2}(;\\d{1,2})?", "");
+        capturedOutput = capturedOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
+                .replaceAll("\\[\\s*\\]", "");
+
+
         // TODO: 8/18/2023 involk methods in EAZ and/or text parser to handle user input
 
         //clears the panel input
