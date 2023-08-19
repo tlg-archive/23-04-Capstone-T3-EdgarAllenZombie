@@ -92,8 +92,8 @@ public class Mansion {
                     }
                     break;
                 } else {
-                    System.out.println(genItems.red + "You didn't enter a valid location to move to!!\n" + genItems.white);
-                    genItems.pauseScreen();
+                    System.out.println(genItems.red + "Error: You didn't enter a valid location to move to!! Please try again.\n" + genItems.white);
+                    //genItems.pauseScreen();
                 }
             }
         }
@@ -111,6 +111,24 @@ public class Mansion {
     }
 
 
+    public void playMusic(String musicType){
+        if (musicType.equals("music")) {
+            EAZ.backgroundMusic.play("music");
+        } else {
+            EAZ.playFX = true;
+        }
+    }
+
+    public void stopMusic(String musicType){
+        if (musicType.equals("music")) {
+            EAZ.backgroundMusic.stop();
+        } else {
+            EAZ.playFX = false;
+        }
+    }
+
+
+
     public void dropItem(String itemName){
         Item item = new Item();
         // set the parameters from mansion to use in dropItem
@@ -123,7 +141,7 @@ public class Mansion {
 
     public void fight(String target){
         if (target.length() == 0){
-            System.out.println("please enter who you want to attack");
+            System.out.println("Please enter who you want to attack!!! Please try again.");
         } else {
             Combat combat = new Combat();
             Location currentLocation = getCurrentLocation();
@@ -152,11 +170,11 @@ public class Mansion {
             iterateItem(itemName);
         }
         else if (itemName != "" && itemName != null){
-            System.out.println(genItems.red + "You can not look at " + itemName + " it's not in this room or your inventory!!!\n" + genItems.white);
+            System.out.println(genItems.red + "Error: You can not look at " + itemName + " it's not in this room or your inventory!!! Please try again.\n" + genItems.white);
         } else {
             // print a helpful statement
         }
-            System.out.println(genItems.red + "You didn't enter a valid item to look at!!!\n" + genItems.white);
+            System.out.println(genItems.red + "Error: You didn't enter a valid item to look at!!! Please try again.\n" + genItems.white);
 
     }
 

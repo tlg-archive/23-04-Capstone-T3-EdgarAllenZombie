@@ -88,13 +88,11 @@ public class TextParser {
             case "hit":
                 mansion.fight(noun);
                 break;
-            case "off":
-                EAZ.backgroundMusic.stop();
-                EAZ.playFX = false;
+            case "stop":
+                mansion.stopMusic(noun);
                 break;
-            case "on":
-                EAZ.backgroundMusic.play("music");
-                EAZ.playFX = true;
+            case "play":
+                mansion.playMusic(noun);
                 break;
             case "map":
                 //viewMain.clearScreen();
@@ -105,7 +103,7 @@ public class TextParser {
             case "quit":
                 break;
             default:
-                System.out.println(genItems.red + "Invalid command. Try again." + genItems.white);
+                System.out.println(genItems.red + "Error: Invalid entry - Please try again." + genItems.white);
                 viewMain.textHelp();
                 verb = "";
                 noun = "";

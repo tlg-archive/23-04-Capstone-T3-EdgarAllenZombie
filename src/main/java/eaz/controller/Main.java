@@ -1,18 +1,25 @@
 package eaz.controller;
 
+import eaz.view.GeneralViewItems;
 import eaz.view.ViewMain;
+import eaz.view.GeneralViewItems;
 
 import java.io.IOException;
 import java.util.Scanner;
 
+
 public class Main {
+
     public static void main(String[] args) throws IOException, InterruptedException {
+        GeneralViewItems genItems = new GeneralViewItems();
+        String green = genItems.green;
+        String white = genItems.white;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Would you like to:");
+        System.out.println(green + "Would you like to:");
         System.out.println("1) Play the original game (console-based)");
         System.out.println("2) See the GUI-based game");
-        System.out.print("Please enter '1' or '2'> ");
+        System.out.print("Please enter '1' or '2'> " + white);
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume the newline left by nextInt()
 
