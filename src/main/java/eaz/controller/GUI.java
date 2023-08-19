@@ -51,7 +51,6 @@ public class GUI {
         Player player;
         helper = new GUIFunctionality(mansion);
 
-
         // Set up the main game window
         gameWindow = new JFrame();
         gameWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);

@@ -35,7 +35,6 @@ class GUIFunctionality {
         return refactoredOutput;
     }
 
-
     void handleUserInput(JTextComponent field) {
         //These first three lines we can move anywhere, they set up the redirect
        ByteArrayOutputStream basicOutput = new ByteArrayOutputStream();
