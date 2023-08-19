@@ -74,7 +74,7 @@ public class EAZ {
                 inputNoun = gameCommands[1];
 
                 // if quit, exit or stop are typed, run quitGame in loop
-                if(inputVerb.equals("quit") || inputVerb.equals("exit") || inputVerb.equals("stop")){
+                if(inputVerb.equals("quit") || inputVerb.equals("exit")){
                     MyJsonReader.writeMansion(mansion, "saved.json");
                     // CopyState.createSavedMansion(mansion);
                     quitGame();

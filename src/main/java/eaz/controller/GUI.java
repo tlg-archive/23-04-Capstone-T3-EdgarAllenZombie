@@ -3,6 +3,7 @@ package eaz.controller;
 import eaz.model.Mansion;
 import eaz.model.MyJsonReader;
 import eaz.model.Player;
+import eaz.view.Music;
 import eaz.view.ViewMain;
 
 import javax.swing.*;
@@ -28,6 +29,8 @@ public class GUI {
     JTextField userInputField;  // Text field for user input
     private final Mansion mansion;
     private final GUIFunctionality helper;
+    public static Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
+
 
     //This main is for testing purposes only, to periodically test adjustments to the GUI.
         // Set up the sout redirect to Buffer Stream
@@ -50,6 +53,8 @@ public class GUI {
         mansion = MyJsonReader.readMansion("saved.json");
         Player player;
         helper = new GUIFunctionality(mansion);
+
+
 
         // Set up the main game window
         gameWindow = new JFrame();
@@ -86,6 +91,9 @@ public class GUI {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    //start the music
+                    backgroundMusic.setVolume("music", (float) 7/10);
+                    backgroundMusic.play("music");
                     createGameScreen();
                 }
             }

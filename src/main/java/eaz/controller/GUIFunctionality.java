@@ -20,6 +20,7 @@ class GUIFunctionality {
     ByteArrayOutputStream basicOutput = new ByteArrayOutputStream();
     PrintStream printOutput = new PrintStream(basicOutput);
 
+
     GUIFunctionality(Mansion mansion) {
         this.mansion = mansion;
     }
@@ -58,13 +59,9 @@ class GUIFunctionality {
 //    }
 
     void handleUserInput(JTextComponent field, JTextArea gameTextDisplayArea) {
-        //These first three lines we can move anywhere, they set up the redirect
-//       ByteArrayOutputStream basicOutput = new ByteArrayOutputStream();
-//       PrintStream printOutput = new PrintStream(basicOutput);
-        String inputText = field.getText();
-//        String inputNoun;
-        field.setText("");
 
+        String inputText = field.getText();
+        field.setText("");
         String[] words = inputText.split(" ");
         String verb = "";
         String noun = "";
@@ -76,42 +73,103 @@ class GUIFunctionality {
         }
 
         System.setOut(printOutput);
-        //This is from the user input in the panel and sending it into the text parser
+        // This is from the user input in the panel and sending it into the text parser
 
         try {
             TextParser.handleInput(mansion, verb, noun);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         String capturedOutput = basicOutput.toString();
         basicOutput.reset();
         capturedOutput = capturedOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
                 .replaceAll("\\[\\s*\\]", "");
 
-
+        // If there is an Error we need to strip out the information text based games adds.
+        if (capturedOutput.contains("Error:")){
+            String longText = capturedOutput;
+            String target = "Please try again.";
+            int index = longText.indexOf(target);
+            if (index != -1) {
+                String result = longText.substring(0, index + target.length());
+                capturedOutput = result;
+            }
+        }
+        // Create a JTextArea and set its properties
         Font font = new Font("Monospaced", Font.PLAIN, 12);
-        JTextArea textArea = new JTextArea(capturedOutput);
+        JTextArea textArea = new JTextArea();
         textArea.setFont(font);
         textArea.setTabSize(1);
+        textArea.setText(capturedOutput.trim()); // Set the text
+        textArea.setEditable(false); // Prevent user editing
 
-        // TODO: 8/18/2023 involk methods in EAZ and/or text parser to handle user input
-
-        //The basicOutput holds whatever info was sout in the game and the toString will direct it to our panels/windows
-        //JOptionPane.showMessageDialog(null, basicOutput.toString());
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        JPanel panel = new JPanel();
-        panel.add(scrollPane);
-        //JOptionPane.showMessageDialog(null, capturedOutput);
-
-        // if the field is help...
-        if (verb.equalsIgnoreCase("help") || verb.equalsIgnoreCase("map") || noun.equalsIgnoreCase("on") || noun.equalsIgnoreCase("off")) {
-            JOptionPane.showMessageDialog(null, panel, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
+        // If the field is help...
+        if (verb.equalsIgnoreCase("help") || verb.equalsIgnoreCase("map") || capturedOutput.contains("Error:")) {
+            JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
         } else {
-            //set text to write to a jPanel
+            // Set text to write to a jPanel
             gameTextDisplayArea.setText(displayPlayerInformation());
-
         }
     }
+
+
+//    void handleUserInput(JTextComponent field, JTextArea gameTextDisplayArea) {
+//
+//        String inputText = field.getText();
+//        field.setText("");
+//        String[] words = inputText.split(" ");
+//        String verb = "";
+//        String noun = "";
+//        verb = words[0];
+//        noun = words.length > 1 ? words[1] : "";
+//
+//        if (words.length >= 2) {
+//            noun = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+//        }
+//
+//        System.setOut(printOutput);
+//        //This is from the user input in the panel and sending it into the text parser
+//
+//        try {
+//            TextParser.handleInput(mansion, verb, noun);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        String capturedOutput = basicOutput.toString();
+//        basicOutput.reset();
+//        capturedOutput = capturedOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
+//                .replaceAll("\\[\\s*\\]", "");
+//
+//
+//        Font font = new Font("Monospaced", Font.PLAIN, 12);
+//        JTextArea textArea = new JTextArea(capturedOutput.trim());
+//        textArea.setFont(font);
+//        textArea.setTabSize(1);
+//
+//        // TODO: 8/18/2023 involk methods in EAZ and/or text parser to handle user input
+//
+//        //The basicOutput holds whatever info was sout in the game and the toString will direct it to our panels/windows
+//        //JOptionPane.showMessageDialog(null, basicOutput.toString());
+//        JScrollPane scrollPane = new JScrollPane(textArea);
+//        JPanel panel = new JPanel();
+//        panel.add(scrollPane);
+//        //JOptionPane.showMessageDialog(null, capturedOutput);
+//
+//        // if the field is help...
+//        if (verb.equalsIgnoreCase("help") || verb.equalsIgnoreCase("map")) {
+//            JOptionPane.showMessageDialog(null, panel, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
+//        } else {
+//            if (capturedOutput.contains("Error:")){
+//                JOptionPane.showMessageDialog(null, panel, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
+//            } else {
+//            //set text to write to a jPanel
+//            gameTextDisplayArea.setText(displayPlayerInformation());
+//            }
+//
+//        }
+//    }
 
 
 //    void handleUserInput(JTextComponent field) {
