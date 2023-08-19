@@ -120,7 +120,7 @@ public class GUI {
 
         //add the text area to the panel so it can actually be displayed.
         gameTextDisplayArea = new JTextArea("Game Text will be displayed here!!!, Ticket 598 complete!!!");
-        gameTextDisplayArea.setText(helper.displayPlayerInformation());
+        gameTextDisplayArea.setText(helper.displayPlayerInformation()); // TODO: 8/19/2023 change to append maybe?
         //helper.displayPlayerInformation(gameTextDisplayArea);
         //gameTextDisplayArea.setBounds(200, 100, 600, 600);
         gameTextDisplayArea.setBounds(200, 50, 700, 200);
@@ -161,7 +161,7 @@ public class GUI {
         userInputField.setForeground(Color.white);
         container.add(userInputField);
 
-        userInputField.addActionListener(event -> helper.handleUserInput(userInputField));
+        userInputField.addActionListener(event -> helper.handleUserInput(userInputField, gameTextDisplayArea));
 
 
     }
