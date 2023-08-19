@@ -12,8 +12,7 @@ public class Main {
         System.out.println("Would you like to:");
         System.out.println("1) Play the original game (console-based)");
         System.out.println("2) See the GUI-based game");
-        System.out.println("Please enter '1' or '2':");
-
+        System.out.print("Please enter '1' or '2'> ");
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume the newline left by nextInt()
 

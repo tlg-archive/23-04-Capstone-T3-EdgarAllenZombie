@@ -24,8 +24,9 @@ public class GUI {
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 12);  // Normal font
     JTextArea gameTextDisplayArea, userPromptArea, userInputArea;  // Text areas for displaying game text and user input prompt
     JTextField userInputField;  // Text field for user input
-private final Mansion mansion;
-private final GUIFunctionality helper;
+    private final Mansion mansion;
+    private final GUIFunctionality helper;
+
     //This main is for testing purposes only, to periodically test adjustments to the GUI.
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
