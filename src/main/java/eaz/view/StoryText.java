@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+
 class StoryText {
     GeneralViewItems genItems = new GeneralViewItems();
     String red = genItems.red;
