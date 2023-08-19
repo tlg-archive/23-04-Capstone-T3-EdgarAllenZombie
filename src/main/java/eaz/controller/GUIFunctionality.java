@@ -1,6 +1,7 @@
 package eaz.controller;
 
 import eaz.model.Mansion;
+import eaz.model.Player;
 import eaz.view.ViewMain;
 import org.w3c.dom.Text;
 
@@ -13,17 +14,32 @@ import java.io.PrintStream;
 
 class GUIFunctionality {
     //methods to incorporate the original game into the GUI go here.
-    private final Mansion mansion;
+    //private final Mansion mansion;
+      private Mansion mansion;
 
     GUIFunctionality(Mansion mansion) {
         this.mansion = mansion;
     }
 
-    void handleUserInput(JTextComponent field) {
+    String displayPlayerInformation(){
         //These first three lines we can move anywhere, they set up the redirect
         ByteArrayOutputStream basicOutput = new ByteArrayOutputStream();
         PrintStream printOutput = new PrintStream(basicOutput);
         System.setOut(printOutput);
+        Player player = mansion.getPlayer();
+        ViewMain viewMain = new ViewMain();
+        viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
+        String textOutput = basicOutput.toString();
+        String refactoredOutput = textOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
+                .replaceAll("\\[\\s*\\]", "");
+        return refactoredOutput;
+    }
+
+    void handleUserInput(JTextComponent field) {
+        //These first three lines we can move anywhere, they set up the redirect
+       ByteArrayOutputStream basicOutput = new ByteArrayOutputStream();
+       PrintStream printOutput = new PrintStream(basicOutput);
+       System.setOut(printOutput);
 
         //This is from the user input in the panel and sending it into the text parser
         String input = field.getText();

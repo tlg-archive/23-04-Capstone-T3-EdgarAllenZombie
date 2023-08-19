@@ -9,7 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 
 public class GUI {
 
@@ -28,6 +30,8 @@ public class GUI {
     private final GUIFunctionality helper;
 
     //This main is for testing purposes only, to periodically test adjustments to the GUI.
+        // Set up the sout redirect to Buffer Stream
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -46,13 +50,16 @@ public class GUI {
         mansion = MyJsonReader.readMansion("saved.json");
         Player player;
         helper = new GUIFunctionality(mansion);
+
         // Set up the main game window
         gameWindow = new JFrame();
+        gameWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
         gameWindow.setSize(800, 600);
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameWindow.getContentPane().setBackground(Color.darkGray);
         gameWindow.setLayout(null); // Use absolute layout
         container = gameWindow.getContentPane();
+
 
         // Set up the panel for the game title
         titlePanel = new JPanel();
@@ -97,7 +104,7 @@ public class GUI {
     public void createGameScreen() {
         ViewMain viewMain = new ViewMain();
 
-        int userInputY_val = 310;
+        int userInputY_val = 390;
 
         // Hide the title and start button panels
         titlePanel.setVisible(false);
@@ -106,13 +113,17 @@ public class GUI {
 //______Game Text Area: Displays game text of the story flow______________________________________
         //make the panel to hold the game text
         gameTextPanel = new JPanel();
-        gameTextPanel.setBounds(100, 50, 600, 250);
+        //gameTextPanel.setBounds(100, 50, 600, 250);
+        gameTextPanel.setBounds(200, 50, 800, 300);
         gameTextPanel.setBackground(Color.blue);//change color later
         container.add(gameTextPanel);
 
         //add the text area to the panel so it can actually be displayed.
         gameTextDisplayArea = new JTextArea("Game Text will be displayed here!!!, Ticket 598 complete!!!");
-        gameTextDisplayArea.setBounds(100, 100, 400, 250);
+        gameTextDisplayArea.setText(helper.displayPlayerInformation());
+        //helper.displayPlayerInformation(gameTextDisplayArea);
+        //gameTextDisplayArea.setBounds(200, 100, 600, 600);
+        gameTextDisplayArea.setBounds(200, 50, 700, 200);
         gameTextDisplayArea.setBackground(Color.black);//change color to dark grey later
         gameTextDisplayArea.setForeground(Color.white);
         gameTextDisplayArea.setFont(normalFont);
@@ -122,13 +133,13 @@ public class GUI {
 //______User Input Field: Prompts user for input fields____________________________________________
         //creates the area for the user prompt
         userPromptPanel = new JPanel();
-        userPromptPanel.setBounds(100, userInputY_val, 150, 25);
+        userPromptPanel.setBounds(300, userInputY_val, 150, 25);
         userPromptPanel.setBackground(Color.red);//change the color later
         container.add(userPromptPanel);
 
         // adds the text to the area for the user prompt
         userPromptArea = new JTextArea("What would you like to do? ");
-        userPromptArea.setBounds(100, userInputY_val, 150, 25);
+        userPromptArea.setBounds(300, userInputY_val, 150, 25);
         userPromptArea.setBackground(Color.black);
         userPromptArea.setForeground(Color.white);
         userPromptArea.setFont(normalFont);
@@ -144,7 +155,7 @@ public class GUI {
 
         // creates the text field
         userInputField = new JTextField();
-        userInputField.setBounds(260, userInputY_val, 440, 25);
+        userInputField.setBounds(460, userInputY_val, 440, 25);
         userInputField.setFont(normalFont);
         userInputField.setBackground(Color.black);
         userInputField.setForeground(Color.white);

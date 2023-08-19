@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
-
 public class EAZ {
     @SuppressWarnings("FieldCanBeLocal")
     GeneralViewItems genItems = new GeneralViewItems();
