@@ -14,6 +14,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.JSlider;
+
 public class GUI {
 
     // Declare objects for the game window
@@ -171,6 +175,19 @@ public class GUI {
 
         userInputField.addActionListener(event -> helper.handleUserInput(userInputField, gameTextDisplayArea));
 
+        // Create a slider to control music volume
+        JSlider volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 70); // Initial volume at 70%
+        volumeSlider.setBounds(200, userInputY_val + 30, 300, 25);
+        container.add(volumeSlider);
+
+        backgroundMusic.play("music");
+        volumeSlider.addChangeListener(event -> {
+            JSlider source = (JSlider) event.getSource();
+            if (!source.getValueIsAdjusting()) {
+                float volume = (float) source.getValue() / 100;
+                backgroundMusic.setVolume("music", volume);
+            }
+        });
 
     }
 

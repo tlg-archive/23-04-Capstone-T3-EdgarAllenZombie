@@ -29,7 +29,7 @@ public class Main {
             viewMain.introScreen();
             eaz.run();
         } else if (choice == 2) {
-            GUI runGUI = new GUI();
+            GUI_Two runGUI = new GUI_Two();
         } else {
             System.out.println("Invalid choice. Please enter 1 or 2.");
         }

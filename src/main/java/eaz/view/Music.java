@@ -51,7 +51,7 @@ public class Music {
                     float minVolume = gainControl.getMinimum();
                     float maxVolume = gainControl.getMaximum();
                     float volumeRange = maxVolume - minVolume;
-                    float gain = (volume * volumeRange) + minVolume;
+                    float gain = gainControl.getMinimum() + (gainControl.getMaximum() - gainControl.getMinimum()) * volume;
                     gainControl.setValue(gain);
                 }
                 break;
