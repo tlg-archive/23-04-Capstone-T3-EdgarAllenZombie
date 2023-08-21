@@ -2,6 +2,7 @@ package eaz.controller;
 
 import eaz.model.*;
 import eaz.view.Music;
+import eaz.view.SliderGradient;
 import eaz.view.ViewMain;
 
 import eaz.model.MyJsonReader;
@@ -39,7 +40,7 @@ public class GUI_Two {
     JTextArea mainTextArea;
     JTextField userInputField;
 
-    JSlider volumeSlider;
+    SliderGradient volumeSlider;
 
     private final Mansion mansion;
     private final GUIFunctionality helper;
@@ -301,7 +302,8 @@ public class GUI_Two {
         volumeSliderLabel.setFont(normalFont);
         audioPanel.add(volumeSliderLabel);
 
-        volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 70); // Initial volume at 70%
+        //volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 70); // Initial volume at 70%
+        volumeSlider = new SliderGradient();
         volumeSlider.setBackground(Color.black);
         volumeSlider.setForeground(Color.green);
         volumeSlider.addChangeListener(volumeHandler);
