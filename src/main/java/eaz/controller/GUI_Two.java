@@ -35,6 +35,7 @@ public class GUI_Two {
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 70);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
     Font gameFont = new Font("Times New Roman", Font.PLAIN, 15);
+    Font textFilefont = new Font("Monospaced", Font.PLAIN, 12);
 
     JButton startButton, choice1, choice2, choice3, choice4;
     JTextArea mainTextArea, gameTextDisplayArea;
@@ -88,8 +89,9 @@ public class GUI_Two {
 
 //        titleGameLabel = new JLabel("Edgar Allen Zombie");
         titleGameLabel = new JLabel();
+        titleGameLabel.setFont(textFilefont);
         titleGameLabel.setForeground(Color.green);
-        titleGameLabel.setFont(titleFont);
+
 
 
         //set up the button panel
