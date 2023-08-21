@@ -92,7 +92,7 @@ class GUIFunctionality_Two {
             JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
         } else {
             // Set text to write to a jPanel
-            gameTextDisplayArea.setText(displayPlayerInformation());
+            //gameTextDisplayArea.setText(displayPlayerInformation());
         }
     }
 }
