@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-class GameLoopDisplay {
+public class GameLoopDisplay {
     GeneralViewItems genItems = new GeneralViewItems();
     String doubleLines = genItems.doubleLines;
     String green = genItems.green;
