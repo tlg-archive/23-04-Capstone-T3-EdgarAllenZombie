@@ -6,8 +6,11 @@ import eaz.view.ViewMain;
 
 import eaz.model.MyJsonReader;
 import eaz.model.Player;
+import eaz.view.Music;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,11 +25,11 @@ public class GUI_Two {
 
     JFrame window;   //First Layer
     Container con;   //Placed on window
-    JPanel titleGamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel;  //Placed on container
+    JPanel titleGamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel;  //Placed on container
     JLabel titleGameLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel,
             playerNameLabelNumber, userPromptLabel, currentLocationLabel, currentLocationLabelNumber, descriptionLabel,
             descriptionLabelNumber, directionsLabel, directionsLabelNumber, itemsLabel, itemsLabelNumber, creaturesLabel,
-            creaturesLabelNumber; //Placed on panel
+            creaturesLabelNumber, volumeSliderLabel; //Placed on panel
 
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 70);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
@@ -36,14 +39,19 @@ public class GUI_Two {
     JTextArea mainTextArea, gameTextDisplayArea;
     JTextField userInputField;
 
+    JSlider volumeSlider;
+
     private final Mansion mansion;
+
 //    private final GUIFunctionality helper;
     private final GUIFunctionality_Two helper;
+    public final Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
 
 
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     ChoiceHandler choiceHandler = new ChoiceHandler();
     UserInputHandler userInputHandler = new UserInputHandler();
+    VolumeHandler volumeHandler = new VolumeHandler();
     ViewMain playerInfo = new ViewMain();
 
 //    public static void main(String[] args) throws IOException {
@@ -66,7 +74,7 @@ public class GUI_Two {
         helper = new GUIFunctionality_Two(mansion);
 
         window = new JFrame();
-        window.setSize(800, 600);
+        window.setSize(800, 650);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.black);
         window.setLayout(null);
@@ -81,6 +89,7 @@ public class GUI_Two {
         titleGameLabel = new JLabel();
         titleGameLabel.setForeground(Color.green);
         titleGameLabel.setFont(titleFont);
+
 
         //set up the button panel
         startButtonPanel = new JPanel();
@@ -183,7 +192,7 @@ public class GUI_Two {
         descriptionLabelNumber.setForeground(Color.yellow);
         mainTextPanel.add(descriptionLabelNumber);
 
-        directionsLabel = new JLabel("<html><br>Directions to Move: </html");
+        directionsLabel = new JLabel("<html><br>Directions to Move: </html>");
         directionsLabel.setHorizontalAlignment(JLabel.LEFT);
         directionsLabel.setFont(gameFont);
         directionsLabel.setForeground(Color.green);
@@ -215,17 +224,6 @@ public class GUI_Two {
         creaturesLabelNumber.setFont(gameFont);
         creaturesLabelNumber.setForeground(Color.yellow);
         mainTextPanel.add(creaturesLabelNumber);
-
-
-//        mainTextArea = new JTextArea(helper.displayPlayerInformation());
-//        mainTextArea.setBounds(100, 90, 600, 300);
-//        mainTextArea.setBackground(Color.black);
-//        mainTextArea.setForeground(Color.green);
-//        mainTextArea.setFont(gameFont);
-//        mainTextArea.setLineWrap(true);
-//        mainTextPanel.add(mainTextArea);
-
-
 
         //User input area
         userPromptPanel = new JPanel();
@@ -295,9 +293,30 @@ public class GUI_Two {
         choice4.addActionListener(choiceHandler);
         choice4.setActionCommand("c4");
 
-        // calls to functions below
+
+        // Create an audio panel
+
+        audioPanel = new JPanel();
+        audioPanel.setBounds(200, 550, 350, 30);
+        audioPanel.setBackground(Color.black);
+        con.add(audioPanel);
+
+        volumeSliderLabel = new JLabel("Volume Level: ");
+        volumeSliderLabel.setBackground(Color.black);
+        volumeSliderLabel.setForeground(Color.green);
+        volumeSliderLabel.setFont(normalFont);
+        audioPanel.add(volumeSliderLabel);
+
+        volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 70); // Initial volume at 70%
+        volumeSlider.setBackground(Color.black);
+        volumeSlider.setForeground(Color.green);
+        volumeSlider.addChangeListener(volumeHandler);
+        audioPanel.add(volumeSlider);
+
+        // Game initialization
         playerSetup();
         roomSetup();
+        backgroundMusic.play("music");
 
         // Refreshing the window
         window.revalidate();
@@ -363,6 +382,18 @@ public class GUI_Two {
                     break;
                 case "c4":
                     break;
+            }
+        }
+    }
+
+    public class VolumeHandler implements ChangeListener {
+
+        @Override
+        public void stateChanged(ChangeEvent event) {
+            JSlider source = (JSlider) event.getSource();
+            if (!source.getValueIsAdjusting()) {
+                float volume = (float) source.getValue() / 100;
+                backgroundMusic.setVolume("music", volume);
             }
         }
     }
