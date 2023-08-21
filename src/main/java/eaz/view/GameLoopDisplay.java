@@ -32,6 +32,7 @@ class GameLoopDisplay {
         displayPlayerInventory(inventory);
         System.out.println(green + doubleLines);
     }
+
     void displayPlayerInventory(List<String> inventory){
         System.out.println(green + "Your inventory items are: " + yellow + inventory);
     }

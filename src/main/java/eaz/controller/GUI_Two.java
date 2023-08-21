@@ -1,8 +1,6 @@
 package eaz.controller;
 
-import eaz.model.Mansion;
-import eaz.model.MyJsonReader;
-import eaz.model.Player;
+import eaz.model.*;
 import eaz.view.Music;
 import eaz.view.ViewMain;
 
@@ -14,7 +12,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Array;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 
 public class GUI_Two {
@@ -22,7 +23,10 @@ public class GUI_Two {
     JFrame window;   //First Layer
     Container con;   //Placed on window
     JPanel titleGamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel;  //Placed on container
-    JLabel titleGameLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel, playerNameLabelNumber, userPromptLabel; //Placed on panel
+    JLabel titleGameLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel,
+            playerNameLabelNumber, userPromptLabel, currentLocationLabel, currentLocationLabelNumber, descriptionLabel,
+            descriptionLabelNumber, directionsLabel, directionsLabelNumber, itemsLabel, itemsLabelNumber, creaturesLabel,
+            creaturesLabelNumber; //Placed on panel
 
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 70);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
@@ -40,19 +44,17 @@ public class GUI_Two {
     UserInputHandler userInputHandler = new UserInputHandler();
     ViewMain playerInfo = new ViewMain();
 
+
 //    public static void main(String[] args) throws IOException {
 //        new GUI_Two();
 //    }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    new GUI_Two();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+        SwingUtilities.invokeLater(() -> {
+            try {
+                new GUI_Two();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
     }
@@ -152,15 +154,74 @@ public class GUI_Two {
         mainTextPanel = new JPanel();
         mainTextPanel.setBounds(100, 90, 600, 300);
         mainTextPanel.setBackground(Color.black);
+        mainTextPanel.setLayout(new GridLayout(10,1));
         con.add(mainTextPanel);
 
-        mainTextArea = new JTextArea(helper.displayPlayerInformation());
-        mainTextArea.setBounds(100, 90, 600, 300);
-        mainTextArea.setBackground(Color.black);
-        mainTextArea.setForeground(Color.green);
-        mainTextArea.setFont(gameFont);
-        mainTextArea.setLineWrap(true);
-        mainTextPanel.add(mainTextArea);
+        currentLocationLabel = new JLabel("Current Location: ");
+        currentLocationLabel.setFont(gameFont);
+        currentLocationLabel.setForeground(Color.green);
+        mainTextPanel.add(currentLocationLabel);
+
+        currentLocationLabelNumber = new JLabel();
+        currentLocationLabelNumber.setFont(gameFont);
+        currentLocationLabelNumber.setForeground(Color.yellow);
+        mainTextPanel.add(currentLocationLabelNumber);
+
+        descriptionLabel = new JLabel("Room Description: ");
+        descriptionLabel.setHorizontalAlignment(JLabel.LEFT);
+        descriptionLabel.setFont(gameFont);
+        descriptionLabel.setForeground(Color.green);
+        mainTextPanel.add(descriptionLabel);
+
+        descriptionLabelNumber = new JLabel();
+        descriptionLabel.setBounds(100, 300, 500, 60);
+        descriptionLabelNumber.setFont(gameFont);
+        descriptionLabelNumber.setForeground(Color.yellow);
+        mainTextPanel.add(descriptionLabelNumber);
+
+        directionsLabel = new JLabel("<html><br>Directions to Move: </html");
+        directionsLabel.setHorizontalAlignment(JLabel.LEFT);
+        directionsLabel.setFont(gameFont);
+        directionsLabel.setForeground(Color.green);
+        mainTextPanel.add(directionsLabel);
+
+        directionsLabelNumber = new JLabel();
+        directionsLabelNumber.setFont(gameFont);
+        directionsLabelNumber.setForeground(Color.yellow);
+        mainTextPanel.add(directionsLabelNumber);
+
+        itemsLabel = new JLabel("Items in Room: ");
+        itemsLabel.setHorizontalAlignment(JLabel.LEFT);
+        itemsLabel.setFont(gameFont);
+        itemsLabel.setForeground(Color.green);
+        mainTextPanel.add(itemsLabel);
+
+        itemsLabelNumber = new JLabel();
+        itemsLabelNumber.setFont(gameFont);
+        itemsLabelNumber.setForeground(Color.yellow);
+        mainTextPanel.add(itemsLabelNumber);
+
+        creaturesLabel = new JLabel("NPCs in Room: ");
+        creaturesLabel.setHorizontalAlignment(JLabel.LEFT);
+        creaturesLabel.setFont(gameFont);
+        creaturesLabel.setForeground(Color.green);
+        mainTextPanel.add(creaturesLabel);
+
+        creaturesLabelNumber = new JLabel();
+        creaturesLabelNumber.setFont(gameFont);
+        creaturesLabelNumber.setForeground(Color.yellow);
+        mainTextPanel.add(creaturesLabelNumber);
+
+
+//        mainTextArea = new JTextArea(helper.displayPlayerInformation());
+//        mainTextArea.setBounds(100, 90, 600, 300);
+//        mainTextArea.setBackground(Color.black);
+//        mainTextArea.setForeground(Color.green);
+//        mainTextArea.setFont(gameFont);
+//        mainTextArea.setLineWrap(true);
+//        mainTextPanel.add(mainTextArea);
+
+
 
         //User input area
         userPromptPanel = new JPanel();
@@ -176,6 +237,7 @@ public class GUI_Two {
         userPromptLabel.setForeground(Color.pink);
         userPromptLabel.setFont(normalFont);
         userPromptPanel.add(userPromptLabel);
+
 
         userInputField = new JTextField();
         userInputField.setBounds(310, 420, 350, 25);
@@ -230,6 +292,7 @@ public class GUI_Two {
         choice4.setActionCommand("c4");
 
         playerSetup();
+        roomSetup();
 
         // Refreshing the window
         window.revalidate();
@@ -246,12 +309,23 @@ public class GUI_Two {
         healthLabelNumber.setText("" + playerHealth);
     }
 
+    public void roomSetup(){
+
+        Location currentLocation = mansion.getCurrentLocation();
+        currentLocationLabelNumber.setText(currentLocation.getName());
+        descriptionLabelNumber.setText("<html>" + currentLocation.getDescription() + "<html>");
+        directionsLabelNumber.setText("" + currentLocation.getDirections().keySet());
+        itemsLabelNumber.setText("" + currentLocation.getItems());
+        creaturesLabelNumber.setText(Arrays.toString(currentLocation.getCharacters()));
+    }
+
     public class UserInputHandler implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent event) {
             helper.handleUserInput(userInputField, mainTextArea);
             playerSetup();
+            roomSetup();
         }
     }
 
@@ -283,3 +357,14 @@ public class GUI_Two {
         }
     }
 }
+
+
+//    Location currentLocation = mansion.getCurrentLocation();
+//        System.out.println(yellow + "\nRoom Information:");
+//                System.out.println(green + doubleLines);
+//                System.out.println(green + "You are currently in: " + yellow + currentLocation.getName());
+//                System.out.println(green + "Description: " + yellow + currentLocation.getDescription());
+//                System.out.println(green + "Available directions are: " + yellow + currentLocation.getDirections().keySet());
+//                System.out.println(green + "Items in the room: " + yellow + currentLocation.getItems());
+//                System.out.println(green + "Creatures in the room: " + yellow + Arrays.toString(currentLocation.getCharacters()));
+//                System.out.println(green + doubleLines + white +"\n");
