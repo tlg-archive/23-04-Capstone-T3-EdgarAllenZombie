@@ -36,21 +36,23 @@ public class GUI_Two {
     Font gameFont = new Font("Times New Roman", Font.PLAIN, 15);
 
     JButton startButton, choice1, choice2, choice3, choice4;
-    JTextArea mainTextArea;
+    JTextArea mainTextArea, gameTextDisplayArea;
     JTextField userInputField;
 
     JSlider volumeSlider;
 
     private final Mansion mansion;
-    private final GUIFunctionality helper;
+
+//    private final GUIFunctionality helper;
+    private final GUIFunctionality_Two helper;
     public final Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
+
 
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     ChoiceHandler choiceHandler = new ChoiceHandler();
     UserInputHandler userInputHandler = new UserInputHandler();
     VolumeHandler volumeHandler = new VolumeHandler();
     ViewMain playerInfo = new ViewMain();
-
 
 //    public static void main(String[] args) throws IOException {
 //        new GUI_Two();
@@ -69,7 +71,7 @@ public class GUI_Two {
     public GUI_Two() throws IOException {
         mansion = MyJsonReader.readMansion("saved.json");
         Player player;
-        helper = new GUIFunctionality(mansion);
+        helper = new GUIFunctionality_Two(mansion);
 
         window = new JFrame();
         window.setSize(800, 650);
@@ -83,7 +85,8 @@ public class GUI_Two {
         titleGamePanel.setBounds(100, 100, 600, 150);
         titleGamePanel.setBackground(Color.black);
 
-        titleGameLabel = new JLabel("Edgar Allen Zombie");
+//        titleGameLabel = new JLabel("Edgar Allen Zombie");
+        titleGameLabel = new JLabel();
         titleGameLabel.setForeground(Color.green);
         titleGameLabel.setFont(titleFont);
 
@@ -106,6 +109,8 @@ public class GUI_Two {
 
         con.add(titleGamePanel);
         con.add(startButtonPanel);
+
+        splashScreenSetup();
 
         // Refreshing the window
         window.revalidate();
@@ -288,6 +293,7 @@ public class GUI_Two {
         choice4.addActionListener(choiceHandler);
         choice4.setActionCommand("c4");
 
+
         // Create an audio panel
 
         audioPanel = new JPanel();
@@ -315,6 +321,11 @@ public class GUI_Two {
         // Refreshing the window
         window.revalidate();
 
+    }
+    public void splashScreenSetup() {
+        String displayOutput = helper.printSplashScreen();
+//        String displayOutput = "this is a test";
+        titleGameLabel.setText(displayOutput);
     }
     public void playerSetup() {
         Player player = mansion.getPlayer();

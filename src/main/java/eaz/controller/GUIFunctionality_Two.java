@@ -1,16 +1,16 @@
 package eaz.controller;
+//package eaz.view;
 
 import eaz.model.Mansion;
 import eaz.model.Player;
+//import eaz.view.GameIntro;
+import eaz.view.GeneralViewItems;
 import eaz.view.ViewMain;
-import org.w3c.dom.Text;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.Arrays;
 
 class GUIFunctionality_Two {
@@ -27,8 +27,7 @@ class GUIFunctionality_Two {
 
     String displayPlayerInformation() {
         //These first three lines we can move anywhere, they set up the redirect
-//        ByteArrayOutputStream basicOutput = new ByteArrayOutputStream();
-//        PrintStream printOutput = new PrintStream(basicOutput);
+
 
         System.setOut(printOutput);
         Player player = mansion.getPlayer();
@@ -94,5 +93,38 @@ class GUIFunctionality_Two {
             // Set text to write to a jPanel
             //gameTextDisplayArea.setText(displayPlayerInformation());
         }
+    }
+//
+//    public String printTextFileToGui(String fileName) {
+//        // Prints the opening splash screen
+//        //noinspection ConstantConditions
+//        System.setOut(printOutput);
+//        try (BufferedReader br = new BufferedReader(new InputStreamReader(GameLoopDisplay.class.getClassLoader().getResourceAsStream(fileName))))) {
+//            String line;
+//            while ((line = br.readLine()) != null) {
+//                System.out.println(line + "\n");
+//            }
+//            String textOutput = basicOutput.toString();
+//            String refactoredOutput = textOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
+//                    .replaceAll("\\[\\s*\\]", "");
+//            basicOutput.reset();
+//            return refactoredOutput;
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
+
+    public String printSplashScreen() {
+//        GeneralViewItems genItems = new GeneralViewItems();
+        ViewMain viewMain = new ViewMain();
+        System.setOut(printOutput);
+//        genItems.printTextFile("textFiles/Welcome_Screen.txt", genItems.green);
+        viewMain.introScreen();
+        String textOutput = basicOutput.toString();
+        String refactoredOutput = textOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
+                .replaceAll("\\[\\s*\\]", "");
+        basicOutput.reset();
+        return refactoredOutput;
     }
 }
