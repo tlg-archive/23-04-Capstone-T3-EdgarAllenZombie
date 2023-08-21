@@ -3,6 +3,7 @@ package eaz.controller;
 import eaz.model.*;
 import eaz.view.GeneralViewItems;
 import eaz.view.Music;
+import eaz.view.SliderGradient;
 import eaz.view.ViewMain;
 
 import eaz.model.MyJsonReader;
@@ -37,12 +38,13 @@ public class GUI_Two {
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 70);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
     Font gameFont = new Font("Times New Roman", Font.PLAIN, 15);
+    Font textFilefont = new Font("Monospaced", Font.PLAIN, 12);
 
     JButton startButton, playButton, choice1, choice2, choice3, choice4;
     JTextArea mainTextArea, gameTextDisplayArea;
     JTextField userInputField;
 
-    JSlider volumeSlider;
+    SliderGradient volumeSlider;
 
     private final Mansion mansion;
 
@@ -91,8 +93,9 @@ public class GUI_Two {
 
 //        titleGameLabel = new JLabel("Edgar Allen Zombie");
         titleGameLabel = new JLabel();
+        titleGameLabel.setFont(textFilefont);
         titleGameLabel.setForeground(Color.green);
-        titleGameLabel.setFont(titleFont);
+
 
 
         //set up the button panel
@@ -352,7 +355,8 @@ public class GUI_Two {
         volumeSliderLabel.setFont(normalFont);
         audioPanel.add(volumeSliderLabel);
 
-        volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 70); // Initial volume at 70%
+        //volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 70); // Initial volume at 70%
+        volumeSlider = new SliderGradient();
         volumeSlider.setBackground(Color.black);
         volumeSlider.setForeground(Color.green);
         volumeSlider.addChangeListener(volumeHandler);
