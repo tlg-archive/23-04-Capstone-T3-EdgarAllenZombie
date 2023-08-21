@@ -1,6 +1,7 @@
 package eaz.controller;
 
 import eaz.model.*;
+import eaz.view.GeneralViewItems;
 import eaz.view.Music;
 import eaz.view.ViewMain;
 
@@ -14,6 +15,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Array;
 import java.util.Arrays;
@@ -25,8 +28,8 @@ public class GUI_Two {
 
     JFrame window;   //First Layer
     Container con;   //Placed on window
-    JPanel titleGamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel;  //Placed on container
-    JLabel titleGameLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel,
+    JPanel titleGamePanel, startButtonPanel, introTextPanel, playButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel;  //Placed on container
+    JLabel titleGameLabel, introTextLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel,
             playerNameLabelNumber, userPromptLabel, currentLocationLabel, currentLocationLabelNumber, descriptionLabel,
             descriptionLabelNumber, directionsLabel, directionsLabelNumber, itemsLabel, itemsLabelNumber, creaturesLabel,
             creaturesLabelNumber, volumeSliderLabel; //Placed on panel
@@ -35,7 +38,7 @@ public class GUI_Two {
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
     Font gameFont = new Font("Times New Roman", Font.PLAIN, 15);
 
-    JButton startButton, choice1, choice2, choice3, choice4;
+    JButton startButton, playButton, choice1, choice2, choice3, choice4;
     JTextArea mainTextArea, gameTextDisplayArea;
     JTextField userInputField;
 
@@ -43,12 +46,13 @@ public class GUI_Two {
 
     private final Mansion mansion;
 
-//    private final GUIFunctionality helper;
+    //    private final GUIFunctionality helper;
     private final GUIFunctionality_Two helper;
     public final Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
 
 
     TitleScreenHandler tsHandler = new TitleScreenHandler();
+    IntroScreenHandler isHandler = new IntroScreenHandler();
     ChoiceHandler choiceHandler = new ChoiceHandler();
     UserInputHandler userInputHandler = new UserInputHandler();
     VolumeHandler volumeHandler = new VolumeHandler();
@@ -81,7 +85,7 @@ public class GUI_Two {
         window.setVisible(true);
         con = window.getContentPane();
 
-        titleGamePanel  = new JPanel();
+        titleGamePanel = new JPanel();
         titleGamePanel.setBounds(100, 100, 600, 150);
         titleGamePanel.setBackground(Color.black);
 
@@ -116,10 +120,51 @@ public class GUI_Two {
         window.revalidate();
     }
 
-    public void createGameScreen(){
-
+    public void createIntroScreen() {
         titleGamePanel.setVisible(false);
         startButtonPanel.setVisible(false);
+
+        introTextPanel = new JPanel();
+        introTextPanel.setBounds(100, 100, 600, 300);
+        introTextPanel.setBackground(Color.black);
+
+//        IntroTextLabel
+        introTextLabel = new JLabel();
+        introTextLabel.setForeground(Color.green);
+        introTextLabel.setFont(normalFont);
+
+        // Load and set text from a text file
+        String textFilePath = "C:\\Vet Tec\\TLG_SD\\6.PracApp\\Capstone-T3-EdgarAllenZombie\\src\\main\\resources\\textFiles\\Description.txt"; // Replace with a JAR accessible path
+        String fileContent = loadFileContent(textFilePath);
+
+        // Format the content with HTML line breaks to achieve a form of text wrapping
+        String htmlFormattedContent = "<html><body style='width: 400px'>" + fileContent + "</body></html>";
+        introTextLabel.setText(htmlFormattedContent);
+
+        //set up the button panel
+        playButtonPanel = new JPanel();
+        playButtonPanel.setBounds(300, 400, 200, 100);
+        playButtonPanel.setBackground(Color.black);
+
+        //set up the button
+        playButton = new JButton("Cont.");
+        playButton.setBackground(Color.black);
+        playButton.setForeground(Color.green);
+        playButton.setFont(normalFont);
+        playButton.addActionListener(isHandler);
+        playButton.setFocusPainted(false);
+
+        introTextPanel.add(introTextLabel);
+        playButtonPanel.add(playButton);
+
+        con.add(introTextPanel);
+        con.add(playButtonPanel);
+    }
+
+    public void createGameScreen() {
+
+        introTextPanel.setVisible(false);
+        playButtonPanel.setVisible(false);
 
         //Header text area with the Player information
         playerPanel = new JPanel();
@@ -167,7 +212,7 @@ public class GUI_Two {
         mainTextPanel = new JPanel();
         mainTextPanel.setBounds(100, 90, 600, 300);
         mainTextPanel.setBackground(Color.black);
-        mainTextPanel.setLayout(new GridLayout(10,1));
+        mainTextPanel.setLayout(new GridLayout(10, 1));
         con.add(mainTextPanel);
 
         currentLocationLabel = new JLabel("Current Location: ");
@@ -254,7 +299,7 @@ public class GUI_Two {
         choiceButtonPanel = new JPanel();
         choiceButtonPanel.setBounds(150, 480, 500, 50);
         choiceButtonPanel.setBackground(Color.red);
-        choiceButtonPanel.setLayout(new GridLayout(1,4));
+        choiceButtonPanel.setLayout(new GridLayout(1, 4));
         con.add(choiceButtonPanel);
 
         choice1 = new JButton("Choice 1");
@@ -322,11 +367,13 @@ public class GUI_Two {
         window.revalidate();
 
     }
+
     public void splashScreenSetup() {
         String displayOutput = helper.printSplashScreen();
 //        String displayOutput = "this is a test";
         titleGameLabel.setText(displayOutput);
     }
+
     public void playerSetup() {
         Player player = mansion.getPlayer();
         String playerName = player.getName();
@@ -338,7 +385,7 @@ public class GUI_Two {
         healthLabelNumber.setText("" + playerHealth);
     }
 
-    public void roomSetup(){
+    public void roomSetup() {
 
         Location currentLocation = mansion.getCurrentLocation();
         currentLocationLabelNumber.setText(currentLocation.getName());
@@ -348,7 +395,7 @@ public class GUI_Two {
         creaturesLabelNumber.setText(Arrays.toString(currentLocation.getCharacters()));
     }
 
-    public class UserInputHandler implements ActionListener{
+    public class UserInputHandler implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent event) {
@@ -358,8 +405,15 @@ public class GUI_Two {
         }
     }
 
-
     public class TitleScreenHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            createIntroScreen();
+        }
+    }
+
+    public class IntroScreenHandler implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent event) {
@@ -367,13 +421,14 @@ public class GUI_Two {
         }
     }
 
-    public class ChoiceHandler implements ActionListener{
+
+    public class ChoiceHandler implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent event) {
             String choice = event.getActionCommand();
 
-            switch(choice) {
+            switch (choice) {
                 case "c1":
                     break;
                 case "c2":
@@ -395,6 +450,20 @@ public class GUI_Two {
                 float volume = (float) source.getValue() / 100;
                 backgroundMusic.setVolume("music", volume);
             }
+        }
+    }
+
+    private String loadFileContent(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            StringBuilder content = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+            return content.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Error loading file: " + e.getMessage();
         }
     }
 }
