@@ -10,6 +10,7 @@ import eaz.model.MyJsonReader;
 import eaz.model.Player;
 import eaz.view.Music;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -90,11 +91,6 @@ public class GUI_Two {
         window.setLayout(null);
         window.setVisible(true);
         con = window.getContentPane();
-
-//        frame.add(new BasicArrowButton(BasicArrowButton.EAST));
-//        frame.add(new BasicArrowButton(BasicArrowButton.NORTH));
-//        frame.add(new BasicArrowButton(BasicArrowButton.SOUTH));
-//        frame.add(new BasicArrowButton(BasicArrowButton.WEST));
 
         titleGamePanel = new JPanel();
         titleGamePanel.setBounds(150, 100, 800, 300);
@@ -177,15 +173,29 @@ public class GUI_Two {
         introTextSetup();
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void createGameScreen() {
 
         introTextPanel.setVisible(false);
         playButtonPanel.setVisible(false);
 
-        Icon iconEast = new ImageIcon("src/main/resources/images/East.png");
-        Icon iconWest = new ImageIcon("src/main/resources/images/West.png");
-        Icon iconNorth = new ImageIcon("src/main/resources/images/North.png");
-        Icon iconSouth = new ImageIcon("src/main/resources/images/South.png");
+        Icon iconEast;
+        Icon iconWest;
+        Icon iconNorth;
+        Icon iconSouth;
+        Icon iconSettings;
+
+        try {
+            iconEast = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/East.png")));
+            iconWest = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/West.png")));
+            iconNorth = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/North.png")));
+            iconSouth = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/South.png")));
+            //iconSettings = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Settings.png")));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
 
 
         //Header text area with the Player information
@@ -628,7 +638,7 @@ public class GUI_Two {
     private void loadFileContent() {
 
         System.setOut(printOutput);
-        String fileName = "textfiles/Welcome_Screen.txt";
+        String fileName = "textFiles/Welcome_Screen.txt";
         StringBuilder htmlText = new StringBuilder("<html>");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(GUI_Two.class.getClassLoader().getResourceAsStream(fileName)))) {
             String line;
