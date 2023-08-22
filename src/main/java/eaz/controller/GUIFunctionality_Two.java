@@ -4,6 +4,7 @@ package eaz.controller;
 import eaz.model.Mansion;
 import eaz.model.Player;
 //import eaz.view.GameIntro;
+import eaz.view.GameLoopDisplay;
 import eaz.view.GeneralViewItems;
 import eaz.view.ViewMain;
 
@@ -95,38 +96,69 @@ class GUIFunctionality_Two {
         }
     }
 //
-//    public String printTextFileToGui(String fileName) {
-//        // Prints the opening splash screen
-//        //noinspection ConstantConditions
-//        System.setOut(printOutput);
-//        try (BufferedReader br = new BufferedReader(new InputStreamReader(GameLoopDisplay.class.getClassLoader().getResourceAsStream(fileName))))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                System.out.println(line + "\n");
-//            }
-//            String textOutput = basicOutput.toString();
-//            String refactoredOutput = textOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
-//                    .replaceAll("\\[\\s*\\]", "");
-//            basicOutput.reset();
-//            return refactoredOutput;
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//    }
-
-    public String printSplashScreen() {
-//        GeneralViewItems genItems = new GeneralViewItems();
-        ViewMain viewMain = new ViewMain();
+    public String printTextFileToGui(String fileName) {
+        // Prints the opening splash screen
+        //noinspection ConstantConditions
         System.setOut(printOutput);
-//        genItems.printTextFile("textFiles/Welcome_Screen.txt", genItems.green);
-        viewMain.introScreen();
-        String textOutput = basicOutput.toString();
-        String refactoredOutput = textOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
-                .replaceAll("\\[\\s*\\]", "");
-        basicOutput.reset();
-        return refactoredOutput;
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(GameLoopDisplay.class.getClassLoader().getResourceAsStream(fileName)))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line + "\n");
+            }
+            String textOutput = basicOutput.toString();
+            String refactoredOutput = textOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
+                    .replaceAll("\\[\\s*\\]", "");
+            basicOutput.reset();
+            return refactoredOutput;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
+
+    void handleButtons(String verb, String noun) {
+        System.setOut(printOutput);
+        String capturedOutput = basicOutput.toString();
+        basicOutput.reset();
+        capturedOutput = capturedOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
+                .replaceAll("\\[\\s*\\]", "");
+
+        // If there is an Error we need to strip out the information text based games adds.
+        if (capturedOutput.contains("Error:")){
+            String longText = capturedOutput;
+            String target = "Please try again.";
+            int index = longText.indexOf(target);
+            if (index != -1) {
+                String result = longText.substring(0, index + target.length());
+                capturedOutput = result;
+            }
+        }
+
+        JTextArea textArea = new JTextArea();
+        Font font = new Font("Monospaced", Font.PLAIN, 12);
+        textArea.setFont(font);
+        textArea.setTabSize(1);
+        textArea.setText(capturedOutput.trim()); // Set the text
+        textArea.setEditable(false); // Prevent user editing
+
+        if (verb.equalsIgnoreCase("help") || verb.equalsIgnoreCase("map") || capturedOutput.contains("Error:")) {
+            JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
+        }
+
+    }
+
+//    public String printSplashScreen() {
+////        GeneralViewItems genItems = new GeneralViewItems();
+//        ViewMain viewMain = new ViewMain();
+//        System.setOut(printOutput);
+////        genItems.printTextFile("textFiles/Welcome_Screen.txt", genItems.green);
+//        viewMain.introScreen();
+//        String textOutput = basicOutput.toString();
+//        String refactoredOutput = textOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
+//                .replaceAll("\\[\\s*\\]", "");
+//        basicOutput.reset();
+//        return refactoredOutput;
+//    }
 
 
 }
