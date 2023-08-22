@@ -601,13 +601,16 @@ public class GUI_Two {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-            isMuted = !isMuted;
-            if(isMuted) {
+            if(!isMuted) {
                 backgroundMusic.stop();
                 choice4.setText("Mute");
+                isMuted = true;
+                JOptionPane.showMessageDialog(null, "Music muted");
             } else {
                 backgroundMusic.play("music");
                 choice4.setText("Unmute");
+                isMuted = false;
+                JOptionPane.showMessageDialog(null, "Music unMuted");
             }
         }
 
@@ -620,7 +623,9 @@ public class GUI_Two {
             JSlider source = (JSlider) event.getSource();
             if (!source.getValueIsAdjusting()) {
                 float volume = (float) source.getValue() / 100;
-                backgroundMusic.setVolume("music", volume);
+                if(volumeToggleHandler.isMuted == false) {
+                    backgroundMusic.setVolume("music", volume);
+                }
             }
         }
     }

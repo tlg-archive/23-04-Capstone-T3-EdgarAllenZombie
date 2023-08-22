@@ -44,7 +44,7 @@ public class EAZ {
 
         Scanner scanner = new Scanner(System.in);
         backgroundMusic.setVolume("music", (float) 7/10);
-        backgroundMusic.play("music");
+//        backgroundMusic.play("music");
         System.out.print("Would you like to play (yes/no)? > ");
         String newGameOption = scanner.nextLine().trim().toLowerCase();
         //String newGameOption = TextParser.getInput();
