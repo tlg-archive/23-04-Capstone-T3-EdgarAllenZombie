@@ -89,9 +89,11 @@ public class TextParser {
                 mansion.fight(noun);
                 break;
             case "stop":
+            case "off":
                 mansion.stopMusic(noun);
                 break;
             case "play":
+            case "on":
                 mansion.playMusic(noun);
                 break;
             case "map":
