@@ -64,36 +64,37 @@ class GUIFunctionality_Two {
             e.printStackTrace();
         }
 
-        String capturedOutput = basicOutput.toString();
-        basicOutput.reset();
-        capturedOutput = capturedOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
-                .replaceAll("\\[\\s*\\]", "");
-
-        // If there is an Error we need to strip out the information text based games adds.
-        if (capturedOutput.contains("Error:")){
-            String longText = capturedOutput;
-            String target = "Please try again.";
-            int index = longText.indexOf(target);
-            if (index != -1) {
-                String result = longText.substring(0, index + target.length());
-                capturedOutput = result;
-            }
-        }
-        // Create a JTextArea and set its properties
-        Font font = new Font("Monospaced", Font.PLAIN, 12);
-        JTextArea textArea = new JTextArea();
-        textArea.setFont(font);
-        textArea.setTabSize(1);
-        textArea.setText(capturedOutput.trim()); // Set the text
-        textArea.setEditable(false); // Prevent user editing
-
-        // If the field is help...
-        if (verb.equalsIgnoreCase("help") || verb.equalsIgnoreCase("map") || capturedOutput.contains("Error:")) {
-            JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
-        } else {
-            // Set text to write to a jPanel
-            //gameTextDisplayArea.setText(displayPlayerInformation());
-        }
+        handleButtons(verb, noun);
+//        String capturedOutput = basicOutput.toString();
+//        basicOutput.reset();
+//        capturedOutput = capturedOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
+//                .replaceAll("\\[\\s*\\]", "");
+//
+//        // If there is an Error we need to strip out the information text based games adds.
+//        if (capturedOutput.contains("Error:")){
+//            String longText = capturedOutput;
+//            String target = "Please try again.";
+//            int index = longText.indexOf(target);
+//            if (index != -1) {
+//                String result = longText.substring(0, index + target.length());
+//                capturedOutput = result;
+//            }
+//        }
+//        // Create a JTextArea and set its properties
+//        Font font = new Font("Monospaced", Font.PLAIN, 12);
+//        JTextArea textArea = new JTextArea();
+//        textArea.setFont(font);
+//        textArea.setTabSize(1);
+//        textArea.setText(capturedOutput.trim()); // Set the text
+//        textArea.setEditable(false); // Prevent user editing
+//
+//        // If the field is help...
+//        if (verb.equalsIgnoreCase("help") || verb.equalsIgnoreCase("map") || capturedOutput.contains("Error:")) {
+//            JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
+//        } else {
+//            // Set text to write to a jPanel
+//            //gameTextDisplayArea.setText(displayPlayerInformation());
+//        }
     }
 //
     public String printTextFileToGui(String fileName) {

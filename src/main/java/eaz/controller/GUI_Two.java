@@ -65,6 +65,7 @@ public class GUI_Two {
     ByteArrayOutputStream basicOutput = new ByteArrayOutputStream();
     PrintStream printOutput = new PrintStream(basicOutput);
     MoveHandler moveHandler = new MoveHandler();
+    VolumeToggleHandler volumeToggleHandler = new VolumeToggleHandler();
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -326,7 +327,7 @@ public class GUI_Two {
         choice2.addActionListener(choiceHandler);
         choice2.setActionCommand("c2");
 
-        choice3 = new JButton("choice 3");
+        choice3 = new JButton("settings");
         choice3.setBackground(Color.black);
         choice3.setForeground(Color.green);
         choice3.setFont(normalFont);
@@ -335,14 +336,14 @@ public class GUI_Two {
         choice3.addActionListener(choiceHandler);
         choice3.setActionCommand("c3");
 
-        choice4 = new JButton("choice 4");
+        choice4 = new JButton("Mute");
         choice4.setBackground(Color.black);
         choice4.setForeground(Color.green);
         choice4.setFont(normalFont);
         choiceButtonPanel.add(choice4);
         choice4.setFocusPainted(false);
-        choice4.addActionListener(choiceHandler);
-        choice4.setActionCommand("c4");
+        choice4.addActionListener(volumeToggleHandler);
+//        choice4.setActionCommand("c4");
 
         //Move buttons area to implement
 
@@ -573,6 +574,23 @@ public class GUI_Two {
                         e.printStackTrace();
                     }
                     break;
+            }
+        }
+
+    }
+
+    public class VolumeToggleHandler implements ActionListener {
+         boolean isMuted = false;
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            isMuted = !isMuted;
+            if(isMuted) {
+                backgroundMusic.stop();
+                choice4.setText("Mute");
+            } else {
+                backgroundMusic.play("music");
+                choice4.setText("Unmute");
             }
         }
 
