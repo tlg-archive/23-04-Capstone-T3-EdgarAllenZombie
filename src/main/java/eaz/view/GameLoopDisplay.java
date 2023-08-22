@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-class GameLoopDisplay {
+public class GameLoopDisplay {
     GeneralViewItems genItems = new GeneralViewItems();
     String doubleLines = genItems.doubleLines;
     String green = genItems.green;
@@ -32,12 +32,14 @@ class GameLoopDisplay {
         displayPlayerInventory(inventory);
         System.out.println(green + doubleLines);
     }
+
     void displayPlayerInventory(List<String> inventory){
         System.out.println(green + "Your inventory items are: " + yellow + inventory);
     }
 
     void textHelp(){
-        System.out.println(green + "Commands: |" + yellow + "move" + green + "|" + yellow + "take" + green + "|" + yellow + "attack" + green + "|" + yellow + "talk" + green + "|" + yellow + "help" + green + "|" + yellow + "quit" + green + "|\n");
+//        System.out.println("Commands: |move|take|attack|help|quit|");
+        System.out.println(green + "Commands: |" + yellow + " move " + green + "|" + yellow + " take " + green + "|" + yellow + " attack " + green + "|" + yellow + " talk " + green + "|" + yellow + " help " + green + "|" + yellow + " quit " + green + "|\n");
 //        System.out.printf("\nTo control Edgar, use basic commands like '%sGo%s %sNorth%s', '%sGet%s %sKnife%s', '%sLook%s' or '%sSearch%s %sdesk'.\n %s\n",
 //                green, colorReset,red, colorReset, green, colorReset,
 //                red, colorReset, green, colorReset, green, colorReset, red, colorReset);

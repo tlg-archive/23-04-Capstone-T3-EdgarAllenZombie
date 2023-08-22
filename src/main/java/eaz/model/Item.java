@@ -85,11 +85,11 @@ public class Item {
                 getItemFX.play("fx");
             }
         } else if (itemName != ""  && itemName != null) {
-            System.out.println(genItems.red + itemName.toUpperCase() + " is not in this Room!!!\n" + genItems.white);
-            genItems.pauseScreen();
+            System.out.println(genItems.red + "Error: " + itemName.toUpperCase() + " is not in this Room!!! Please try again.\n" + genItems.white);
+            //genItems.pauseScreen();
         } else {
-            System.out.println(genItems.red + "You didn't enter a valid item to get!!!\n" + genItems.white);
-            genItems.pauseScreen();
+            System.out.println(genItems.red + "Error: You didn't enter a valid item to get!!! Please try again.\n" + genItems.white);
+            //genItems.pauseScreen();
 
         }
     }
@@ -106,11 +106,11 @@ public class Item {
                 dropItemFX.play("fx");
             }
         } else if (itemName != ""  && itemName != null) {
-            System.out.println(genItems.red + "You don't have " + itemName.toUpperCase() + " in your inventory!!!\n" + genItems.white);
-            genItems.pauseScreen();
+            System.out.println(genItems.red + "Error: You don't have " + itemName.toUpperCase() + " in your inventory!!! Please try again.\n" + genItems.white);
+            //genItems.pauseScreen();
         } else {
-            System.out.println(genItems.red + "You didn't enter a valid item to drop!!!\n" + genItems.white);
-            genItems.pauseScreen();
+            System.out.println(genItems.red + "Error: You didn't enter a valid item to drop!!! Please try again.\n" + genItems.white);
+            //genItems.pauseScreen();
         }
     }
 

@@ -88,24 +88,24 @@ public class TextParser {
             case "hit":
                 mansion.fight(noun);
                 break;
+            case "stop":
             case "off":
-                EAZ.backgroundMusic.stop();
-                EAZ.playFX = false;
+                mansion.stopMusic(noun);
                 break;
+            case "play":
             case "on":
-                EAZ.backgroundMusic.play("music");
-                EAZ.playFX = true;
+                mansion.playMusic(noun);
                 break;
             case "map":
-                viewMain.clearScreen();
+                //viewMain.clearScreen();
                 genItems.printTextFile("textFiles/Castle_Map.txt", genItems.green);
-                genItems.pauseScreen();
-                viewMain.clearScreen();
-                viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
+                //genItems.pauseScreen();
+                //viewMain.clearScreen();
+                //viewMain.loopDisplay(player.getName(), player.getHealth(), player.getInventory(), mansion);
             case "quit":
                 break;
             default:
-                System.out.println(genItems.red + "Invalid command. Try again." + genItems.white);
+                System.out.println(genItems.red + "Error: Invalid entry - Please try again." + genItems.white);
                 viewMain.textHelp();
                 verb = "";
                 noun = "";

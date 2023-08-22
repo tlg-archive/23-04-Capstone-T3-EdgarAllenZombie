@@ -27,9 +27,7 @@
         "south": "Foyer"
       },
       "description": "You stand in a long hallway that continues to the West. \nTo the north you see another hallway with several other rooms.\n To the East is a closed door.",
-      "items": [
-        "knife"
-      ],
+      "items": [],
       "characters": []
     },
     {
@@ -294,10 +292,12 @@
       "dialog": []
     }
   ],
-  "currentLocationName": "Hallway 1E",
+  "currentLocationName": "Hallway 2S",
   "player": {
     "name": "Edgar Allen Zombie",
-    "inventory": [],
+    "inventory": [
+      "knife"
+    ],
     "health": 50,
     "armor": 13,
     "damage": 3,

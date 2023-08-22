@@ -15,6 +15,7 @@ public class Music {
                 case "music":
                     music = AudioSystem.getClip();
                     music.open(audioInputStream);
+//                    music.loop(Clip.LOOP_CONTINUOUSLY);
                     break;
                 case "fx":
                     fx = AudioSystem.getClip();
@@ -51,7 +52,7 @@ public class Music {
                     float minVolume = gainControl.getMinimum();
                     float maxVolume = gainControl.getMaximum();
                     float volumeRange = maxVolume - minVolume;
-                    float gain = (volume * volumeRange) + minVolume;
+                    float gain = gainControl.getMinimum() + (gainControl.getMaximum() - gainControl.getMinimum()) * volume;
                     gainControl.setValue(gain);
                 }
                 break;
@@ -62,6 +63,7 @@ public class Music {
                     float maxVolume = gainControl.getMaximum();
                     float volumeRange = maxVolume - minVolume;
                     float gain = (volume * volumeRange) + minVolume;
+//                    float gain = Math.min(maxVolume, Math.max(minVolume, minVolume + volumeRange * volume));
                     gainControl.setValue(gain);
                 }
                 break;

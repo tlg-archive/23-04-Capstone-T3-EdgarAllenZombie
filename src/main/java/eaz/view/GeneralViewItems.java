@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class GeneralViewItems {
-    public final String doubleLines = "=============================================================================================";
+    public final String doubleLines = "=====================================================================";
     public final String singleLines = "---------------------------------------------------------------------------------------------";
     public final String starLines = "*********************************************************************************************";
     public final String red = "\u001B[31m";

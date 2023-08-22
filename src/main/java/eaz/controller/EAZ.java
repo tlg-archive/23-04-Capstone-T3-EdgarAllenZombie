@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
-
 public class EAZ {
     @SuppressWarnings("FieldCanBeLocal")
     GeneralViewItems genItems = new GeneralViewItems();
@@ -45,7 +44,7 @@ public class EAZ {
 
         Scanner scanner = new Scanner(System.in);
         backgroundMusic.setVolume("music", (float) 7/10);
-        backgroundMusic.play("music");
+//        backgroundMusic.play("music");
         System.out.print("Would you like to play (yes/no)? > ");
         String newGameOption = scanner.nextLine().trim().toLowerCase();
         //String newGameOption = TextParser.getInput();
@@ -75,7 +74,7 @@ public class EAZ {
                 inputNoun = gameCommands[1];
 
                 // if quit, exit or stop are typed, run quitGame in loop
-                if(inputVerb.equals("quit") || inputVerb.equals("exit") || inputVerb.equals("stop")){
+                if(inputVerb.equals("quit") || inputVerb.equals("exit")){
                     MyJsonReader.writeMansion(mansion, "saved.json");
                     // CopyState.createSavedMansion(mansion);
                     quitGame();
