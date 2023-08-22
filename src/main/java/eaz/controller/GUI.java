@@ -96,8 +96,8 @@ public class GUI {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     //start the music
-                    backgroundMusic.setVolume("music", (float) 7/10);
-                    backgroundMusic.play("music");
+//                    backgroundMusic.setVolume("music", (float) 7/10);
+//                    backgroundMusic.play("music");
                     createGameScreen();
                 }
             }
