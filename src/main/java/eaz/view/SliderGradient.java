@@ -39,7 +39,7 @@ public class SliderGradient extends JSlider {
 
     private Color color1 = new Color(18, 98, 175);
     private Color color2 = new Color(211, 203, 0);
-    private Color ticksColor = new Color(0, 0, 0);
+    private Color ticksColor = new Color(18, 98, 175);
     private int trackSize = 5;
 
     public SliderGradient() {
