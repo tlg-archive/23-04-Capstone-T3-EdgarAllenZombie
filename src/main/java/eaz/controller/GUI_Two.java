@@ -35,7 +35,7 @@ public class GUI_Two {
     JLabel  introTextLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel,
             playerNameLabelNumber, userPromptLabel, currentLocationLabel, currentLocationLabelNumber, descriptionLabel,
             descriptionLabelNumber, directionsLabel, directionsLabelNumber, itemsLabel, itemsLabelNumber, creaturesLabel,
-            creaturesLabelNumber, volumeSliderLabel; //Placed on panel
+            creaturesLabelNumber, volumeSliderLabel, titleGameLabel; //Placed on panel
 
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 70);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
@@ -43,7 +43,7 @@ public class GUI_Two {
     Font textFilefont = new Font("Monospaced", Font.PLAIN, 8);
 
     JButton startButton, playButton, choice1, choice2, choice3, choice4, arrowUp, arrowDown, arrowLeft, arrowRight;
-    JTextArea mainTextArea, gameTextDisplayArea, titleGameLabel;
+    JTextArea mainTextArea, gameTextDisplayArea;
     JTextField userInputField;
 //    JTextPane titleGameLabel;
 
@@ -60,7 +60,7 @@ public class GUI_Two {
     ChoiceHandler choiceHandler = new ChoiceHandler();
     UserInputHandler userInputHandler = new UserInputHandler();
     VolumeHandler volumeHandler = new VolumeHandler();
-    ViewMain playerInfo = new ViewMain(
+    ViewMain playerInfo = new ViewMain();
     ViewMain viewMain = new ViewMain();
     ByteArrayOutputStream basicOutput = new ByteArrayOutputStream();
     PrintStream printOutput = new PrintStream(basicOutput);
@@ -101,13 +101,6 @@ public class GUI_Two {
         titleGameLabel.setVerticalAlignment(JLabel.TOP);
         titleGameLabel.setHorizontalAlignment(JLabel.LEFT);
         titleGameLabel.setFont(textFilefont);
-        titleGameLabel = new JTextArea();
-        titleGameLabel.setFont(textFilefont);
-        titleGameLabel.setForeground(Color.green);
-        titleGameLabel.setBackground(Color.blue);
-        titleGameLabel.setLineWrap(false);
-        titleGameLabel.setBounds(100, 100, 700, 400);
-        titleGameLabel.setEditable(false);
 
         //set up the button panel
         startButtonPanel = new JPanel();
