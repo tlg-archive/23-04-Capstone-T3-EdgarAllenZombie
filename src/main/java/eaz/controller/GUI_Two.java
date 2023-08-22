@@ -13,6 +13,7 @@ import eaz.view.Music;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +30,7 @@ import java.util.Map;
 
 public class GUI_Two {
 
-    JFrame window;   //First Layer
+    JFrame window, frame;   //First Layer
     Container con;   //Placed on window
     JPanel titleGamePanel, startButtonPanel, introTextPanel, playButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel, arrowPanel;  //Placed on container
     JLabel  introTextLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel,
@@ -89,6 +90,11 @@ public class GUI_Two {
         window.setVisible(true);
         con = window.getContentPane();
 
+//        frame.add(new BasicArrowButton(BasicArrowButton.EAST));
+//        frame.add(new BasicArrowButton(BasicArrowButton.NORTH));
+//        frame.add(new BasicArrowButton(BasicArrowButton.SOUTH));
+//        frame.add(new BasicArrowButton(BasicArrowButton.WEST));
+
         titleGamePanel = new JPanel();
         titleGamePanel.setBounds(150, 100, 800, 300);
         titleGamePanel.setBackground(Color.black);
@@ -129,6 +135,7 @@ public class GUI_Two {
     }
 
     public void createIntroScreen() {
+
 
         titleGamePanel.setVisible(false);
         startButtonPanel.setVisible(false);
@@ -173,6 +180,12 @@ public class GUI_Two {
 
         introTextPanel.setVisible(false);
         playButtonPanel.setVisible(false);
+
+        Icon iconEast = new ImageIcon("src/main/resources/images/East.png");
+        Icon iconWest = new ImageIcon("src/main/resources/images/West.png");
+        Icon iconNorth = new ImageIcon("src/main/resources/images/North.png");
+        Icon iconSouth = new ImageIcon("src/main/resources/images/South.png");
+
 
         //Header text area with the Player information
         playerPanel = new JPanel();
@@ -347,12 +360,13 @@ public class GUI_Two {
         //Move buttons area to implement
 
         arrowPanel = new JPanel();
-        arrowPanel.setBounds(15, 450, 150, 110);
+        arrowPanel.setBounds(40, 460, 100, 90);
         arrowPanel.setLayout(new GridLayout(3, 3));
         arrowPanel.setBackground(Color.black);
 //        con.add(arrowPanel);
 
-        arrowUp = new JButton("^");
+        arrowUp = new JButton(iconNorth);
+        arrowUp.setBorderPainted(false);
         arrowUp.setBackground(Color.black);
         arrowUp.setForeground(Color.green);
         arrowUp.setFont(normalFont);
@@ -361,7 +375,8 @@ public class GUI_Two {
         arrowUp.addActionListener(moveHandler);
         arrowUp.setActionCommand("a1");
 
-        arrowRight = new JButton(">");
+        arrowRight = new JButton(iconEast);
+        arrowRight.setBorderPainted(false);
         arrowRight.setBackground(Color.black);
         arrowRight.setForeground(Color.green);
         arrowRight.setFont(normalFont);
@@ -370,7 +385,8 @@ public class GUI_Two {
         arrowRight.addActionListener(moveHandler);
         arrowRight.setActionCommand("a4");
 
-        arrowDown = new JButton("V");
+        arrowDown = new JButton(iconSouth);
+        arrowDown.setBorderPainted(false);
         arrowDown.setBackground(Color.black);
         arrowDown.setForeground(Color.green);
         arrowDown.setFont(normalFont);
@@ -379,7 +395,8 @@ public class GUI_Two {
         arrowDown.addActionListener(moveHandler);
         arrowDown.setActionCommand("a2");
 
-        arrowLeft = new JButton("<");
+        arrowLeft = new JButton(iconWest);
+        arrowLeft.setBorderPainted(false);
         arrowLeft.setBackground(Color.black);
         arrowLeft.setForeground(Color.green);
         arrowLeft.setFont(normalFont);
