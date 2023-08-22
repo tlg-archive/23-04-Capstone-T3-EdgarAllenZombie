@@ -16,6 +16,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,8 +30,8 @@ public class GUI_Two {
 
     JFrame window;   //First Layer
     Container con;   //Placed on window
-    JPanel titleGamePanel, startButtonPanel, introTextPanel, playButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel;  //Placed on container
-    JLabel titleGameLabel, introTextLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel,
+    JPanel titleGamePanel, startButtonPanel, introTextPanel, playButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel, arrowPanel;  //Placed on container
+    JLabel  introTextLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel,
             playerNameLabelNumber, userPromptLabel, currentLocationLabel, currentLocationLabelNumber, descriptionLabel,
             descriptionLabelNumber, directionsLabel, directionsLabelNumber, itemsLabel, itemsLabelNumber, creaturesLabel,
             creaturesLabelNumber, volumeSliderLabel; //Placed on panel
@@ -40,9 +41,10 @@ public class GUI_Two {
     Font gameFont = new Font("Times New Roman", Font.PLAIN, 15);
     Font textFilefont = new Font("Monospaced", Font.PLAIN, 12);
 
-    JButton startButton, playButton, choice1, choice2, choice3, choice4;
-    JTextArea mainTextArea, gameTextDisplayArea;
+    JButton startButton, playButton, choice1, choice2, choice3, choice4, arrowUp, arrowDown, arrowLeft, arrowRight;
+    JTextArea mainTextArea, gameTextDisplayArea, titleGameLabel;
     JTextField userInputField;
+//    JTextPane titleGameLabel;
 
     SliderGradient volumeSlider;
 
@@ -59,6 +61,7 @@ public class GUI_Two {
     UserInputHandler userInputHandler = new UserInputHandler();
     VolumeHandler volumeHandler = new VolumeHandler();
     ViewMain playerInfo = new ViewMain();
+    MoveHandler moveHandler = new MoveHandler();
 
 //    public static void main(String[] args) throws IOException {
 //        new GUI_Two();
@@ -92,9 +95,24 @@ public class GUI_Two {
         titleGamePanel.setBackground(Color.black);
 
 //        titleGameLabel = new JLabel("Edgar Allen Zombie");
-        titleGameLabel = new JLabel();
+//        titleGameLabel = new JTextPane();
+//        titleGameLabel.setFont(textFilefont);
+//        titleGameLabel.setForeground(Color.green);
+//        titleGameLabel.setBackground(Color.blue);
+
+        //        titleGameLabel = new JLabel("Edgar Allen Zombie");
+//        titleGameLabel = new JTextPane();
+        titleGameLabel = new JTextArea();
         titleGameLabel.setFont(textFilefont);
         titleGameLabel.setForeground(Color.green);
+//        titleGameLabel.setLineWrap(true);
+        titleGameLabel.setBackground(Color.blue);
+        titleGameLabel.setLineWrap(false);
+        titleGameLabel.setBounds(100, 100, 700, 400);
+        titleGameLabel.setEditable(false);
+// Disable line wrapping
+//        titleGameLabel.setEditorKit(new WrapEditorKit());
+
 
 
 
@@ -137,12 +155,12 @@ public class GUI_Two {
         introTextLabel.setFont(normalFont);
 
         // Load and set text from a text file
-        String textFilePath = "C:\\Vet Tec\\TLG_SD\\6.PracApp\\Capstone-T3-EdgarAllenZombie\\src\\main\\resources\\textFiles\\Description.txt"; // Replace with a JAR accessible path
-        String fileContent = loadFileContent(textFilePath);
-
-        // Format the content with HTML line breaks to achieve a form of text wrapping
-        String htmlFormattedContent = "<html><body style='width: 400px'>" + fileContent + "</body></html>";
-        introTextLabel.setText(htmlFormattedContent);
+//        String textFilePath = "C:\\Vet Tec\\TLG_SD\\6.PracApp\\Capstone-T3-EdgarAllenZombie\\src\\main\\resources\\textFiles\\Description.txt"; // Replace with a JAR accessible path
+//        String fileContent = loadFileContent(textFilePath);
+//
+//        // Format the content with HTML line breaks to achieve a form of text wrapping
+//        String htmlFormattedContent = "<html><body style='width: 400px'>" + fileContent + "</body></html>";
+//        introTextLabel.setText(htmlFormattedContent);
 
         //set up the button panel
         playButtonPanel = new JPanel();
@@ -300,12 +318,12 @@ public class GUI_Two {
 
         //Misc buttons area to implement
         choiceButtonPanel = new JPanel();
-        choiceButtonPanel.setBounds(150, 480, 500, 50);
+        choiceButtonPanel.setBounds(200, 480, 450, 40);
         choiceButtonPanel.setBackground(Color.red);
         choiceButtonPanel.setLayout(new GridLayout(1, 4));
         con.add(choiceButtonPanel);
 
-        choice1 = new JButton("Choice 1");
+        choice1 = new JButton("help");
         choice1.setBackground(Color.black);
         choice1.setForeground(Color.green);
         choice1.setFont(normalFont);
@@ -314,7 +332,7 @@ public class GUI_Two {
         choice1.addActionListener(choiceHandler);
         choice1.setActionCommand("c1");
 
-        choice2 = new JButton("Choice 2");
+        choice2 = new JButton("map");
         choice2.setBackground(Color.black);
         choice2.setForeground(Color.green);
         choice2.setFont(normalFont);
@@ -323,7 +341,7 @@ public class GUI_Two {
         choice2.addActionListener(choiceHandler);
         choice2.setActionCommand("c2");
 
-        choice3 = new JButton("Choice 3");
+        choice3 = new JButton("choice 3");
         choice3.setBackground(Color.black);
         choice3.setForeground(Color.green);
         choice3.setFont(normalFont);
@@ -332,7 +350,7 @@ public class GUI_Two {
         choice3.addActionListener(choiceHandler);
         choice3.setActionCommand("c3");
 
-        choice4 = new JButton("Choice 4");
+        choice4 = new JButton("choice 4");
         choice4.setBackground(Color.black);
         choice4.setForeground(Color.green);
         choice4.setFont(normalFont);
@@ -340,6 +358,68 @@ public class GUI_Two {
         choice4.setFocusPainted(false);
         choice4.addActionListener(choiceHandler);
         choice4.setActionCommand("c4");
+
+        //Move buttons area to implement
+
+        arrowPanel = new JPanel();
+        arrowPanel.setBounds(15, 450, 150, 110);
+        arrowPanel.setLayout(new GridLayout(3, 3));
+        arrowPanel.setBackground(Color.black);
+//        con.add(arrowPanel);
+
+        arrowUp = new JButton("^");
+        arrowUp.setBackground(Color.black);
+        arrowUp.setForeground(Color.green);
+        arrowUp.setFont(normalFont);
+        arrowPanel.add(arrowUp);
+        arrowUp.setFocusPainted(false);
+        arrowUp.addActionListener(moveHandler);
+        arrowUp.setActionCommand("a1");
+
+        arrowRight = new JButton(">");
+        arrowRight.setBackground(Color.black);
+        arrowRight.setForeground(Color.green);
+        arrowRight.setFont(normalFont);
+        arrowPanel.add(arrowUp);
+        arrowRight.setFocusPainted(false);
+        arrowRight.addActionListener(moveHandler);
+        arrowRight.setActionCommand("a4");
+
+        arrowDown = new JButton("V");
+        arrowDown.setBackground(Color.black);
+        arrowDown.setForeground(Color.green);
+        arrowDown.setFont(normalFont);
+        arrowPanel.add(arrowUp);
+        arrowDown.setFocusPainted(false);
+        arrowDown.addActionListener(moveHandler);
+        arrowDown.setActionCommand("a2");
+
+        arrowLeft = new JButton("<");
+        arrowLeft.setBackground(Color.black);
+        arrowLeft.setForeground(Color.green);
+        arrowLeft.setFont(normalFont);
+        arrowPanel.add(arrowUp);
+        arrowLeft.setFocusPainted(false);
+        arrowLeft.addActionListener(moveHandler);
+        arrowLeft.setActionCommand("a3");
+
+        arrowPanel.add(new JPanel());
+        arrowPanel.add(arrowUp);
+        arrowPanel.add(new JPanel());
+        arrowPanel.add(arrowLeft);
+        arrowPanel.add(new JPanel());
+        arrowPanel.add(arrowRight);
+        arrowPanel.add(new JPanel());
+//        arrowPanel.add(new JPanel()); // Leave this cell empty for spacing
+        arrowPanel.add(arrowDown);
+
+        for (Component component : arrowPanel.getComponents()) {
+            if (component instanceof JPanel) {
+                component.setBackground(Color.black);
+            }
+        }
+
+        con.add(arrowPanel);
 
 
         // Create an audio panel
@@ -373,9 +453,10 @@ public class GUI_Two {
     }
 
     public void splashScreenSetup() {
-        String displayOutput = helper.printSplashScreen();
+        String displayOutput = helper.printTextFileToGui("textFiles/Welcome_Screen.txt");
 //        String displayOutput = "this is a test";
-        titleGameLabel.setText(displayOutput);
+        titleGameLabel.setText("<html>" + displayOutput + "</html>");
+//        titleGameLabel.setText("<html>" + displayOutput + "</html>");
     }
 
     public void playerSetup() {
@@ -434,15 +515,80 @@ public class GUI_Two {
 
             switch (choice) {
                 case "c1":
+                    try {
+                        TextParser.handleInput(mansion, "help", "");
+                        helper.handleButtons("help", "");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case "c2":
+                try {
+                    TextParser.handleInput(mansion, "map", "");
+                    helper.handleButtons("map", "");
                     break;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 case "c3":
                     break;
                 case "c4":
                     break;
             }
         }
+    }
+
+    public class MoveHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            String choice = event.getActionCommand();
+
+            switch (choice) {
+                case "a1":
+                    try {
+                        TextParser.handleInput(mansion, "move", "north");
+                        helper.handleButtons("move", "north");
+                        playerSetup();
+                        roomSetup();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "a2":
+                    try {
+                        TextParser.handleInput(mansion, "move", "south");
+                        helper.handleButtons("move", "south");
+                        playerSetup();
+                        roomSetup();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "a3":
+                    try {
+                        TextParser.handleInput(mansion, "move", "west");
+                        helper.handleButtons("move", "west");
+                        playerSetup();
+                        roomSetup();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "a4":
+                    try {
+                        TextParser.handleInput(mansion, "move", "east");
+                        helper.handleButtons("move", "east");
+                        playerSetup();
+                        roomSetup();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }
+
     }
 
     public class VolumeHandler implements ChangeListener {
