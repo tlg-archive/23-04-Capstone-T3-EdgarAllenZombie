@@ -16,6 +16,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -39,7 +40,7 @@ public class GUI_Two {
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 70);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
     Font gameFont = new Font("Times New Roman", Font.PLAIN, 15);
-    Font textFilefont = new Font("Monospaced", Font.PLAIN, 12);
+    Font textFilefont = new Font("Monospaced", Font.PLAIN, 8);
 
     JButton startButton, playButton, choice1, choice2, choice3, choice4, arrowUp, arrowDown, arrowLeft, arrowRight;
     JTextArea mainTextArea, gameTextDisplayArea, titleGameLabel;
@@ -54,18 +55,16 @@ public class GUI_Two {
     private final GUIFunctionality_Two helper;
     public final Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
 
-
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     IntroScreenHandler isHandler = new IntroScreenHandler();
     ChoiceHandler choiceHandler = new ChoiceHandler();
     UserInputHandler userInputHandler = new UserInputHandler();
     VolumeHandler volumeHandler = new VolumeHandler();
-    ViewMain playerInfo = new ViewMain();
+    ViewMain playerInfo = new ViewMain(
+    ViewMain viewMain = new ViewMain();
+    ByteArrayOutputStream basicOutput = new ByteArrayOutputStream();
+    PrintStream printOutput = new PrintStream(basicOutput);
     MoveHandler moveHandler = new MoveHandler();
-
-//    public static void main(String[] args) throws IOException {
-//        new GUI_Two();
-//    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -91,34 +90,28 @@ public class GUI_Two {
         con = window.getContentPane();
 
         titleGamePanel = new JPanel();
-        titleGamePanel.setBounds(100, 100, 600, 150);
+        titleGamePanel.setBounds(150, 100, 800, 300);
         titleGamePanel.setBackground(Color.black);
+        titleGamePanel.setLayout(new GridLayout(1, 1));
 
-//        titleGameLabel = new JLabel("Edgar Allen Zombie");
-//        titleGameLabel = new JTextPane();
-//        titleGameLabel.setFont(textFilefont);
-//        titleGameLabel.setForeground(Color.green);
-//        titleGameLabel.setBackground(Color.blue);
-
-        //        titleGameLabel = new JLabel("Edgar Allen Zombie");
-//        titleGameLabel = new JTextPane();
+        titleGameLabel = new JLabel();
+        titleGameLabel.setBackground(Color.black);
+        titleGameLabel.setForeground(Color.yellow);
+        titleGameLabel.setHorizontalAlignment(JLabel.LEFT);
+        titleGameLabel.setVerticalAlignment(JLabel.TOP);
+        titleGameLabel.setHorizontalAlignment(JLabel.LEFT);
+        titleGameLabel.setFont(textFilefont);
         titleGameLabel = new JTextArea();
         titleGameLabel.setFont(textFilefont);
         titleGameLabel.setForeground(Color.green);
-//        titleGameLabel.setLineWrap(true);
         titleGameLabel.setBackground(Color.blue);
         titleGameLabel.setLineWrap(false);
         titleGameLabel.setBounds(100, 100, 700, 400);
         titleGameLabel.setEditable(false);
-// Disable line wrapping
-//        titleGameLabel.setEditorKit(new WrapEditorKit());
-
-
-
 
         //set up the button panel
         startButtonPanel = new JPanel();
-        startButtonPanel.setBounds(300, 400, 200, 100);
+        startButtonPanel.setBounds(300, 450, 200, 100);
         startButtonPanel.setBackground(Color.black);
 
         //set up the button
@@ -135,39 +128,37 @@ public class GUI_Two {
         con.add(titleGamePanel);
         con.add(startButtonPanel);
 
-        splashScreenSetup();
+        //loadFileContent;
+        loadFileContent();
 
         // Refreshing the window
         window.revalidate();
     }
 
     public void createIntroScreen() {
+
         titleGamePanel.setVisible(false);
         startButtonPanel.setVisible(false);
 
         introTextPanel = new JPanel();
         introTextPanel.setBounds(100, 100, 600, 300);
         introTextPanel.setBackground(Color.black);
+        introTextPanel.setLayout(new GridLayout(1, 1));
 
-//        IntroTextLabel
+        //IntroTextLabel
         introTextLabel = new JLabel();
+        introTextPanel.setBackground(Color.black);
         introTextLabel.setForeground(Color.green);
+        introTextLabel.setHorizontalAlignment(JLabel.LEFT);
         introTextLabel.setFont(normalFont);
 
-        // Load and set text from a text file
-//        String textFilePath = "C:\\Vet Tec\\TLG_SD\\6.PracApp\\Capstone-T3-EdgarAllenZombie\\src\\main\\resources\\textFiles\\Description.txt"; // Replace with a JAR accessible path
-//        String fileContent = loadFileContent(textFilePath);
-//
-//        // Format the content with HTML line breaks to achieve a form of text wrapping
-//        String htmlFormattedContent = "<html><body style='width: 400px'>" + fileContent + "</body></html>";
-//        introTextLabel.setText(htmlFormattedContent);
 
-        //set up the button panel
+        //Set up the button panel
         playButtonPanel = new JPanel();
         playButtonPanel.setBounds(300, 400, 200, 100);
         playButtonPanel.setBackground(Color.black);
 
-        //set up the button
+        //Set up the button
         playButton = new JButton("Cont.");
         playButton.setBackground(Color.black);
         playButton.setForeground(Color.green);
@@ -176,10 +167,13 @@ public class GUI_Two {
         playButton.setFocusPainted(false);
 
         introTextPanel.add(introTextLabel);
+        con.add(introTextPanel);
         playButtonPanel.add(playButton);
 
         con.add(introTextPanel);
         con.add(playButtonPanel);
+
+        introTextSetup();
     }
 
     public void createGameScreen() {
@@ -191,8 +185,6 @@ public class GUI_Two {
         playerPanel = new JPanel();
         playerPanel.setBounds(100, 15, 600, 50);
         playerPanel.setBackground(Color.black);
-        //playerPanel.setLayout(new GridLayout(1, 4));
-        //playerPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 0));
         playerPanel.setLayout(new GridBagLayout());
         con.add(playerPanel);
 
@@ -423,7 +415,6 @@ public class GUI_Two {
 
 
         // Create an audio panel
-
         audioPanel = new JPanel();
         audioPanel.setBounds(200, 550, 350, 30);
         audioPanel.setBackground(Color.black);
@@ -452,12 +443,15 @@ public class GUI_Two {
 
     }
 
-    public void splashScreenSetup() {
-        String displayOutput = helper.printTextFileToGui("textFiles/Welcome_Screen.txt");
-//        String displayOutput = "this is a test";
-        titleGameLabel.setText("<html>" + displayOutput + "</html>");
-//        titleGameLabel.setText("<html>" + displayOutput + "</html>");
-    }
+    public void introTextSetup(){
+        System.setOut(printOutput);
+        viewMain.gameStart();
+        String textOutput = basicOutput.toString();
+        String refactoredOutput = textOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
+                .replaceAll("\\[\\s*\\]", "");
+        introTextLabel.setText("<html><body>" + refactoredOutput + "</body></html");
+        basicOutput.reset();
+    }  
 
     public void playerSetup() {
         Player player = mansion.getPlayer();
@@ -603,28 +597,25 @@ public class GUI_Two {
         }
     }
 
-    private String loadFileContent(String filePath) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            StringBuilder content = new StringBuilder();
+    private void loadFileContent() {
+
+        System.setOut(printOutput);
+        String fileName = "textfiles/Welcome_Screen.txt";
+        StringBuilder htmlText = new StringBuilder("<html>");
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(GUI_Two.class.getClassLoader().getResourceAsStream(fileName)))) {
             String line;
-            while ((line = reader.readLine()) != null) {
-                content.append(line).append("\n");
+            while ((line = br.readLine()) != null) {
+                line = line.replace(" ", "&nbsp;");
+                System.out.println(line + "\n");
+                htmlText.append(line).append("<br>");
+                //titleGameLabel.setText(titleGameLabel.getText() + "<html>" + line + "<br></html>");
             }
-            return content.toString();
+            htmlText.append("</html>");
+            String textOutput = basicOutput.toString();
+            basicOutput.reset();
+            titleGameLabel.setText(htmlText.toString());
         } catch (IOException e) {
-            e.printStackTrace();
-            return "Error loading file: " + e.getMessage();
+            throw new RuntimeException(e);
         }
     }
 }
-
-
-//    Location currentLocation = mansion.getCurrentLocation();
-//        System.out.println(yellow + "\nRoom Information:");
-//                System.out.println(green + doubleLines);
-//                System.out.println(green + "You are currently in: " + yellow + currentLocation.getName());
-//                System.out.println(green + "Description: " + yellow + currentLocation.getDescription());
-//                System.out.println(green + "Available directions are: " + yellow + currentLocation.getDirections().keySet());
-//                System.out.println(green + "Items in the room: " + yellow + currentLocation.getItems());
-//                System.out.println(green + "Creatures in the room: " + yellow + Arrays.toString(currentLocation.getCharacters()));
-//                System.out.println(green + doubleLines + white +"\n");

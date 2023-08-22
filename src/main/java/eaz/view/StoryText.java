@@ -37,7 +37,7 @@ class StoryText {
         System.out.printf(green + "To control Edgar, use basic commands like '%sGo%s %sNorth%s', '%sGet%s %sKnife%s', '%sLook%s' or '%sSearch%s %sdesk'.\n\n" +
                 "%s", yellow, colorReset,red, colorReset, yellow, colorReset,
                 red, colorReset, yellow, colorReset, yellow, colorReset, red, colorReset);
-        genItems.pauseScreen();
+        //genItems.pauseScreen();
         genItems.clearScreen();
     }
 
