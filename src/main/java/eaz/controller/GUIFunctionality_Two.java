@@ -17,7 +17,6 @@ import java.util.Locale;
 
 class GUIFunctionality_Two {
     //methods to incorporate the original game into the GUI go here.
-    //private final Mansion mansion;
     private Mansion mansion;
     private GUI_Two gui;
     ByteArrayOutputStream basicOutput = new ByteArrayOutputStream();
@@ -57,7 +56,6 @@ class GUIFunctionality_Two {
 
         System.setOut(printOutput);
         // This is from the user input in the panel and sending it into the text parser
-
         try {
             TextParser.handleInput(mansion, verb, noun);
         } catch (IOException e) {
@@ -65,38 +63,9 @@ class GUIFunctionality_Two {
         }
 
         handleButtons(verb, noun, outPutLabel);
-//        String capturedOutput = basicOutput.toString();
-//        basicOutput.reset();
-//        capturedOutput = capturedOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
-//                .replaceAll("\\[\\s*\\]", "");
-//
-//        // If there is an Error we need to strip out the information text based games adds.
-//        if (capturedOutput.contains("Error:")){
-//            String longText = capturedOutput;
-//            String target = "Please try again.";
-//            int index = longText.indexOf(target);
-//            if (index != -1) {
-//                String result = longText.substring(0, index + target.length());
-//                capturedOutput = result;
-//            }
-//        }
-//        // Create a JTextArea and set its properties
-//        Font font = new Font("Monospaced", Font.PLAIN, 12);
-//        JTextArea textArea = new JTextArea();
-//        textArea.setFont(font);
-//        textArea.setTabSize(1);
-//        textArea.setText(capturedOutput.trim()); // Set the text
-//        textArea.setEditable(false); // Prevent user editing
-//
-//        // If the field is help...
-//        if (verb.equalsIgnoreCase("help") || verb.equalsIgnoreCase("map") || capturedOutput.contains("Error:")) {
-//            JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
-//        } else {
-//            // Set text to write to a jPanel
-//            //gameTextDisplayArea.setText(displayPlayerInformation());
-//        }
+
     }
-//
+
     public String printTextFileToGui(String fileName) {
         // Prints the opening splash screen
         //noinspection ConstantConditions
@@ -142,52 +111,48 @@ class GUIFunctionality_Two {
         textArea.setTabSize(1);
         textArea.setText(capturedOutput.trim()); // Set the text
         textArea.setEditable(false); // Prevent user editing
-
-        switch (verb){
-            case "help":
-            case "look":
-            case "attack":
-            case "talk":
-                outputPanel.setText("<html>" + capturedOutput + "<html>");
-                break;
-            case "map":
-                JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
-                break;
-            case "settings":
-                JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(Locale.ROOT),JOptionPane.PLAIN_MESSAGE);
-            default:
-                switch (capturedOutput.length()) {
-                    case 0:
-                        break;
-                    default:
-                        if (capturedOutput.contains("Error:")) {
-                            outputPanel.setText("<html>" + capturedOutput + "<html>");
-                        }
-                }
+        if (capturedOutput.contains("Error:")) {
+            outputPanel.setForeground(Color.red);
+            outputPanel.setText("<html>" + capturedOutput + "<html>");
+        } else {
+            switch (verb) {
+                case "help":
+                case "look":
+                case "attack":
+                case "talk":
+                    outputPanel.setForeground(Color.yellow);
+                    outputPanel.setText("<html>" + capturedOutput + "<html>");
+                    break;
+                case "map":
+                    JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
+                    break;
+            }
         }
 
-//        if (verb.equalsIgnoreCase("help") || verb.equalsIgnoreCase("map") || capturedOutput.contains("Error:")) {
-//            JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
-//        }else {
-//
-//                if (capturedOutput.length() > 0) outputPanel.setText("" + capturedOutput);
-//            }
+
+//        switch (verb){
+//            case "help":
+//            case "look":
+//            case "attack":
+//            case "talk":
+//                outputPanel.setForeground(Color.yellow);
+//                outputPanel.setText("<html>" + capturedOutput + "<html>");
+//                break;
+//            case "map":
+//                JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
+//                break;
+//            default:
+//                switch (capturedOutput.length()) {
+//                    case 0:
+//                        break;
+//                    default:
+//                        if (capturedOutput.contains("Error:")) {
+//                            outputPanel.setForeground(Color.red);
+//                            outputPanel.setText("<html>" + capturedOutput + "<html>");
+//                        }
+//                }
+//        }
 
         basicOutput.reset();
     }
-
-//    public String printSplashScreen() {
-////        GeneralViewItems genItems = new GeneralViewItems();
-//        ViewMain viewMain = new ViewMain();
-//        System.setOut(printOutput);
-////        genItems.printTextFile("textFiles/Welcome_Screen.txt", genItems.green);
-//        viewMain.introScreen();
-//        String textOutput = basicOutput.toString();
-//        String refactoredOutput = textOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
-//                .replaceAll("\\[\\s*\\]", "");
-//        basicOutput.reset();
-//        return refactoredOutput;
-//    }
-
-
 }
