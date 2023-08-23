@@ -25,4 +25,5 @@ class MansionTest {
 
        // assertEquals(newLocation.getName(), mansion.getCurrentLocationName());
     }
+
 }
