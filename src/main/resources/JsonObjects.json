@@ -249,7 +249,8 @@
       "hit": 3,
       "armor": 3,
       "description": "Your sister Sara",
-      "dialog": []
+      "dialog": [ "Please look for my diary for a clue!",
+        "I see may need help... check the bedroom."]
     }
   ],
   "items": [
