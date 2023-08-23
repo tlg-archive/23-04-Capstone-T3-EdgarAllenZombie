@@ -162,19 +162,19 @@ public class Mansion {
             //call the iterateItem function
             iterateItem(itemName);
             // if the player inventory has the item
-        } else if(inventory.contains(itemName)){
+        } else if(inventory.contains(itemName)) {
             // print a useful statement
-            System.out.println("Your looking at " + itemName + " in your inventory");
-            // call the iterateItem function
             System.out.println(genItems.purple + "Your looking at " + itemName + " in your inventory\n" + genItems.white);
+            // call the iterateItem function
             iterateItem(itemName);
-        }
-        else if (itemName != "" && itemName != null){
-            System.out.println(genItems.red + "Error: You can not look at " + itemName + " it's not in this room or your inventory!!! Please try again.\n" + genItems.white);
-        } else {
+//        } else if (itemName.equals("")) {
+//            System.out.println(genItems.red + "Error: You can not look at " + itemName + " it's not in this room or your inventory!!! Please try again.\n" + genItems.white);
+//        }
+        }else{
             // print a helpful statement
-        }
             System.out.println(genItems.red + "Error: You didn't enter a valid item to look at!!! Please try again.\n" + genItems.white);
+        }
+//        System.out.println(genItems.red + "Error: You didn't enter a valid item to look at!!! Please try again.\n" + genItems.white);
 
     }
 
