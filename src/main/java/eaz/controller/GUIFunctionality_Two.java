@@ -126,6 +126,11 @@ class GUIFunctionality_Two {
                 case "map":
                     JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
                     break;
+                    // not fully implemented
+                case "quit":
+                    JOptionPane.showMessageDialog(null, "Quitting game");
+                    // need a way to stop the game
+                    break;
             }
         }
 
