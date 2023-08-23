@@ -38,24 +38,24 @@ public class GUI_Two {
     JLabel  introTextLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel,
             playerNameLabelNumber, userPromptLabel, currentLocationLabel, currentLocationLabelNumber, descriptionLabel,
             descriptionLabelNumber, directionsLabel, directionsLabelNumber, itemsLabel, itemsLabelNumber, creaturesLabel,
-            creaturesLabelNumber, volumeSliderLabel, titleGameLabel, outputLabel; //Placed on panel
+            creaturesLabelNumber, volumeSliderLabel, titleGameLabel, outputLabel, outputTitleLabel; //Placed on panel
 
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 70);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
     Font gameFont = new Font("Times New Roman", Font.PLAIN, 15);
     Font textFileFont = new Font("Monospaced", Font.PLAIN, 8);
 
-    JButton startButton, playButton, choice1, choice2, choice3, choice4, arrowUp, arrowDown, arrowLeft, arrowRight;
+    JButton startButton, playButton, playNewButton, choice1, choice2, choice3, choice4, arrowUp, arrowDown, arrowLeft, arrowRight;
     JTextArea mainTextArea, gameTextDisplayArea;
     JTextField userInputField;
-//    JTextPane titleGameLabel;
+//  JTextPane titleGameLabel;
 
     SliderGradient volumeSlider;
 
-    private final Mansion mansion;
+    private Mansion mansion;
 
-    //    private final GUIFunctionality helper;
-    private final GUIFunctionality_Two helper;
+    //Private final GUIFunctionality helper;
+    private GUIFunctionality_Two helper;
     public final Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
 
     Icon iconEast;
@@ -91,9 +91,9 @@ public class GUI_Two {
     }
 
     public GUI_Two() throws IOException {
-        mansion = MyJsonReader.readMansion("saved.json");
+        //mansion = MyJsonReader.readMansion("saved.json");
+        //helper = new GUIFunctionality_Two(mansion);
         Player player;
-        helper = new GUIFunctionality_Two(mansion);
 
         window = new JFrame();
         window.setSize(800, 820);                    //height was 650
@@ -161,20 +161,32 @@ public class GUI_Two {
 
         //Set up the button panel
         playButtonPanel = new JPanel();
-        playButtonPanel.setBounds(300, 400, 200, 100);
+        playButtonPanel.setBounds(220, 400, 300, 100);
         playButtonPanel.setBackground(Color.black);
 
-        //Set up the button
-        playButton = new JButton("Cont.");
+        //Set up the play new game button
+        playButton = new JButton("New Game");
         playButton.setBackground(Color.black);
         playButton.setForeground(Color.green);
         playButton.setFont(normalFont);
         playButton.addActionListener(isHandler);
+        playButton.setActionCommand("newGame");
         playButton.setFocusPainted(false);
+
+        //Set up the load saved game button
+        playNewButton = new JButton("Saved Game");
+        playNewButton.setBackground(Color.black);
+        playNewButton.setForeground(Color.green);
+        playNewButton.setFont(normalFont);
+        playNewButton.addActionListener(isHandler);
+        playNewButton.setActionCommand("savedGame");
+        playButton.setFocusPainted(false);
+
 
         introTextPanel.add(introTextLabel);
         con.add(introTextPanel);
         playButtonPanel.add(playButton);
+        playButtonPanel.add(playNewButton);
 
         con.add(introTextPanel);
         con.add(playButtonPanel);
@@ -309,13 +321,17 @@ public class GUI_Two {
         //Output area for various function like talk, look, attack, etc
         outputPanel = new JPanel();
         outputPanel.setBounds(70, 385, 630, 80);
-        outputPanel.setBackground(Color.yellow);
-        outputPanel.setLayout(new GridLayout(1, 1));
+        outputPanel.setBackground(Color.black);
+        outputPanel.setLayout(new GridLayout(2, 1));
         con.add(outputPanel);
 
+        outputTitleLabel = new JLabel("Dialog:");
+        outputTitleLabel.setForeground(Color.green);
+        outputTitleLabel.setFont(gameFont);
+        outputPanel.add(outputTitleLabel);
 
         outputLabel = new JLabel();
-        outputLabel.setForeground(Color.red);
+        outputLabel.setForeground(Color.yellow);
         outputLabel.setHorizontalAlignment(JLabel.LEFT);
         outputLabel.setFont(gameFont);
         outputPanel.add(outputLabel);
@@ -341,7 +357,6 @@ public class GUI_Two {
         userInputField.setForeground(Color.black);
         userInputField.addActionListener(userInputHandler);
         con.add(userInputField);
-
 
         //Misc buttons area to implement
         choiceButtonPanel = new JPanel();
@@ -400,7 +415,6 @@ public class GUI_Two {
 //        choice4.setActionCommand("c4");
 
         //Move buttons area to implement
-
         arrowPanel = new JPanel();
         arrowPanel.setBounds(160, 570, 100, 90);    // y was 460
         arrowPanel.setLayout(new GridLayout(3, 3));
@@ -468,7 +482,6 @@ public class GUI_Two {
         }
 
         con.add(arrowPanel);
-
 
         // Create an audio panel
         audioPanel = new JPanel();
@@ -551,6 +564,26 @@ public class GUI_Two {
 
         @Override
         public void actionPerformed(ActionEvent event) {
+            String choice = event.getActionCommand();
+
+            switch (choice) {
+                case "newGame":
+                    try {
+                        mansion = MyJsonReader.readMansion("JsonObjects.json");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "savedGame":
+                    try {
+                        mansion = MyJsonReader.readMansion("saved.json");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+            }
+            helper = new GUIFunctionality_Two(mansion);
             createGameScreen();
         }
     }
