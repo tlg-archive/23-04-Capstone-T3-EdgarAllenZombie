@@ -636,13 +636,16 @@ public class GUI_Two {
         Icon iconSound;
         @Override
         public void actionPerformed(ActionEvent event) {
-            isMuted = !isMuted;
-            if(isMuted) {
+            if(!isMuted) {
                 backgroundMusic.stop();
                 choice4.setIcon(iconPlaySound);
+                isMuted = true;
+                JOptionPane.showMessageDialog(null, "Music muted");
             } else {
                 backgroundMusic.play("music");
                 choice4.setIcon(iconStopSound);
+                isMuted = false;
+                JOptionPane.showMessageDialog(null, "Music unMuted");
             }
             choice4.setFocusPainted(false);
             choice4.setContentAreaFilled(false);
@@ -657,7 +660,9 @@ public class GUI_Two {
             JSlider source = (JSlider) event.getSource();
             if (!source.getValueIsAdjusting()) {
                 float volume = (float) source.getValue() / 100;
-                backgroundMusic.setVolume("music", volume);
+                if(volumeToggleHandler.isMuted == false) {
+                    backgroundMusic.setVolume("music", volume);
+                }
             }
         }
     }
