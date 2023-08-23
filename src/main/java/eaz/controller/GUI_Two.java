@@ -57,6 +57,16 @@ public class GUI_Two {
     private final GUIFunctionality_Two helper;
     public final Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
 
+    Icon iconEast;
+    Icon iconWest;
+    Icon iconNorth;
+    Icon iconSouth;
+    Icon iconSettings;
+    Icon iconPlaySound;
+    Icon iconStopSound;
+    Icon iconMap;
+    Icon iconHelp;
+
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     IntroScreenHandler isHandler = new IntroScreenHandler();
     ChoiceHandler choiceHandler = new ChoiceHandler();
@@ -179,18 +189,16 @@ public class GUI_Two {
         introTextPanel.setVisible(false);
         playButtonPanel.setVisible(false);
 
-        Icon iconEast;
-        Icon iconWest;
-        Icon iconNorth;
-        Icon iconSouth;
-        Icon iconSettings;
-
         try {
             iconEast = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/East.png")));
             iconWest = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/West.png")));
             iconNorth = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/North.png")));
             iconSouth = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/South.png")));
-            //iconSettings = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Settings.png")));
+            iconSettings = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Settings.png")));
+            iconPlaySound = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/PlaySound.png")));
+            iconStopSound = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/StopSound.png")));
+            iconMap = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Map.png")));
+            iconHelp = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Help.png")));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -327,12 +335,14 @@ public class GUI_Two {
 
         //Misc buttons area to implement
         choiceButtonPanel = new JPanel();
-        choiceButtonPanel.setBounds(200, 480, 450, 40);
-        choiceButtonPanel.setBackground(Color.red);
+        choiceButtonPanel.setBounds(200, 480, 300, 45);
+        choiceButtonPanel.setBackground(Color.black);
         choiceButtonPanel.setLayout(new GridLayout(1, 4));
         con.add(choiceButtonPanel);
 
-        choice1 = new JButton("help");
+        choice1 = new JButton(iconHelp);
+        choice1.setSize(10, 10);
+        choice1.setBorderPainted(false);
         choice1.setBackground(Color.black);
         choice1.setForeground(Color.green);
         choice1.setFont(normalFont);
@@ -340,8 +350,11 @@ public class GUI_Two {
         choice1.setFocusPainted(false);
         choice1.addActionListener(choiceHandler);
         choice1.setActionCommand("c1");
+        choice1.setFocusPainted(false);
+        choice1.setContentAreaFilled(false);
 
-        choice2 = new JButton("map");
+        choice2 = new JButton(iconMap);
+        choice2.setBorderPainted(false);
         choice2.setBackground(Color.black);
         choice2.setForeground(Color.green);
         choice2.setFont(normalFont);
@@ -349,8 +362,11 @@ public class GUI_Two {
         choice2.setFocusPainted(false);
         choice2.addActionListener(choiceHandler);
         choice2.setActionCommand("c2");
+        choice2.setFocusPainted(false);
+        choice2.setContentAreaFilled(false);
 
-        choice3 = new JButton("settings");
+        choice3 = new JButton(iconSettings);
+        choice3.setBorderPainted(false);
         choice3.setBackground(Color.black);
         choice3.setForeground(Color.green);
         choice3.setFont(normalFont);
@@ -358,14 +374,19 @@ public class GUI_Two {
         choice3.setFocusPainted(false);
         choice3.addActionListener(choiceHandler);
         choice3.setActionCommand("c3");
+        choice3.setFocusPainted(false);
+        choice3.setContentAreaFilled(false);
 
-        choice4 = new JButton("Mute");
+        choice4 = new JButton(iconStopSound);
+        choice4.setBorderPainted(false);
         choice4.setBackground(Color.black);
         choice4.setForeground(Color.green);
         choice4.setFont(normalFont);
         choiceButtonPanel.add(choice4);
         choice4.setFocusPainted(false);
         choice4.addActionListener(volumeToggleHandler);
+        choice4.setFocusPainted(false);
+        choice4.setContentAreaFilled(false);
 //        choice4.setActionCommand("c4");
 
         //Move buttons area to implement
@@ -385,6 +406,7 @@ public class GUI_Two {
         arrowUp.setFocusPainted(false);
         arrowUp.addActionListener(moveHandler);
         arrowUp.setActionCommand("a1");
+        arrowUp.setContentAreaFilled(false);
 
         arrowRight = new JButton(iconEast);
         arrowRight.setBorderPainted(false);
@@ -395,6 +417,7 @@ public class GUI_Two {
         arrowRight.setFocusPainted(false);
         arrowRight.addActionListener(moveHandler);
         arrowRight.setActionCommand("a4");
+        arrowRight.setContentAreaFilled(false);
 
         arrowDown = new JButton(iconSouth);
         arrowDown.setBorderPainted(false);
@@ -405,6 +428,7 @@ public class GUI_Two {
         arrowDown.setFocusPainted(false);
         arrowDown.addActionListener(moveHandler);
         arrowDown.setActionCommand("a2");
+        arrowDown.setContentAreaFilled(false);
 
         arrowLeft = new JButton(iconWest);
         arrowLeft.setBorderPainted(false);
@@ -415,6 +439,7 @@ public class GUI_Two {
         arrowLeft.setFocusPainted(false);
         arrowLeft.addActionListener(moveHandler);
         arrowLeft.setActionCommand("a3");
+        arrowLeft.setContentAreaFilled(false);
 
         arrowPanel.add(new JPanel());
         arrowPanel.add(arrowUp);
@@ -607,18 +632,20 @@ public class GUI_Two {
     }
 
     public class VolumeToggleHandler implements ActionListener {
-         boolean isMuted = false;
-
+        boolean isMuted = false;
+        Icon iconSound;
         @Override
         public void actionPerformed(ActionEvent event) {
             isMuted = !isMuted;
             if(isMuted) {
                 backgroundMusic.stop();
-                choice4.setText("Mute");
+                choice4.setIcon(iconPlaySound);
             } else {
                 backgroundMusic.play("music");
-                choice4.setText("Unmute");
+                choice4.setIcon(iconStopSound);
             }
+            choice4.setFocusPainted(false);
+            choice4.setContentAreaFilled(false);
         }
 
     }
