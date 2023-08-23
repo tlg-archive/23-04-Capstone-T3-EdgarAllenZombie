@@ -33,10 +33,17 @@ public class Mansion {
         return getLocationMap().get(name);
     }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
-    // TODO: 8/8/2023 add additional fields for currentlocations, inventory, health, enemies, etc
+// TODO: 8/8/2023 add additional fields for currentlocations, inventory, health, enemies, etc
     // TODO: 8/8/2023 define methods for manipulating the state
 
+
+    public void setCurrentLocationName(String currentLocationName) {
+        this.currentLocationName = currentLocationName;
+    }
 
     public Location[] getLocations() {
         return locations;
@@ -167,20 +174,17 @@ public class Mansion {
             System.out.println(genItems.purple + "Your looking at " + itemName + " in your inventory\n" + genItems.white);
             // call the iterateItem function
             iterateItem(itemName);
-//        } else if (itemName.equals("")) {
-//            System.out.println(genItems.red + "Error: You can not look at " + itemName + " it's not in this room or your inventory!!! Please try again.\n" + genItems.white);
-//        }
         }else{
             // print a helpful statement
             System.out.println(genItems.red + "Error: You didn't enter a valid item to look at!!! Please try again.\n" + genItems.white);
         }
-//        System.out.println(genItems.red + "Error: You didn't enter a valid item to look at!!! Please try again.\n" + genItems.white);
 
     }
 
 // iterate over items in the json file
     public void iterateItem(String itemName) {
         // for every item in the items section in the json
+
         for (Item curItem : items) {
             // if the current item name equals the itemName
             if(curItem.getName().equalsIgnoreCase(itemName)) {
@@ -189,6 +193,5 @@ public class Mansion {
             }
         }
     }
-
 
 }
