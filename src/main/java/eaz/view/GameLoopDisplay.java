@@ -78,7 +78,7 @@ public class GameLoopDisplay {
                     if (characterName.equals(c.getName()) && characterName.equals(name)) {
                         int randIndex = random.nextInt(c.getDialog().length); // pick a random index value from the character's dialog length
                         String randDialog = c.getDialog()[randIndex];  // using the randIndex pick a random dialog to return
-                        System.out.println(c.getName() + " says: " + randDialog);
+                        System.out.println(c.getName().toUpperCase() + " says: " + randDialog);
                     }
                 }
             }
