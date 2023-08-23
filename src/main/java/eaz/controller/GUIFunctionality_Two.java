@@ -13,6 +13,7 @@ import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Locale;
 
 class GUIFunctionality_Two {
     //methods to incorporate the original game into the GUI go here.
@@ -152,6 +153,8 @@ class GUIFunctionality_Two {
             case "map":
                 JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
                 break;
+            case "settings":
+                JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(Locale.ROOT),JOptionPane.PLAIN_MESSAGE);
             default:
                 switch (capturedOutput.length()) {
                     case 0:
