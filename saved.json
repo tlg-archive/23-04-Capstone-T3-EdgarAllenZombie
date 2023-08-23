@@ -250,6 +250,27 @@
       "description": "A book with a dark an ominous presence about it.",
       "location": "library",
       "modifier": 0
+    },
+    {
+      "type": "book",
+      "name": "diary",
+      "description": "You must find the grimoire.",
+      "location": "Bedroom",
+      "modifier": 0
+    },
+    {
+      "type": "weapon",
+      "name": "plate of food",
+      "description": "This is a plate of half eaten food.",
+      "location": "Dining Room",
+      "modifier": 0
+    },
+    {
+      "type": "weapon",
+      "name": "key",
+      "description": "A random key.",
+      "location": "Home Office",
+      "modifier": 0
     }
   ],
   "characters": [
@@ -292,7 +313,7 @@
       "dialog": []
     }
   ],
-  "currentLocationName": "Hallway 2S",
+  "currentLocationName": "Bedroom",
   "player": {
     "name": "Edgar Allen Zombie",
     "inventory": [
