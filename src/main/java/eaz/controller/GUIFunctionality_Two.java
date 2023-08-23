@@ -13,6 +13,7 @@ import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Locale;
 
 class GUIFunctionality_Two {
     //methods to incorporate the original game into the GUI go here.
@@ -110,7 +111,6 @@ class GUIFunctionality_Two {
         textArea.setTabSize(1);
         textArea.setText(capturedOutput.trim()); // Set the text
         textArea.setEditable(false); // Prevent user editing
-
         if (capturedOutput.contains("Error:")) {
             outputPanel.setForeground(Color.red);
             outputPanel.setText("<html>" + capturedOutput + "<html>");
@@ -128,13 +128,6 @@ class GUIFunctionality_Two {
                     break;
             }
         }
-
-
-
-
-
-
-
 
 
 //        switch (verb){

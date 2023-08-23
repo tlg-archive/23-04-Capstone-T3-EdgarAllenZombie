@@ -613,7 +613,9 @@ public class GUI_Two {
                     e.printStackTrace();
                 }
                 case "c3":
+                    JOptionPane.showMessageDialog(null, "This Function is only available in the Paid version of the game. Please subscribe for full functionality.");
                     break;
+
                 case "c4":
                     break;
             }
