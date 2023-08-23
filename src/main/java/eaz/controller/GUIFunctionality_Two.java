@@ -18,9 +18,9 @@ class GUIFunctionality_Two {
     //methods to incorporate the original game into the GUI go here.
     //private final Mansion mansion;
     private Mansion mansion;
+    private GUI_Two gui;
     ByteArrayOutputStream basicOutput = new ByteArrayOutputStream();
     PrintStream printOutput = new PrintStream(basicOutput);
-
 
     GUIFunctionality_Two(Mansion mansion) {
         this.mansion = mansion;
@@ -28,7 +28,6 @@ class GUIFunctionality_Two {
 
     String displayPlayerInformation() {
         //These first three lines we can move anywhere, they set up the redirect
-
 
         System.setOut(printOutput);
         Player player = mansion.getPlayer();
@@ -41,7 +40,7 @@ class GUIFunctionality_Two {
         return refactoredOutput;
     }
 
-    void handleUserInput(JTextComponent field, JTextArea gameTextDisplayArea) {
+    void handleUserInput(JTextComponent field, JLabel outPutLabel) {
 
         String inputText = field.getText();
         field.setText("");
@@ -64,7 +63,7 @@ class GUIFunctionality_Two {
             e.printStackTrace();
         }
 
-        handleButtons(verb, noun);
+        handleButtons(verb, noun, outPutLabel);
 //        String capturedOutput = basicOutput.toString();
 //        basicOutput.reset();
 //        capturedOutput = capturedOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
@@ -117,10 +116,11 @@ class GUIFunctionality_Two {
 
     }
 
-    void handleButtons(String verb, String noun) {
+    void handleButtons(String verb, String noun, JLabel outputPanel) {
         System.setOut(printOutput);
         String capturedOutput = basicOutput.toString();
         basicOutput.reset();
+        outputPanel.setText("");
         capturedOutput = capturedOutput.replaceAll("\\x1B\\[[0-9;]*[mK]", "")
                 .replaceAll("\\[\\s*\\]", "");
 
@@ -142,10 +142,35 @@ class GUIFunctionality_Two {
         textArea.setText(capturedOutput.trim()); // Set the text
         textArea.setEditable(false); // Prevent user editing
 
-        if (verb.equalsIgnoreCase("help") || verb.equalsIgnoreCase("map") || capturedOutput.contains("Error:")) {
-            JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
+        switch (verb){
+            case "help":
+            case "look":
+            case "attack":
+            case "talk":
+                outputPanel.setText("<html>" + capturedOutput + "<html>");
+                break;
+            case "map":
+                JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
+                break;
+            default:
+                switch (capturedOutput.length()) {
+                    case 0:
+                        break;
+                    default:
+                        if (capturedOutput.contains("Error:")) {
+                            outputPanel.setText("<html>" + capturedOutput + "<html>");
+                        }
+                }
         }
 
+//        if (verb.equalsIgnoreCase("help") || verb.equalsIgnoreCase("map") || capturedOutput.contains("Error:")) {
+//            JOptionPane.showMessageDialog(null, textArea, verb.toUpperCase(), JOptionPane.PLAIN_MESSAGE);
+//        }else {
+//
+//                if (capturedOutput.length() > 0) outputPanel.setText("" + capturedOutput);
+//            }
+
+        basicOutput.reset();
     }
 
 //    public String printSplashScreen() {
