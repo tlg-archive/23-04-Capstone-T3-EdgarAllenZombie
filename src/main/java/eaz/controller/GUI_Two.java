@@ -33,16 +33,17 @@ public class GUI_Two {
 
     JFrame window, frame;   //First Layer
     Container con;   //Placed on window
-    JPanel titleGamePanel, startButtonPanel, introTextPanel, playButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel, arrowPanel;  //Placed on container
+    JPanel titleGamePanel, startButtonPanel, introTextPanel, playButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel,
+            arrowPanel, outputPanel;  //Placed on container
     JLabel  introTextLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel,
             playerNameLabelNumber, userPromptLabel, currentLocationLabel, currentLocationLabelNumber, descriptionLabel,
             descriptionLabelNumber, directionsLabel, directionsLabelNumber, itemsLabel, itemsLabelNumber, creaturesLabel,
-            creaturesLabelNumber, volumeSliderLabel, titleGameLabel; //Placed on panel
+            creaturesLabelNumber, volumeSliderLabel, titleGameLabel, outputLabel; //Placed on panel
 
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 70);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
     Font gameFont = new Font("Times New Roman", Font.PLAIN, 15);
-    Font textFilefont = new Font("Monospaced", Font.PLAIN, 8);
+    Font textFileFont = new Font("Monospaced", Font.PLAIN, 8);
 
     JButton startButton, playButton, choice1, choice2, choice3, choice4, arrowUp, arrowDown, arrowLeft, arrowRight;
     JTextArea mainTextArea, gameTextDisplayArea;
@@ -56,6 +57,16 @@ public class GUI_Two {
     //    private final GUIFunctionality helper;
     private final GUIFunctionality_Two helper;
     public final Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
+
+    Icon iconEast;
+    Icon iconWest;
+    Icon iconNorth;
+    Icon iconSouth;
+    Icon iconSettings;
+    Icon iconPlaySound;
+    Icon iconStopSound;
+    Icon iconMap;
+    Icon iconHelp;
 
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     IntroScreenHandler isHandler = new IntroScreenHandler();
@@ -85,7 +96,7 @@ public class GUI_Two {
         helper = new GUIFunctionality_Two(mansion);
 
         window = new JFrame();
-        window.setSize(800, 650);
+        window.setSize(800, 820);                    //height was 650
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.black);
         window.setLayout(null);
@@ -103,7 +114,7 @@ public class GUI_Two {
         titleGameLabel.setHorizontalAlignment(JLabel.LEFT);
         titleGameLabel.setVerticalAlignment(JLabel.TOP);
         titleGameLabel.setHorizontalAlignment(JLabel.LEFT);
-        titleGameLabel.setFont(textFilefont);
+        titleGameLabel.setFont(textFileFont);
 
         //set up the button panel
         startButtonPanel = new JPanel();
@@ -133,7 +144,6 @@ public class GUI_Two {
 
     public void createIntroScreen() {
 
-
         titleGamePanel.setVisible(false);
         startButtonPanel.setVisible(false);
 
@@ -148,7 +158,6 @@ public class GUI_Two {
         introTextLabel.setForeground(Color.green);
         introTextLabel.setHorizontalAlignment(JLabel.LEFT);
         introTextLabel.setFont(normalFont);
-
 
         //Set up the button panel
         playButtonPanel = new JPanel();
@@ -179,18 +188,16 @@ public class GUI_Two {
         introTextPanel.setVisible(false);
         playButtonPanel.setVisible(false);
 
-        Icon iconEast;
-        Icon iconWest;
-        Icon iconNorth;
-        Icon iconSouth;
-        Icon iconSettings;
-
         try {
             iconEast = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/East.png")));
             iconWest = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/West.png")));
             iconNorth = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/North.png")));
             iconSouth = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/South.png")));
-            //iconSettings = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Settings.png")));
+            iconSettings = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Settings.png")));
+            iconPlaySound = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/PlaySound.png")));
+            iconStopSound = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/StopSound.png")));
+            iconMap = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Map.png")));
+            iconHelp = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Help.png")));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -240,7 +247,7 @@ public class GUI_Two {
 
         // Main Body of Text
         mainTextPanel = new JPanel();
-        mainTextPanel.setBounds(100, 90, 600, 300);
+        mainTextPanel.setBounds(70, 80, 660, 280);
         mainTextPanel.setBackground(Color.black);
         mainTextPanel.setLayout(new GridLayout(10, 1));
         con.add(mainTextPanel);
@@ -262,7 +269,6 @@ public class GUI_Two {
         mainTextPanel.add(descriptionLabel);
 
         descriptionLabelNumber = new JLabel();
-        descriptionLabel.setBounds(100, 300, 500, 60);
         descriptionLabelNumber.setFont(gameFont);
         descriptionLabelNumber.setForeground(Color.yellow);
         mainTextPanel.add(descriptionLabelNumber);
@@ -300,24 +306,36 @@ public class GUI_Two {
         creaturesLabelNumber.setForeground(Color.yellow);
         mainTextPanel.add(creaturesLabelNumber);
 
+        //Output area for various function like talk, look, attack, etc
+        outputPanel = new JPanel();
+        outputPanel.setBounds(70, 385, 630, 80);
+        outputPanel.setBackground(Color.yellow);
+        outputPanel.setLayout(new GridLayout(1, 1));
+        con.add(outputPanel);
+
+
+        outputLabel = new JLabel();
+        outputLabel.setForeground(Color.red);
+        outputLabel.setHorizontalAlignment(JLabel.LEFT);
+        outputLabel.setFont(gameFont);
+        outputPanel.add(outputLabel);
+
         //User input area
         userPromptPanel = new JPanel();
-        userPromptPanel.setBounds(100, 420, 200, 25);
+        userPromptPanel.setBounds(90, 500, 200, 25);           //y 415
         userPromptPanel.setBackground(Color.black);//change the color later
         userPromptPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         con.add(userPromptPanel);
 
         // adds the text to the area for the user prompt
         userPromptLabel = new JLabel("Enter a Command > ");
-        userPromptLabel.setBounds(100, 415, 200, 25);
         userPromptLabel.setBackground(Color.black);
         userPromptLabel.setForeground(Color.pink);
         userPromptLabel.setFont(normalFont);
         userPromptPanel.add(userPromptLabel);
 
-
         userInputField = new JTextField();
-        userInputField.setBounds(310, 420, 350, 25);
+        userInputField.setBounds(300, 505, 350, 25);    //y 420
         userInputField.setFont(normalFont);
         userInputField.setBackground(Color.pink);
         userInputField.setForeground(Color.black);
@@ -327,12 +345,14 @@ public class GUI_Two {
 
         //Misc buttons area to implement
         choiceButtonPanel = new JPanel();
-        choiceButtonPanel.setBounds(200, 480, 450, 40);
-        choiceButtonPanel.setBackground(Color.red);
+        choiceButtonPanel.setBounds(320, 590, 300, 45);  //y was 480
+        choiceButtonPanel.setBackground(Color.black);
         choiceButtonPanel.setLayout(new GridLayout(1, 4));
         con.add(choiceButtonPanel);
 
-        choice1 = new JButton("help");
+        choice1 = new JButton(iconHelp);
+        choice1.setSize(10, 10);
+        choice1.setBorderPainted(false);
         choice1.setBackground(Color.black);
         choice1.setForeground(Color.green);
         choice1.setFont(normalFont);
@@ -340,8 +360,11 @@ public class GUI_Two {
         choice1.setFocusPainted(false);
         choice1.addActionListener(choiceHandler);
         choice1.setActionCommand("c1");
+        choice1.setFocusPainted(false);
+        choice1.setContentAreaFilled(false);
 
-        choice2 = new JButton("map");
+        choice2 = new JButton(iconMap);
+        choice2.setBorderPainted(false);
         choice2.setBackground(Color.black);
         choice2.setForeground(Color.green);
         choice2.setFont(normalFont);
@@ -349,8 +372,11 @@ public class GUI_Two {
         choice2.setFocusPainted(false);
         choice2.addActionListener(choiceHandler);
         choice2.setActionCommand("c2");
+        choice2.setFocusPainted(false);
+        choice2.setContentAreaFilled(false);
 
-        choice3 = new JButton("settings");
+        choice3 = new JButton(iconSettings);
+        choice3.setBorderPainted(false);
         choice3.setBackground(Color.black);
         choice3.setForeground(Color.green);
         choice3.setFont(normalFont);
@@ -358,20 +384,25 @@ public class GUI_Two {
         choice3.setFocusPainted(false);
         choice3.addActionListener(choiceHandler);
         choice3.setActionCommand("c3");
+        choice3.setFocusPainted(false);
+        choice3.setContentAreaFilled(false);
 
-        choice4 = new JButton("Mute");
+        choice4 = new JButton(iconStopSound);
+        choice4.setBorderPainted(false);
         choice4.setBackground(Color.black);
         choice4.setForeground(Color.green);
         choice4.setFont(normalFont);
         choiceButtonPanel.add(choice4);
         choice4.setFocusPainted(false);
         choice4.addActionListener(volumeToggleHandler);
+        choice4.setFocusPainted(false);
+        choice4.setContentAreaFilled(false);
 //        choice4.setActionCommand("c4");
 
         //Move buttons area to implement
 
         arrowPanel = new JPanel();
-        arrowPanel.setBounds(40, 460, 100, 90);
+        arrowPanel.setBounds(160, 570, 100, 90);    // y was 460
         arrowPanel.setLayout(new GridLayout(3, 3));
         arrowPanel.setBackground(Color.black);
 //        con.add(arrowPanel);
@@ -385,6 +416,7 @@ public class GUI_Two {
         arrowUp.setFocusPainted(false);
         arrowUp.addActionListener(moveHandler);
         arrowUp.setActionCommand("a1");
+        arrowUp.setContentAreaFilled(false);
 
         arrowRight = new JButton(iconEast);
         arrowRight.setBorderPainted(false);
@@ -395,6 +427,7 @@ public class GUI_Two {
         arrowRight.setFocusPainted(false);
         arrowRight.addActionListener(moveHandler);
         arrowRight.setActionCommand("a4");
+        arrowRight.setContentAreaFilled(false);
 
         arrowDown = new JButton(iconSouth);
         arrowDown.setBorderPainted(false);
@@ -405,6 +438,7 @@ public class GUI_Two {
         arrowDown.setFocusPainted(false);
         arrowDown.addActionListener(moveHandler);
         arrowDown.setActionCommand("a2");
+        arrowDown.setContentAreaFilled(false);
 
         arrowLeft = new JButton(iconWest);
         arrowLeft.setBorderPainted(false);
@@ -415,6 +449,7 @@ public class GUI_Two {
         arrowLeft.setFocusPainted(false);
         arrowLeft.addActionListener(moveHandler);
         arrowLeft.setActionCommand("a3");
+        arrowLeft.setContentAreaFilled(false);
 
         arrowPanel.add(new JPanel());
         arrowPanel.add(arrowUp);
@@ -437,7 +472,7 @@ public class GUI_Two {
 
         // Create an audio panel
         audioPanel = new JPanel();
-        audioPanel.setBounds(200, 550, 350, 30);
+        audioPanel.setBounds(200, 690, 350, 30);        // y was 550
         audioPanel.setBackground(Color.black);
         con.add(audioPanel);
 
@@ -461,7 +496,6 @@ public class GUI_Two {
 
         // Refreshing the window
         window.revalidate();
-
     }
 
     public void introTextSetup(){
@@ -499,7 +533,7 @@ public class GUI_Two {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-            helper.handleUserInput(userInputField, mainTextArea);
+            helper.handleUserInput(userInputField, outputLabel);
             playerSetup();
             roomSetup();
         }
@@ -532,7 +566,7 @@ public class GUI_Two {
                 case "c1":
                     try {
                         TextParser.handleInput(mansion, "help", "");
-                        helper.handleButtons("help", "");
+                        helper.handleButtons("help", "", outputLabel);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -540,7 +574,7 @@ public class GUI_Two {
                 case "c2":
                 try {
                     TextParser.handleInput(mansion, "map", "");
-                    helper.handleButtons("map", "");
+                    helper.handleButtons("map", "", outputLabel);
                     break;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -563,7 +597,7 @@ public class GUI_Two {
                 case "a1":
                     try {
                         TextParser.handleInput(mansion, "move", "north");
-                        helper.handleButtons("move", "north");
+                        helper.handleButtons("move", "north", outputLabel);
                         playerSetup();
                         roomSetup();
 
@@ -574,7 +608,7 @@ public class GUI_Two {
                 case "a2":
                     try {
                         TextParser.handleInput(mansion, "move", "south");
-                        helper.handleButtons("move", "south");
+                        helper.handleButtons("move", "south", outputLabel);
                         playerSetup();
                         roomSetup();
                     } catch (IOException e) {
@@ -584,7 +618,7 @@ public class GUI_Two {
                 case "a3":
                     try {
                         TextParser.handleInput(mansion, "move", "west");
-                        helper.handleButtons("move", "west");
+                        helper.handleButtons("move", "west", outputLabel);
                         playerSetup();
                         roomSetup();
                     } catch (IOException e) {
@@ -594,7 +628,7 @@ public class GUI_Two {
                 case "a4":
                     try {
                         TextParser.handleInput(mansion, "move", "east");
-                        helper.handleButtons("move", "east");
+                        helper.handleButtons("move", "east", outputLabel);
                         playerSetup();
                         roomSetup();
                     } catch (IOException e) {
@@ -607,21 +641,23 @@ public class GUI_Two {
     }
 
     public class VolumeToggleHandler implements ActionListener {
-         boolean isMuted = false;
-
+        boolean isMuted = false;
+        Icon iconSound;
         @Override
         public void actionPerformed(ActionEvent event) {
             if(!isMuted) {
                 backgroundMusic.stop();
-                choice4.setText("Mute");
+                choice4.setIcon(iconPlaySound);
                 isMuted = true;
-                JOptionPane.showMessageDialog(null, "Music muted");
+                //JOptionPane.showMessageDialog(null, "Music muted");
             } else {
                 backgroundMusic.play("music");
-                choice4.setText("Unmute");
+                choice4.setIcon(iconStopSound);
                 isMuted = false;
-                JOptionPane.showMessageDialog(null, "Music unMuted");
+                //JOptionPane.showMessageDialog(null, "Music unMuted");
             }
+            choice4.setFocusPainted(false);
+            choice4.setContentAreaFilled(false);
         }
 
     }
