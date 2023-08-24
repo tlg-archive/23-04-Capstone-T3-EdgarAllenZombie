@@ -235,9 +235,9 @@
       "type": "enemy",
       "name": "ghost",
       "health": 10,
-      "damage": 3,
+      "damage": 10,
       "hit": 7,
-      "armor": 15,
+      "armor": 55,
       "description": "A floating humanoid entity",
       "dialog": ["Please don't hurt me, I'm not one of the bad ones", "I can tell you're new here, by the fact you're still....you know.... breathing", "Please, don't go in there. There's things here you don't want to see."]
     },
@@ -249,7 +249,8 @@
       "hit": 3,
       "armor": 3,
       "description": "Your sister Sara",
-      "dialog": []
+      "dialog": [ "Please look for my diary for a clue!",
+        "I see may need help... check the bedroom."]
     }
   ],
   "items": [
@@ -306,7 +307,7 @@
   "player": {
     "name": "Edgar Allen Zombie",
     "inventory": [],
-    "health": 50,
+    "health": 140,
     "armor": 13,
     "damage": 3,
     "hitChance": 5

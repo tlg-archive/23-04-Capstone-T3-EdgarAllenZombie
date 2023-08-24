@@ -1,19 +1,31 @@
 package eaz.model;
 
+import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Before;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 class MansionTest {
-
     private Mansion mansion;
+    private Player player;
+    private Item[] items;
+
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws IOException {
         mansion = new Mansion();
+        player = new Player();
+        mansion = MyJsonReader.readMansion("JsonObjects.json");  // populate the mansion from the JsonObjects.json
 
     }
 
@@ -23,7 +35,41 @@ class MansionTest {
         // Perform a move
         //Location newLocation = mansion.move("north");
 
-       // assertEquals(newLocation.getName(), mansion.getCurrentLocationName());
+        // assertEquals(newLocation.getName(), mansion.getCurrentLocationName());
     }
 
+    @Test
+    public void lookAtItemsInRoom_ShouldReturnItemDescription() {
+        mansion.setCurrentLocationName("Foyer");
+//        mansion.getItems();
+        String test =  mansion.lookAtItem("knife");
+        String expected = "";
+        for (Item curItem : mansion.getItems()){
+            // if the current item name equals the itemName
+            if(curItem.getName().equalsIgnoreCase("knife")) {
+                // print the description
+                expected = curItem.getDescription();
+
+            }
+        }
+        Assertions.assertEquals(test, expected);
+
+    }
+
+    @Test
+    public void lookAtItemsInRoom_ShouldNotReturnItemDescription() {
+        mansion.setCurrentLocationName("Foyer");
+        String test = mansion.lookAtItem("plate of food");
+        String expected = "";
+        for(Item curItem : mansion.getItems()) {
+            if(curItem.getName().equalsIgnoreCase("plate of food")){
+                expected = curItem.getDescription();
+            } else {
+                expected = "match not found";
+            }
+        }
+        Assertions.assertEquals(test, expected);
+
+
+    }
 }

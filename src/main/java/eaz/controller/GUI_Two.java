@@ -48,7 +48,11 @@ public class GUI_Two {
     JButton startButton, playButton, playNewButton, choice1, choice2, choice3, choice4, arrowUp, arrowDown, arrowLeft, arrowRight;
     JTextArea mainTextArea, gameTextDisplayArea;
     JTextField userInputField;
-//  JTextPane titleGameLabel;
+
+    Icon iconEast, iconWest, iconNorth, iconSouth, iconSettings, iconPlaySound, iconStopSound, iconMap, iconHelp, iconZombie, iconBag,
+           iconHB1, iconHB2, iconHB3, iconHB4, iconHB5, iconHB6, iconHB7, iconHB8, iconHB9, iconHB10, iconHB11, iconHB12, iconHB13, iconHB14;
+
+    //  JTextPane titleGameLabel;
 
     SliderGradient volumeSlider;
 
@@ -58,15 +62,6 @@ public class GUI_Two {
     private GUIFunctionality_Two helper;
     public final Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
 
-    Icon iconEast;
-    Icon iconWest;
-    Icon iconNorth;
-    Icon iconSouth;
-    Icon iconSettings;
-    Icon iconPlaySound;
-    Icon iconStopSound;
-    Icon iconMap;
-    Icon iconHelp;
 
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     IntroScreenHandler isHandler = new IntroScreenHandler();
@@ -210,6 +205,26 @@ public class GUI_Two {
             iconStopSound = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/StopSound.png")));
             iconMap = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Map.png")));
             iconHelp = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Help.png")));
+            iconZombie = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Zombie.png")));
+            iconBag = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Bag.png")));
+            iconHB14 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-14.png")));
+            iconHB13 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-13.png")));
+            iconHB12 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-12.png")));
+            iconHB11 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-11.png")));
+            iconHB10 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-10.png")));
+            iconHB9 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-9.png")));
+            iconHB8 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-8.png")));
+            iconHB7 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-7.png")));
+            iconHB6 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-6.png")));
+            iconHB5 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-5.png")));
+            iconHB4 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-4.png")));
+            iconHB3 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-3.png")));
+            iconHB2 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-2.png")));
+            iconHB1 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-1.png")));
+
+
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -219,7 +234,7 @@ public class GUI_Two {
 
         //Header text area with the Player information
         playerPanel = new JPanel();
-        playerPanel.setBounds(100, 15, 600, 50);
+        playerPanel.setBounds(60, 15, 600, 60);
         playerPanel.setBackground(Color.black);
         playerPanel.setLayout(new GridBagLayout());
         con.add(playerPanel);
@@ -227,7 +242,7 @@ public class GUI_Two {
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 0, 0, 20);
 
-        playerNameLabel = new JLabel("Name: ");
+        playerNameLabel = new JLabel(iconZombie);
         playerNameLabel.setFont(normalFont);
         playerNameLabel.setForeground(Color.green);
         playerPanel.add(playerNameLabel);
@@ -237,17 +252,17 @@ public class GUI_Two {
         playerNameLabelNumber.setForeground(Color.yellow);
         playerPanel.add(playerNameLabelNumber, constraints);
 
-        healthLabel = new JLabel("Health: ");
+        healthLabel = new JLabel();
         healthLabel.setFont(normalFont);
         healthLabel.setForeground(Color.green);
         playerPanel.add(healthLabel);
 
-        healthLabelNumber = new JLabel();
-        healthLabelNumber.setFont(normalFont);
-        healthLabelNumber.setForeground(Color.yellow);
-        playerPanel.add(healthLabelNumber, constraints);
+//        healthLabelNumber = new JLabel();
+//        healthLabelNumber.setFont(normalFont);
+//        healthLabelNumber.setForeground(Color.yellow);
+//        playerPanel.add(healthLabelNumber, constraints);
 
-        inventoryLabel = new JLabel("Inventory: ");
+        inventoryLabel = new JLabel(iconBag);
         inventoryLabel.setFont(normalFont);
         inventoryLabel.setForeground(Color.green);
         playerPanel.add(inventoryLabel);
@@ -320,7 +335,7 @@ public class GUI_Two {
 
         //Output area for various function like talk, look, attack, etc
         outputPanel = new JPanel();
-        outputPanel.setBounds(70, 385, 630, 80);
+        outputPanel.setBounds(70, 385, 630, 90);
         outputPanel.setBackground(Color.black);
         outputPanel.setLayout(new GridLayout(2, 1));
         con.add(outputPanel);
@@ -525,11 +540,32 @@ public class GUI_Two {
         Player player = mansion.getPlayer();
         String playerName = player.getName();
         int playerHealth = player.getHealth();
+
+        if (playerHealth > 130 && playerHealth < 141) healthLabel.setIcon(iconHB14);
+        if (playerHealth > 120 && playerHealth < 131) healthLabel.setIcon(iconHB13);
+        if (playerHealth > 110 && playerHealth < 121) healthLabel.setIcon(iconHB12);
+        if (playerHealth > 100 && playerHealth < 111) healthLabel.setIcon(iconHB11);
+        if (playerHealth > 90 && playerHealth < 101) healthLabel.setIcon(iconHB10);
+        if (playerHealth > 80 && playerHealth < 91) healthLabel.setIcon(iconHB9);
+        if (playerHealth > 70 && playerHealth < 81) healthLabel.setIcon(iconHB8);
+        if (playerHealth > 60 && playerHealth < 71) healthLabel.setIcon(iconHB7);
+        if (playerHealth > 50 && playerHealth < 61) healthLabel.setIcon(iconHB6);
+        if (playerHealth > 40 && playerHealth < 51) healthLabel.setIcon(iconHB5);
+        if (playerHealth > 30 && playerHealth < 41) healthLabel.setIcon(iconHB4);
+        if (playerHealth > 20 && playerHealth < 31) healthLabel.setIcon(iconHB3);
+        if (playerHealth > 10 && playerHealth < 21) healthLabel.setIcon(iconHB2);
+        if (playerHealth > 0 && playerHealth < 11) healthLabel.setIcon(iconHB1);
+        // Loose statements go here.
+        // if (playerHealth < 0)  then run the loose scree
+
         List playerInventory = player.getInventory();
 
+        //check inventory for grim and do win
+
+        //else do this stuff
         playerNameLabelNumber.setText("" + playerName);
         inventoryLabelNumber.setText("" + playerInventory);
-        healthLabelNumber.setText("" + playerHealth);
+        //healthLabelNumber.setText("" + playerHealth);
     }
 
     public void roomSetup() {
@@ -546,6 +582,9 @@ public class GUI_Two {
 
         @Override
         public void actionPerformed(ActionEvent event) {
+            // if userInputField contains lowercase "quit"
+            // this do this
+            // else
             helper.handleUserInput(userInputField, outputLabel);
             playerSetup();
             roomSetup();
