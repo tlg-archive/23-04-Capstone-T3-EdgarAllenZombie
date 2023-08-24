@@ -579,7 +579,7 @@ public class GUI_Two {
         // Game initialization
         playerSetup();
         roomSetup();
-        backgroundMusic.play("music");
+//        backgroundMusic.play("music");  currently commented out, causing a double audio feed when you restart into a new game.
 
         // Refreshing the window
         window.revalidate();
@@ -684,7 +684,13 @@ public class GUI_Two {
                     }
                     break;
                 case "restart":
-                    createIntroScreen();
+                    backgroundMusic.stop();
+                    window.dispose();
+                    try {
+                        new GUI_Two();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case "exit":
                     System.exit(0);
@@ -781,7 +787,7 @@ public class GUI_Two {
     }
 
     public class VolumeToggleHandler implements ActionListener {
-        boolean isMuted = false;
+        boolean isMuted = true; //changed to start the game muted
         Icon iconSound;
         @Override
         public void actionPerformed(ActionEvent event) {
