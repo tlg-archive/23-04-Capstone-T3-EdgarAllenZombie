@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import eaz.controller.EAZ;
 import eaz.view.GeneralViewItems;
 import eaz.view.Music;
-import eaz.controller.*;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -107,7 +107,7 @@ public class Mansion {
         return newLocation;
     }
 
-    public void pickUpItem(String itemName) {
+    public List<String> pickUpItem(String itemName) {
         Item item = new Item();
         // set the parameters from mansion to use in getItem
         itemName = itemName;
@@ -115,6 +115,7 @@ public class Mansion {
         List<String> inventory = player.getInventory();
         // call getItem and pass mansion variables
         item.getItem(itemName, currentLocation, inventory);
+        return inventory;
     }
 
 
