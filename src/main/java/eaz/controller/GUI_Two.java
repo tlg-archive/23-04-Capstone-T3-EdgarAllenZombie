@@ -555,9 +555,14 @@ public class GUI_Two {
         if (playerHealth > 20 && playerHealth < 31) healthLabel.setIcon(iconHB3);
         if (playerHealth > 10 && playerHealth < 21) healthLabel.setIcon(iconHB2);
         if (playerHealth > 0 && playerHealth < 11) healthLabel.setIcon(iconHB1);
+        // Loose statements go here.
+        // if (playerHealth < 0)  then run the loose scree
 
         List playerInventory = player.getInventory();
 
+        //check inventory for grim and do win
+
+        //else do this stuff
         playerNameLabelNumber.setText("" + playerName);
         inventoryLabelNumber.setText("" + playerInventory);
         //healthLabelNumber.setText("" + playerHealth);
@@ -577,6 +582,9 @@ public class GUI_Two {
 
         @Override
         public void actionPerformed(ActionEvent event) {
+            // if userInputField contains lowercase "quit"
+            // this do this
+            // else
             helper.handleUserInput(userInputField, outputLabel);
             playerSetup();
             roomSetup();
