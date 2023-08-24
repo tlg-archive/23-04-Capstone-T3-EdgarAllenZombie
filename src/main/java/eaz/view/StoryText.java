@@ -43,6 +43,7 @@ class StoryText {
 
     void winGame(){
         Scanner scanner = new Scanner(System.in);
+        genItems.printTextFile("textFiles/Win_Text.txt", green);
         Music winFX = new Music("fx", "audioFiles/win.wav");
         winFX.play("fx");
         System.out.printf("%s " +
@@ -54,6 +55,7 @@ class StoryText {
                 "  We hope you enjoyed your time playing and we hope you have the day you deserve \n " +
                 "%s ",doubleLines, green, colorReset, singleLines);
         genItems.pauseScreen();
+        genItems.clearScreen();
     }
 
 }   // END OF CLASS

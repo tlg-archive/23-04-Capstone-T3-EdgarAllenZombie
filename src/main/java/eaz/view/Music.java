@@ -38,6 +38,9 @@ public class Music {
         }
     }
 
+    public void close(){
+        music.close();
+    }
     public void stop() {
         music.stop();
         music.setFramePosition(0); // Rewind to the beginning
