@@ -19,14 +19,14 @@ class MansionTest {
     private Mansion mansion;
     private Player player;
     private Item[] items;
-
+    private Item item;
 
     @BeforeEach
     public void setUp() throws IOException {
         mansion = new Mansion();
         player = new Player();
         mansion = MyJsonReader.readMansion("JsonObjects.json");  // populate the mansion from the JsonObjects.json
-
+        item = new Item();
     }
 
     @Test
@@ -72,4 +72,28 @@ class MansionTest {
 
 
     }
+
+    @Test
+    public void pickUpItem_ShouldAddItemToInventory() {
+        mansion.setCurrentLocationName("Foyer");
+        List<String> inventory;
+        inventory = mansion.pickUpItem("knife");
+        String test = inventory.toString();
+        String expected = "[knife]";
+        Assertions.assertEquals(test, expected);
+
+    }
+
+    @Test
+    public void pickUpItem_ShouldNotAddItemToInventory() {
+        mansion.setCurrentLocationName("Foyer");
+        List<String> inventory;
+        inventory = mansion.pickUpItem("plate of food");
+        String test = inventory.toString();
+        String expected = "[]";
+        Assertions.assertEquals(test, expected);
+    }
+
+
 }
+

@@ -91,6 +91,7 @@ public class GUI_Two {
         Player player;
 
         window = new JFrame();
+        window.setTitle("Edgar Allen Zombie");
         window.setSize(800, 820);                    //height was 650
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.black);
