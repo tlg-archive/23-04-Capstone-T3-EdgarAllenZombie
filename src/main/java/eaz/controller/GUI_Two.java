@@ -732,4 +732,10 @@ public class GUI_Two {
             throw new RuntimeException(e);
         }
     }
+
+    private void winState(){
+        if (mansion.getPlayer().getInventory().contains("grimoire")) {
+            JOptionPane.showMessageDialog(null, "Congratulations, You have won the game.");
+        }
+    }
 }
