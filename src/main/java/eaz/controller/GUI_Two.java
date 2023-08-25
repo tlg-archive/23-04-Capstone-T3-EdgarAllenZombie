@@ -61,6 +61,7 @@ public class GUI_Two {
     //Private final GUIFunctionality helper;
     private GUIFunctionality_Two helper;
     public final Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
+    public final Music winMusic = new Music("music", "audioFiles/win.wav");
 
 
     TitleScreenHandler tsHandler = new TitleScreenHandler();
@@ -747,6 +748,7 @@ public class GUI_Two {
                     break;
                 case "restart":
                     backgroundMusic.close();
+                    winMusic.close();
                     window.dispose();
                     try {
                         new GUI_Two();
@@ -908,6 +910,7 @@ public class GUI_Two {
 
     public void winGameTextSetup(){
         System.setOut(printOutput);
+        winMusic.play("music");
         String fileName = "textFiles/Win_Text.txt";
         StringBuilder htmlText = new StringBuilder("<html>");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(GUI_Two.class.getClassLoader().getResourceAsStream(fileName)))) {
