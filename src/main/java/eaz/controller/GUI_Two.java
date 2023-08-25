@@ -741,6 +741,14 @@ public class GUI_Two {
 
                 case "c4":
                     break;
+                case "c5":
+                    try {
+                        MyJsonReader.writeMansion(mansion, "saved.json");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    JOptionPane.showMessageDialog(null, "game saved.");
+                    break;
             }
         }
     }
