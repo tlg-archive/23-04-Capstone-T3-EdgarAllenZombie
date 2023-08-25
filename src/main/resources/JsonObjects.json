@@ -307,7 +307,7 @@
   "player": {
     "name": "Edgar Allen Zombie",
     "inventory": [],
-    "health": 140,
+    "health": 10,
     "armor": 13,
     "damage": 3,
     "hitChance": 5
