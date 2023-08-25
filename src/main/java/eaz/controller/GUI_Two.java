@@ -45,7 +45,7 @@ public class GUI_Two {
     Font gameFont = new Font("Times New Roman", Font.PLAIN, 15);
     Font textFileFont = new Font("Monospaced", Font.PLAIN, 8);
 
-    JButton startButton, playButton, playNewButton, choice1, choice2, choice3, choice4, arrowUp, arrowDown, arrowLeft, arrowRight, restartButton, quitButton;
+    JButton startButton, playButton, playNewButton, choice1, choice2, choice3, choice4, choice5, arrowUp, arrowDown, arrowLeft, arrowRight, restartButton, quitButton;
     JTextArea mainTextArea, gameTextDisplayArea;
     JTextField userInputField;
 
@@ -488,6 +488,17 @@ public class GUI_Two {
         choice4.setFocusPainted(false);
         choice4.setContentAreaFilled(false);
 //        choice4.setActionCommand("c4");
+
+        choice5 = new JButton("save");
+        choice5.setBorderPainted(false);
+        choice5.setBackground(Color.black);
+        choice5.setForeground(Color.green);
+        choice5.setFont(normalFont);
+        choiceButtonPanel.add(choice5);
+        choice5.setFocusPainted(false);
+        choice5.addActionListener(choiceHandler);
+        choice5.setFocusPainted(false);
+        choice5.setContentAreaFilled(false);
 
         //Move buttons area to implement
         arrowPanel = new JPanel();
