@@ -16,14 +16,14 @@ public class Combat {
         Character c = getTarget(target, currentLocation, characters);
         assert c != null;
 
-        System.out.println("Beginning combat");
+        //System.out.println("Beginning combat");
 
         // run combat loop
-        while (player.getHealth() > 0 && c.getHealth() > 0) {
-            System.out.println("Would you like to attack? (yes/no)");
-            String attackChoice = TextParser.getInput();
-            viewMain.clearScreen();
-            if (attackChoice.equals("yes")) {
+
+            //System.out.println("Would you like to attack? (yes/no)");
+            //String attackChoice = TextParser.getInput();
+            //viewMain.clearScreen();
+
                 checkForHit(c, player);
                 System.out.println();
                 viewMain.displayEnemyHealth(c);
@@ -33,14 +33,37 @@ public class Combat {
                     Music attackNPCFX = new Music("fx", "audioFiles/attackNPC.wav");
                     attackNPCFX.play("fx");
                 }
-            }else if(attackChoice.equals("no")){
-                return;
-            }
             if(c.getHealth() <= 0){
                 String[] enemies = {};
                 currentLocation.setCharacters(enemies);
             }
-        }
+
+
+
+
+
+//        while (player.getHealth() > 0 && c.getHealth() > 0) {
+//            System.out.println("Would you like to attack? (yes/no)");
+//            String attackChoice = TextParser.getInput();
+//            viewMain.clearScreen();
+//            if (attackChoice.equals("yes")) {
+//                checkForHit(c, player);
+//                System.out.println();
+//                viewMain.displayEnemyHealth(c);
+//                enemyAttack(c, player);
+//                viewMain.displayPlayerHealth(player);
+//                if (EAZ.playFX){
+//                    Music attackNPCFX = new Music("fx", "audioFiles/attackNPC.wav");
+//                    attackNPCFX.play("fx");
+//                }
+//            }else if(attackChoice.equals("no")){
+//                return;
+//            }
+//            if(c.getHealth() <= 0){
+//                String[] enemies = {};
+//                currentLocation.setCharacters(enemies);
+//            }
+//        }
 
     }
 

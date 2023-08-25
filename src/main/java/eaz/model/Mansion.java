@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import eaz.controller.EAZ;
 import eaz.view.GeneralViewItems;
 import eaz.view.Music;
-import eaz.controller.*;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -33,10 +33,17 @@ public class Mansion {
         return getLocationMap().get(name);
     }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
-    // TODO: 8/8/2023 add additional fields for currentlocations, inventory, health, enemies, etc
+// TODO: 8/8/2023 add additional fields for currentlocations, inventory, health, enemies, etc
     // TODO: 8/8/2023 define methods for manipulating the state
 
+
+    public void setCurrentLocationName(String currentLocationName) {
+        this.currentLocationName = currentLocationName;
+    }
 
     public Location[] getLocations() {
         return locations;
@@ -100,7 +107,7 @@ public class Mansion {
         return newLocation;
     }
 
-    public void pickUpItem(String itemName) {
+    public List<String> pickUpItem(String itemName) {
         Item item = new Item();
         // set the parameters from mansion to use in getItem
         itemName = itemName;
@@ -108,6 +115,7 @@ public class Mansion {
         List<String> inventory = player.getInventory();
         // call getItem and pass mansion variables
         item.getItem(itemName, currentLocation, inventory);
+        return inventory;
     }
 
 
@@ -152,43 +160,74 @@ public class Mansion {
         }
     }
 
-    public void lookAtItem(String itemName){
+    public String lookAtItem(String itemName){
         // get the current location
         Location currentLocation = getCurrentLocation();
         // get the player inventory
         List<String> inventory = player.getInventory();
+        // set a string to save the item description for testing
+        String itemDescription = "match not found";
         // if the current location contains the item
         if (currentLocation.getItems().contains(itemName)) {
             //call the iterateItem function
-            iterateItem(itemName);
+            itemDescription =  iterateItem(itemName);
             // if the player inventory has the item
-        } else if(inventory.contains(itemName)){
+        } else if(inventory.contains(itemName)) {
             // print a useful statement
-            System.out.println("Your looking at " + itemName + " in your inventory");
-            // call the iterateItem function
             System.out.println(genItems.purple + "Your looking at " + itemName + " in your inventory\n" + genItems.white);
-            iterateItem(itemName);
-        }
-        else if (itemName != "" && itemName != null){
-            System.out.println(genItems.red + "Error: You can not look at " + itemName + " it's not in this room or your inventory!!! Please try again.\n" + genItems.white);
-        } else {
+            // call the iterateItem function
+           itemDescription = iterateItem(itemName);
+        }else{
             // print a helpful statement
-        }
             System.out.println(genItems.red + "Error: You didn't enter a valid item to look at!!! Please try again.\n" + genItems.white);
-
+        }
+        return itemDescription;
     }
+//    public void lookAtItem(String itemName){
+//        // get the current location
+//        Location currentLocation = getCurrentLocation();
+//        // get the player inventory
+//        List<String> inventory = player.getInventory();
+//        // if the current location contains the item
+//        if (currentLocation.getItems().contains(itemName)) {
+//            //call the iterateItem function
+//            iterateItem(itemName);
+//            // if the player inventory has the item
+//        } else if(inventory.contains(itemName)) {
+//            // print a useful statement
+//            System.out.println(genItems.purple + "Your looking at " + itemName + " in your inventory\n" + genItems.white);
+//            // call the iterateItem function
+//            iterateItem(itemName);
+//        }else{
+//            // print a helpful statement
+//            System.out.println(genItems.red + "Error: You didn't enter a valid item to look at!!! Please try again.\n" + genItems.white);
+//        }
+//
+//    }
 
 // iterate over items in the json file
-    public void iterateItem(String itemName) {
-        // for every item in the items section in the json
-        for (Item curItem : items) {
-            // if the current item name equals the itemName
-            if(curItem.getName().equalsIgnoreCase(itemName)) {
-                // print the description
-                System.out.println(curItem.getDescription());
-            }
+//    public void iterateItem(String itemName) {
+//        // for every item in the items section in the json
+//
+//        for (Item curItem : items) {
+//            // if the current item name equals the itemName
+//            if(curItem.getName().equalsIgnoreCase(itemName)) {
+//                // print the description
+//                System.out.println(curItem.getDescription());
+//            }
+//        }
+//    }
+public String iterateItem(String itemName) {
+    // for every item in the items section in the json
+String itemDescription = "match not found";
+    for (Item curItem : items) {
+        // if the current item name equals the itemName
+        if(curItem.getName().equalsIgnoreCase(itemName)) {
+            // print the description
+            itemDescription = curItem.getDescription();
+            System.out.println(itemDescription);
         }
     }
-
-
+    return itemDescription;
+}
 }
