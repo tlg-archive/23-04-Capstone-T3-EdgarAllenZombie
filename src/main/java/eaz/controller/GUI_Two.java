@@ -9,6 +9,7 @@ import eaz.view.ViewMain;
 import eaz.model.MyJsonReader;
 import eaz.model.Player;
 import eaz.view.Music;
+import eaz.view.GamePanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -32,7 +33,7 @@ import java.util.Map;
 public class GUI_Two {
 
     JFrame window, frame;   //First Layer
-    Container con;   //Placed on window
+    //Container con;   //Placed on window
     JPanel titleGamePanel, startButtonPanel, introTextPanel, playButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel,
             arrowPanel, outputPanel, winTextPanel, winGameButtonPanel, loseTextPanel, loseGameButtonPanel;  //Placed on container
     JLabel  introTextLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel,
@@ -45,8 +46,10 @@ public class GUI_Two {
     Font gameFont = new Font("Times New Roman", Font.PLAIN, 15);
     Font textFileFont = new Font("Monospaced", Font.PLAIN, 8);
 
-    JButton startButton, playButton, playNewButton, choice1, choice2, choice3, choice4, choice5, choice6, arrowUp, arrowDown, arrowLeft, arrowRight, restartButton, quitButton;
-    JTextArea mainTextArea, gameTextDisplayArea;
+
+    JButton startButton, playButton, playNewButton, choice1, choice2, choice3, choice4, arrowUp, arrowDown, arrowLeft, arrowRight, restartButton, quitButton;
+    JTextArea mainTextArea, gameTextDisplayArea, mapPanelLabel;
+
     JTextField userInputField;
 
     Icon iconEast, iconWest, iconNorth, iconSouth, iconSettings, iconPlaySound, iconStopSound, iconMap, iconHelp, iconZombie, iconBag,
@@ -55,6 +58,7 @@ public class GUI_Two {
     //  JTextPane titleGameLabel;
 
     SliderGradient volumeSlider;
+    GamePanel mapPanel;
 
     private Mansion mansion;
 
@@ -93,12 +97,12 @@ public class GUI_Two {
 
         window = new JFrame();
         window.setTitle("Edgar Allen Zombie");
-        window.setSize(800, 820);                    //height was 650
+        window.setSize(800, 1000);                    //height was 820
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.black);
         window.setLayout(null);
         window.setVisible(true);
-        con = window.getContentPane();
+        //con = window.getContentPane();
 
         titleGamePanel = new JPanel();
         titleGamePanel.setBounds(150, 100, 800, 300);
@@ -129,8 +133,10 @@ public class GUI_Two {
         titleGamePanel.add(titleGameLabel);
         startButtonPanel.add(startButton);
 
-        con.add(titleGamePanel);
-        con.add(startButtonPanel);
+        //con.add(titleGamePanel);
+        //con.add(startButtonPanel);
+        window.add(titleGamePanel);
+        window.add(startButtonPanel);
 
         //loadFileContent;
         loadFileContent();
@@ -181,12 +187,15 @@ public class GUI_Two {
 
 
         introTextPanel.add(introTextLabel);
-        con.add(introTextPanel);
+        //con.add(introTextPanel);
+        window.add(introTextPanel);
         playButtonPanel.add(playButton);
         playButtonPanel.add(playNewButton);
 
-        con.add(introTextPanel);
-        con.add(playButtonPanel);
+        //con.add(introTextPanel);
+        //con.add(playButtonPanel);
+        window.add(introTextPanel);
+        window.add(playButtonPanel);
 
         introTextSetup();
     }
@@ -342,10 +351,6 @@ public class GUI_Two {
             iconHB2 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-2.png")));
             iconHB1 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-1.png")));
 
-
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -357,7 +362,8 @@ public class GUI_Two {
         playerPanel.setBounds(60, 15, 600, 60);
         playerPanel.setBackground(Color.black);
         playerPanel.setLayout(new GridBagLayout());
-        con.add(playerPanel);
+        //con.add(playerPanel);
+        window.add(playerPanel);
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 0, 0, 20);
@@ -397,7 +403,8 @@ public class GUI_Two {
         mainTextPanel.setBounds(70, 80, 660, 280);
         mainTextPanel.setBackground(Color.black);
         mainTextPanel.setLayout(new GridLayout(10, 1));
-        con.add(mainTextPanel);
+        //con.add(mainTextPanel);
+        window.add(mainTextPanel);
 
         currentLocationLabel = new JLabel("Current Location: ");
         currentLocationLabel.setFont(gameFont);
@@ -458,8 +465,8 @@ public class GUI_Two {
         outputPanel.setBounds(70, 385, 630, 90);
         outputPanel.setBackground(Color.black);
         outputPanel.setLayout(new GridLayout(2, 1));
-        con.add(outputPanel);
-
+        //con.add(outputPanel);
+        window.add(outputPanel);
         outputTitleLabel = new JLabel("Dialog:");
         outputTitleLabel.setForeground(Color.green);
         outputTitleLabel.setFont(gameFont);
@@ -476,7 +483,8 @@ public class GUI_Two {
         userPromptPanel.setBounds(90, 500, 200, 25);           //y 415
         userPromptPanel.setBackground(Color.black);//change the color later
         userPromptPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        con.add(userPromptPanel);
+        //con.add(userPromptPanel);
+        window.add(userPromptPanel);
 
         // adds the text to the area for the user prompt
         userPromptLabel = new JLabel("Enter a Command > ");
@@ -491,14 +499,17 @@ public class GUI_Two {
         userInputField.setBackground(Color.pink);
         userInputField.setForeground(Color.black);
         userInputField.addActionListener(userInputHandler);
-        con.add(userInputField);
+        //con.add(userInputField);
+        window.add(userInputField);
+
 
         //Misc buttons area to implement
         choiceButtonPanel = new JPanel();
         choiceButtonPanel.setBounds(265, 590, 400, 45);  //y was 480
         choiceButtonPanel.setBackground(Color.black);
         choiceButtonPanel.setLayout(new GridLayout(1, 4));
-        con.add(choiceButtonPanel);
+        //con.add(choiceButtonPanel);
+        window.add(choiceButtonPanel);
 
         choice1 = new JButton(iconHelp);
         choice1.setSize(10, 10);
@@ -638,19 +649,23 @@ public class GUI_Two {
             }
         }
 
-        con.add(arrowPanel);
+        //con.add(arrowPanel);
+        window.add(arrowPanel);
+
 
         // Create an audio panel
         audioPanel = new JPanel();
         audioPanel.setBounds(200, 690, 350, 30);        // y was 550
         audioPanel.setBackground(Color.black);
-        con.add(audioPanel);
+        //con.add(audioPanel);
+        window.add(audioPanel);
 
         volumeSliderLabel = new JLabel("Volume Level: ");
         volumeSliderLabel.setBackground(Color.black);
         volumeSliderLabel.setForeground(Color.green);
         volumeSliderLabel.setFont(normalFont);
         audioPanel.add(volumeSliderLabel);
+
 
         //volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 70); // Initial volume at 70%
         volumeSlider = new SliderGradient();
@@ -659,9 +674,36 @@ public class GUI_Two {
         volumeSlider.addChangeListener(volumeHandler);
         audioPanel.add(volumeSlider);
 
+        //create the map area
+//        mapPanel = new JPanel();
+//        mapPanel.setVisible(true);
+//        mapPanel.setBounds(50, 730, 660, 50);
+//        mapPanel.setBackground(Color.green);
+//        window.add(mapPanel);
+
+        mapPanelLabel = new JTextArea();
+        mapPanelLabel.setVisible(true);
+        mapPanelLabel.setBounds(390, 735, 150, 20);
+        mapPanelLabel.setFont(normalFont);
+        mapPanelLabel.setBackground(Color.black);
+        mapPanelLabel.setForeground(Color.green);
+        mapPanelLabel.setFont(gameFont);
+        window.add(mapPanelLabel);
+
+        mapPanel = new GamePanel();
+        mapPanel.setVisible(true);
+        mapPanel.setBounds(350, 760, 200, 180);
+        mapPanel.setBackground(Color.green);
+        mapPanel.setLayout(new GridLayout(1, 2));
+        mapPanel.startGameThread();
+        window.add(mapPanel);
+
+
+
         // Game initialization
         playerSetup();
         roomSetup();
+        // loadRoomMap();
         backgroundMusic.play("music");
 
         // Refreshing the window
@@ -720,6 +762,7 @@ public class GUI_Two {
 
         Location currentLocation = mansion.getCurrentLocation();
         currentLocationLabelNumber.setText(currentLocation.getName());
+        mapPanelLabel.setText("Map For " + currentLocation.getName() + ":");
         descriptionLabelNumber.setText("<html>" + currentLocation.getDescription() + "<html>");
         directionsLabelNumber.setText("" + currentLocation.getDirections().keySet());
         itemsLabelNumber.setText("" + currentLocation.getItems());
@@ -840,7 +883,6 @@ public class GUI_Two {
                         helper.handleButtons("move", "north", outputLabel);
                         playerSetup();
                         roomSetup();
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -938,6 +980,26 @@ public class GUI_Two {
         }
     }
 
+    private void loadRoomMap() {
+        Location currentLocation = mansion.getCurrentLocation();
+        JFrame window = new JFrame();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+        window.setTitle(currentLocation.getName().toUpperCase());
+
+        GamePanel gamePanel = new GamePanel();
+
+        window.add(gamePanel);
+
+        window.pack();
+
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+
+
+        gamePanel.startGameThread();
+    }
+  
     public void winGameTextSetup(){
         System.setOut(printOutput);
         winMusic.play("music");
@@ -980,5 +1042,4 @@ public class GUI_Two {
             throw new RuntimeException(e);
         }
     }
-
 }

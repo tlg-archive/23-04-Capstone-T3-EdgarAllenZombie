@@ -3,6 +3,7 @@ package eaz.controller;
 import eaz.model.Mansion;
 import eaz.model.MyJsonReader;
 import eaz.model.Player;
+import eaz.view.GamePanel;
 import eaz.view.Music;
 import eaz.view.ViewMain;
 
