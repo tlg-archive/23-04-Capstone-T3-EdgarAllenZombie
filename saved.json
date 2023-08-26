@@ -161,7 +161,9 @@
         "south": "Hallway 2N"
       },
       "description": "To the North you see a door.\nThe hallway continues West, and South will take you to back towards the entrance.",
-      "items": [],
+      "items": [
+        "knife"
+      ],
       "characters": []
     },
     {
@@ -255,21 +257,21 @@
       "type": "book",
       "name": "diary",
       "description": "You must find the grimoire.",
-      "location": "Bedroom",
+      "location": "bedroom",
       "modifier": 0
     },
     {
       "type": "weapon",
       "name": "plate of food",
       "description": "This is a plate of half eaten food.",
-      "location": "Dining Room",
+      "location": "dining Room",
       "modifier": 0
     },
     {
       "type": "weapon",
       "name": "key",
       "description": "A random key.",
-      "location": "Home Office",
+      "location": "home office",
       "modifier": 0
     }
   ],
@@ -292,9 +294,9 @@
       "type": "enemy",
       "name": "ghost",
       "health": 10,
-      "damage": 3,
+      "damage": 10,
       "hit": 7,
-      "armor": 15,
+      "armor": 55,
       "description": "A floating humanoid entity",
       "dialog": [
         "Please don\u0027t hurt me, I\u0027m not one of the bad ones",
@@ -310,16 +312,17 @@
       "hit": 3,
       "armor": 3,
       "description": "Your sister Sara",
-      "dialog": []
+      "dialog": [
+        "Please look for my diary for a clue!",
+        "I see may need help... check the bedroom."
+      ]
     }
   ],
-  "currentLocationName": "Bedroom",
+  "currentLocationName": "Hallway 3E",
   "player": {
     "name": "Edgar Allen Zombie",
-    "inventory": [
-      "knife"
-    ],
-    "health": 50,
+    "inventory": [],
+    "health": 120,
     "armor": 13,
     "damage": 3,
     "hitChance": 5

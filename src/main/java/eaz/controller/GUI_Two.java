@@ -46,6 +46,7 @@ public class GUI_Two {
     Font gameFont = new Font("Times New Roman", Font.PLAIN, 15);
     Font textFileFont = new Font("Monospaced", Font.PLAIN, 8);
 
+
     JButton startButton, playButton, playNewButton, choice1, choice2, choice3, choice4, arrowUp, arrowDown, arrowLeft, arrowRight, restartButton, quitButton;
     JTextArea mainTextArea, gameTextDisplayArea, mapPanelLabel;
 
@@ -504,7 +505,7 @@ public class GUI_Two {
 
         //Misc buttons area to implement
         choiceButtonPanel = new JPanel();
-        choiceButtonPanel.setBounds(320, 590, 300, 45);  //y was 480
+        choiceButtonPanel.setBounds(265, 590, 400, 45);  //y was 480
         choiceButtonPanel.setBackground(Color.black);
         choiceButtonPanel.setLayout(new GridLayout(1, 4));
         //con.add(choiceButtonPanel);
@@ -557,8 +558,30 @@ public class GUI_Two {
         choice4.addActionListener(volumeToggleHandler);
         choice4.setFocusPainted(false);
         choice4.setContentAreaFilled(false);
-//        choice4.setActionCommand("c4");
 
+        choice5 = new JButton("save");
+        choice5.setBorderPainted(false);
+        choice5.setBackground(Color.black);
+        choice5.setForeground(Color.green);
+        choice5.setFont(normalFont);
+        choiceButtonPanel.add(choice5);
+        choice5.setFocusPainted(false);
+        choice5.addActionListener(choiceHandler);
+        choice5.setFocusPainted(false);
+        choice5.setContentAreaFilled(false);
+        choice5.setActionCommand("c4");
+
+        choice6 = new JButton("quit");
+        choice6.setBorderPainted(false);
+        choice6.setBackground(Color.black);
+        choice6.setForeground(Color.green);
+        choice6.setFont(normalFont);
+        choiceButtonPanel.add(choice6);
+        choice6.setFocusPainted(false);
+        choice6.addActionListener(choiceHandler);
+        choice6.setFocusPainted(false);
+        choice6.setContentAreaFilled(false);
+        choice6.setActionCommand("c5");
         //Move buttons area to implement
         arrowPanel = new JPanel();
         arrowPanel.setBounds(160, 570, 100, 90);    // y was 460
@@ -832,8 +855,16 @@ public class GUI_Two {
                 case "c3":
                     JOptionPane.showMessageDialog(null, "This Function is only available in the Paid version of the game. Please subscribe for full functionality.");
                     break;
-
                 case "c4":
+                    try {
+                        MyJsonReader.writeMansion(mansion, "saved.json");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    JOptionPane.showMessageDialog(null, "game saved.");
+                    break;
+                case "c5":
+                    System.exit(0);
                     break;
             }
         }
