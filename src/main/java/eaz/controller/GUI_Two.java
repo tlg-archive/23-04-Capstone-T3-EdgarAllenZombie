@@ -47,7 +47,7 @@ public class GUI_Two {
     Font textFileFont = new Font("Monospaced", Font.PLAIN, 8);
 
 
-    JButton startButton, playButton, playNewButton, choice1, choice2, choice3, choice4, arrowUp, arrowDown, arrowLeft, arrowRight, restartButton, quitButton;
+    JButton startButton, playButton, playNewButton, choice1, choice2, choice3, choice4, choice5, choice6, arrowUp, arrowDown, arrowLeft, arrowRight, restartButton, quitButton;
     JTextArea mainTextArea, gameTextDisplayArea, mapPanelLabel;
 
     JTextField userInputField;
@@ -252,8 +252,8 @@ public class GUI_Two {
         winTextPanel.add(winTextLabel);
         winGameButtonPanel.add(restartButton);
         winGameButtonPanel.add(quitButton);
-        con.add(winTextPanel);
-        con.add(winGameButtonPanel);
+        //con.add(winTextPanel);
+        //con.add(winGameButtonPanel);
 
         //print dialogue to screen
         winGameTextSetup();
@@ -311,8 +311,8 @@ public class GUI_Two {
         loseTextPanel.add(loseTextLabel);
         loseGameButtonPanel.add(restartButton);
         loseGameButtonPanel.add(quitButton);
-        con.add(loseTextPanel);
-        con.add(loseGameButtonPanel);
+        //con.add(loseTextPanel);
+        //con.add(loseGameButtonPanel);
 
         //print dialogue to screen
         loseGameTextSetup();
