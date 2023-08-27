@@ -13,7 +13,9 @@
         "north": "Hallway 1E"
       },
       "description": "You stand in the entry foyer of the mansion,\n You hear a faint whisper of \u0027It puts the lotion on it\u0027s skin or else it gets the hose again\u0027 \n As you look around, you see a ghost... should you talk to it, or do you think you can fight it?",
-      "items": [],
+      "items": [
+        "knife"
+      ],
       "characters": [
         "ghost"
       ]
@@ -161,9 +163,7 @@
         "south": "Hallway 2N"
       },
       "description": "To the North you see a door.\nThe hallway continues West, and South will take you to back towards the entrance.",
-      "items": [
-        "knife"
-      ],
+      "items": [],
       "characters": []
     },
     {
@@ -318,11 +318,11 @@
       ]
     }
   ],
-  "currentLocationName": "Hallway 3E",
+  "currentLocationName": "Foyer",
   "player": {
     "name": "Edgar Allen Zombie",
     "inventory": [],
-    "health": 120,
+    "health": 140,
     "armor": 13,
     "damage": 3,
     "hitChance": 5
