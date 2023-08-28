@@ -30,7 +30,7 @@ public class Music {
     public void play(String item) {
         switch (item) {
             case "music":
-                music.start();
+                music.start();    //add the .loop(Clip.LOOP_CONTINUOUSLY) after any start
                 break;
             case "fx":
                 fx.start();
