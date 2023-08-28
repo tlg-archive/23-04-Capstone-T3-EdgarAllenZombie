@@ -33,7 +33,7 @@ public class GUI_Two {
     JFrame window;   //First Layer
     JPanel titleGamePanel, startButtonPanel, introTextPanel, playButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel,
             arrowPanel, outputPanel, winTextPanel, winGameButtonPanel, loseTextPanel, loseGameButtonPanel, inventoryPanel, iconPanel;//Placed on window
-    JLabel  introTextLabel, healthLabel, inventoryLabel, playerNameLabel,
+    JLabel introTextLabel, healthLabel, inventoryLabel, playerNameLabel,
             playerNameLabelNumber, userPromptLabel, currentLocationLabel, currentLocationLabelNumber, descriptionLabel,
             descriptionLabelNumber, directionsLabel, directionsLabelNumber, itemsLabel, itemsLabelNumber, creaturesLabel,
             creaturesLabelNumber, volumeSliderLabel, titleGameLabel, outputLabel, outputTitleLabel, winTextLabel, loseTextLabel; //Placed on panel
@@ -51,8 +51,8 @@ public class GUI_Two {
     JTextField userInputField;
 
     Icon iconEast, iconWest, iconNorth, iconSouth, iconSettings, iconPlaySound, iconStopSound, iconMap, iconHelp, iconZombie, iconBag,
-           iconHB1, iconHB2, iconHB3, iconHB4, iconHB5, iconHB6, iconHB7, iconHB8, iconHB9, iconHB10, iconHB11, iconHB12, iconHB13, iconHB14,
-           iconSave, iconQuit, iconKnife, iconKey, iconBat, iconDiary, iconGrimoire, iconJacket, iconPlate;
+            iconHB1, iconHB2, iconHB3, iconHB4, iconHB5, iconHB6, iconHB7, iconHB8, iconHB9, iconHB10, iconHB11, iconHB12, iconHB13, iconHB14,
+            iconSave, iconQuit, iconKnife, iconKey, iconBat, iconDiary, iconGrimoire, iconJacket, iconPlate;
 
     //  JTextPane titleGameLabel;
 
@@ -69,9 +69,12 @@ public class GUI_Two {
         return mansion;
     }
 
+    public GUIFunctionality_Two getHelper() {
+        return helper;
+    }
 
     //Private final GUIFunctionality helper;
-    private GUIFunctionality_Two helper;
+    public GUIFunctionality_Two helper;
     public final Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
     public final Music winMusic = new Music("music", "audioFiles/win.wav");
 
@@ -89,6 +92,9 @@ public class GUI_Two {
     MoveHandler moveHandler = new MoveHandler();
     VolumeToggleHandler volumeToggleHandler = new VolumeToggleHandler();
     InventoryHandler inventoryHandler = new InventoryHandler();
+    //MouseClick mouseClick = new MouseClick();
+
+
 
     Border greenLine = BorderFactory.createLineBorder(Color.green);
 
@@ -216,7 +222,7 @@ public class GUI_Two {
         introTextSetup();
     }
 
-    public void createWinScreen(){
+    public void createWinScreen() {
         //make the game screen panels (anything attached to the container) to NOT visible
         playerPanel.setVisible(false);
         mainTextPanel.setVisible(false);
@@ -230,9 +236,9 @@ public class GUI_Two {
 
         //make the panel to display the text
         winTextPanel = new JPanel();
-        winTextPanel.setBounds(100,100,600,400);
+        winTextPanel.setBounds(100, 100, 600, 400);
         winTextPanel.setBackground(Color.black); //change to black after testing
-        winTextPanel.setLayout(new GridLayout(1,1));
+        winTextPanel.setLayout(new GridLayout(1, 1));
 
         //create the text Label so Rich can work his magic
         winTextLabel = new JLabel();
@@ -243,7 +249,7 @@ public class GUI_Two {
 
         //setup the button Panel
         winGameButtonPanel = new JPanel();
-        winGameButtonPanel.setBounds(220,600,300,100);
+        winGameButtonPanel.setBounds(220, 600, 300, 100);
         winGameButtonPanel.setBackground(Color.black);//change to black after testing
 
         //setup restart button
@@ -275,7 +281,7 @@ public class GUI_Two {
         winGameTextSetup();
     }
 
-    public void createLoseScreen(){
+    public void createLoseScreen() {
         //make the game screen panels (anything attached to the container) to NOT visible
         playerPanel.setVisible(false);
         mainTextPanel.setVisible(false);
@@ -289,9 +295,9 @@ public class GUI_Two {
 
         //make the panel to display the text
         loseTextPanel = new JPanel();
-        loseTextPanel.setBounds(100,100,600,400);
+        loseTextPanel.setBounds(100, 100, 600, 400);
         loseTextPanel.setBackground(Color.black); //change to black after testing
-        loseTextPanel.setLayout(new GridLayout(1,1));
+        loseTextPanel.setLayout(new GridLayout(1, 1));
 
         //create the text Label so Rich can work his magic
         loseTextLabel = new JLabel();
@@ -302,7 +308,7 @@ public class GUI_Two {
 
         //setup the button Panel
         loseGameButtonPanel = new JPanel();
-        loseGameButtonPanel.setBounds(220,600,300,100);
+        loseGameButtonPanel.setBounds(220, 600, 300, 100);
         loseGameButtonPanel.setBackground(Color.black);//change to black after testing
 
         //setup restart button
@@ -546,7 +552,7 @@ public class GUI_Two {
 
         //Misc buttons area to implement
         choiceButtonPanel = new JPanel();
-        choiceButtonPanel.setBounds(760,90,45, 400);
+        choiceButtonPanel.setBounds(760, 90, 45, 400);
         choiceButtonPanel.setBackground(Color.black);
         choiceButtonPanel.setLayout(new GridLayout(6, 1));
         window.add(choiceButtonPanel);
@@ -722,11 +728,12 @@ public class GUI_Two {
         mapPanelLabel.setFont(gameFont);
         window.add(mapPanelLabel);
 
-        mapPanel = new GamePanel();
+        mapPanel = new GamePanel(this);
         mapPanel.setVisible(true);
         mapPanel.setBounds(350, 675, 280, 180);
         mapPanel.setBackground(Color.black);
         mapPanel.setLayout(new GridLayout(1, 2));
+        //mapPanel.addMouseListener(mouseClick);
         window.add(mapPanel);
 
 
@@ -737,7 +744,18 @@ public class GUI_Two {
         window.repaint();
     }
 
-    public void introTextSetup(){
+    //Getters and Setters
+
+
+    public JPanel getOutputPanel() {
+        return outputPanel;
+    }
+
+    public JLabel getOutputLabel() {
+        return outputLabel;
+    }
+
+    public void introTextSetup() {
         System.setOut(printOutput);
         viewMain.gameStart();
         String textOutput = basicOutput.toString();
@@ -769,7 +787,7 @@ public class GUI_Two {
         if (playerHealth > 10 && playerHealth < 21) healthLabel.setIcon(iconHB2);
         if (playerHealth > 0 && playerHealth < 11) healthLabel.setIcon(iconHB1);
         // Loose statements go here.
-        if (playerHealth <= 0){
+        if (playerHealth <= 0) {
             createLoseScreen();
         }
 
@@ -782,7 +800,7 @@ public class GUI_Two {
 
         iconPanel.removeAll();
 
-        while(arlist.size() > 0) {
+        while (arlist.size() > 0) {
             String item = arlist.get(0);
 
             switch (item) {
@@ -886,13 +904,13 @@ public class GUI_Two {
                     break;
                 default:
                     arlist.remove(item);
-                }
+            }
         }
         //window.add(iconPanel);
         iconPanel.repaint();
 
         //check inventory for grim and do win
-        if (playerInventory.contains("grimoire")){
+        if (playerInventory.contains("grimoire")) {
             createWinScreen();
         }
     }
@@ -1015,6 +1033,7 @@ public class GUI_Two {
         }
     }
 
+
     public class ChoiceHandler implements ActionListener {
 
         @Override
@@ -1031,15 +1050,15 @@ public class GUI_Two {
                     }
                     break;
                 case "c2":
-                try {
-                    TextParser.handleInput(mansion, "map", "");
-                    helper.handleButtons("map", "", outputLabel);
-                    break;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    try {
+                        TextParser.handleInput(mansion, "map", "");
+                        helper.handleButtons("map", "", outputLabel);
+                        break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 case "c3":
-                    JOptionPane.showMessageDialog(null,  "This Function is only available in the Paid version of the game. Please subscribe for full functionality.", "Settings", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "This Function is only available in the Paid version of the game. Please subscribe for full functionality.", "Settings", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 case "c4":
                     try {
@@ -1112,9 +1131,10 @@ public class GUI_Two {
     public class VolumeToggleHandler implements ActionListener {
         boolean isMuted = false; //changed to start the game muted
         Icon iconSound;
+
         @Override
         public void actionPerformed(ActionEvent event) {
-            if(!isMuted) {
+            if (!isMuted) {
                 backgroundMusic.stop();
                 toggle.setIcon(iconPlaySound);
                 isMuted = true;
@@ -1138,7 +1158,7 @@ public class GUI_Two {
             JSlider source = (JSlider) event.getSource();
             if (!source.getValueIsAdjusting()) {
                 float volume = (float) source.getValue() / 100;
-                if(volumeToggleHandler.isMuted == false) {
+                if (volumeToggleHandler.isMuted == false) {
                     backgroundMusic.setVolume("music", volume);
                 }
             }
@@ -1187,7 +1207,7 @@ public class GUI_Two {
     }
 
 
-    public void winGameTextSetup(){
+    public void winGameTextSetup() {
         System.setOut(printOutput);
         winMusic.play("music");
         String fileName = "textFiles/Win_Text.txt";
@@ -1209,7 +1229,7 @@ public class GUI_Two {
         }
     }
 
-    public void loseGameTextSetup(){
+    public void loseGameTextSetup() {
         System.setOut(printOutput);
         String fileName = "textFiles/Lose_Text.txt";
         StringBuilder htmlText = new StringBuilder("<html>");
@@ -1229,4 +1249,75 @@ public class GUI_Two {
             throw new RuntimeException(e);
         }
     }
+
+//    public class MouseClick implements MouseListener {
+//
+//        private Mansion mansion = GUI_Two.getMansion();
+//        private GUI_Two g2;
+//
+//
+//        @Override
+//        public void mouseClicked(MouseEvent e) {
+//
+//            int x = e.getX();
+//            int y = e.getY();
+//            int row = y/mapPanel.tileSize;
+//            int col = x/mapPanel.tileSize;
+//            int tileNumber;
+//            int mapTileNum[][];
+//
+//            mapTileNum = new int[mapPanel.maxScreenCol][mapPanel.maxScreenRow];
+//            JTextField userInput;
+//
+//            tileNumber = mapTileNum[col][row];
+//
+//            switch (tileNumber){
+//                case 0:
+//                    //JOptionPane.showMessageDialog(null, "Ghost was clicked on");
+//                    userInput = new JTextField("talk ghost");
+//                    helper.handleUserInput(userInput, outputLabel);
+//                    break;
+//            }
+//
+////            for(Item currItem : mansion.getItems()) {
+////                String clickedItem = currItem.getName();
+////                if(itemClicked(currItem, x, y)) {
+////                    try {
+////                        TextParser.handleInput(mansion, "get", clickedItem);
+////                        break;
+////                    } catch (IOException ex) {
+////                        ex.printStackTrace();
+////                    }
+////                }
+////            }
+////
+////            for (eaz.model.Character currChar : mansion.getCharacters()) {
+////                String clickedChar = currChar.getName();
+////                if(characterClicked(currChar, x, y)) {
+////                    try {
+////                        TextParser.handleInput(mansion, "talk", clickedChar);
+////                    } catch (IOException ex) {
+////                        ex.printStackTrace();
+////                    }
+////                }
+////            }
+//        }
+//
+//        @Override
+//        public void mousePressed(MouseEvent e) {
+//        }
+//
+//        @Override
+//        public void mouseReleased(MouseEvent e) {
+//        }
+//
+//        @Override
+//        public void mouseEntered(MouseEvent e) {
+//        }
+//
+//        @Override
+//        public void mouseExited(MouseEvent e) {
+//        }
+//    }
+
 }

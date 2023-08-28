@@ -15,14 +15,14 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Locale;
 
-class GUIFunctionality_Two {
+public class GUIFunctionality_Two {
     //methods to incorporate the original game into the GUI go here.
     private Mansion mansion;
     private GUI_Two gui;
     ByteArrayOutputStream basicOutput = new ByteArrayOutputStream();
     PrintStream printOutput = new PrintStream(basicOutput);
 
-    GUIFunctionality_Two(Mansion mansion) {
+    public GUIFunctionality_Two(Mansion mansion) {
         this.mansion = mansion;
     }
 
@@ -56,11 +56,7 @@ class GUIFunctionality_Two {
 
         System.setOut(printOutput);
         // This is from the user input in the panel and sending it into the text parser
-        try {
-            TextParser.handleInput(mansion, verb, noun);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         handleButtons(verb, noun, outPutLabel);
 
@@ -86,8 +82,13 @@ class GUIFunctionality_Two {
 
     }
 
-    void handleButtons(String verb, String noun, JLabel outputPanel) {
+    public void handleButtons(String verb, String noun, JLabel outputPanel) {
         System.setOut(printOutput);
+        try {
+            TextParser.handleInput(mansion, verb, noun);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String capturedOutput = basicOutput.toString();
         basicOutput.reset();
         outputPanel.setText("");

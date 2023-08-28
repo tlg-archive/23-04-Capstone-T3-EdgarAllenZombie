@@ -1,10 +1,10 @@
 package eaz.view;
 
 import eaz.controller.GUI_Two;
-import eaz.controller.TextParser;
 import eaz.model.Item;
 import eaz.model.Location;
 import eaz.model.Mansion;
+
 import eaz.model.MyJsonReader;
 
 import javax.imageio.ImageIO;
@@ -28,7 +28,8 @@ public class TileManager {
     Tile[] tile;
     int mapTileNum[][];
 
-     ChoiceHandler choiceHandler = new ChoiceHandler();
+
+
 
 
     public  TileManager(GamePanel gp) {
@@ -38,7 +39,15 @@ public class TileManager {
         mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
 
         getTileImage();
+        Location location = GUI_Two.getMansion().getCurrentLocation();
+        String locationName = location.getName();
+
+
+
+
         loadMap("textFiles/foyer.txt");
+
+        gp.addMouseListener(new MouseClick());
     }
 
     public void getTileImage() {
@@ -72,20 +81,8 @@ public class TileManager {
         }catch (IOException e) {
             e.printStackTrace();
         }
-        tile[2].imageLabel = new JButton(new ImageIcon(tile[2].image));
-        tile[2].imageLabel.addActionListener(choiceHandler);
-
     }
 
-    public class ChoiceHandler implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent event) {
-
-                    JOptionPane.showMessageDialog(null, "You Clicked on the Ghost");
-        }
-
-    }
 
     public void loadMap(String filePath) {
 
@@ -183,6 +180,98 @@ public class TileManager {
                y += gp.tileSize;
            }
        }
+    }
 
+    public class ChoiceHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+
+                    JOptionPane.showMessageDialog(null, "You Clicked on the Ghost");
+        }
+
+    }
+
+    private class MouseClick implements MouseListener {
+
+        private Mansion mansion = GUI_Two.getMansion();
+        private GUI_Two g2;
+
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+            int x = e.getX();
+            int y = e.getY();
+            int row = y/gp.tileSize;
+            int col = x/gp.tileSize;
+            int tileNumber = mapTileNum[col][row];
+
+            switch (tileNumber){
+                case 2:
+                    //JOptionPane.showMessageDialog(null, "You Clicked on the Ghost");
+                    gp.getGui().getHelper().handleButtons("talk", "ghost", gp.getGui().getOutputLabel());
+                    break;
+            }
+
+//            for(Item currItem : mansion.getItems()) {
+//                String clickedItem = currItem.getName();
+//                if(itemClicked(currItem, x, y)) {
+//                    try {
+//                        TextParser.handleInput(mansion, "get", clickedItem);
+//                        break;
+//                    } catch (IOException ex) {
+//                        ex.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//            for (eaz.model.Character currChar : mansion.getCharacters()) {
+//                String clickedChar = currChar.getName();
+//                if(characterClicked(currChar, x, y)) {
+//                    try {
+//                        TextParser.handleInput(mansion, "talk", clickedChar);
+//                    } catch (IOException ex) {
+//                        ex.printStackTrace();
+//                    }
+//                }
+//            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+    }
+
+
+    private boolean itemClicked(Item item, int mouseX, int mouseY) {
+        int itemBoundX = 0;
+        int itemBoundY = 0;
+        // Implement logic to check if the mouse click is within the item's bounds
+        if(mouseX == itemBoundX && mouseY == itemBoundY) {
+            // Return true if clicked, false otherwise
+            return true;
+        }
+        return false;
+    }
+
+    private boolean characterClicked(eaz.model.Character character, int mouseX, int mouseY) {
+        int charBoundX = 0;
+        int charBoundY = 0;
+        // Implement logic to check if the mouse click is within the character's bounds
+        return (mouseX == charBoundX && mouseY == charBoundY);
+            // Return true if clicked, false otherwise
     }
 }

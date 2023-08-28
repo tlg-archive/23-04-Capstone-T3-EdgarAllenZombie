@@ -1,22 +1,18 @@
 package eaz.view;
 
 import eaz.controller.GUI_Two;
-import eaz.controller.GUI_Two.*;
-import eaz.model.Location;
+import eaz.controller.TextParser;
 import eaz.model.Mansion;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.lang.*;
 
 public class GamePanel extends JPanel implements Runnable{
 
 
     // Screen settings
-    public final int originalTileSize = 10;  //16x16 tile
+    public final int originalTileSize = 10;  //10x10 tile
     public final int scale = 3;              //scaling vairable
 
     public final int tileSize = originalTileSize * scale;
@@ -34,14 +30,21 @@ public class GamePanel extends JPanel implements Runnable{
     Character character = new Character(this, keyH);
 
     private Mansion mansion;
+    private TextParser textParser;
+    private final GUI_Two gui;
 
 
-    public GamePanel() {
+    public GamePanel(GUI_Two gui) {
+        this.gui = gui;
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+    }
+
+    public GUI_Two getGui() {
+        return gui;
     }
 
     public void startGameThread(){
