@@ -1,15 +1,11 @@
 package eaz.controller;
 
 import eaz.model.*;
-import eaz.view.GeneralViewItems;
-import eaz.view.Music;
-import eaz.view.SliderGradient;
-import eaz.view.ViewMain;
+import eaz.view.*;
 
 import eaz.model.MyJsonReader;
 import eaz.model.Player;
 import eaz.view.Music;
-import eaz.view.GamePanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,30 +14,26 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+
 
 
 
 public class GUI_Two {
 
-    JFrame window, frame;   //First Layer
-    //Container con;   //Placed on window
+    JFrame window;   //First Layer
     JPanel titleGamePanel, startButtonPanel, introTextPanel, playButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel,
-            arrowPanel, outputPanel, winTextPanel, winGameButtonPanel, loseTextPanel, loseGameButtonPanel, inventoryPanel;//Placed on container
-    JLabel  introTextLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel,
+            arrowPanel, outputPanel, winTextPanel, winGameButtonPanel, loseTextPanel, loseGameButtonPanel, inventoryPanel, iconPanel;//Placed on window
+    JLabel  introTextLabel, healthLabel, inventoryLabel, playerNameLabel,
             playerNameLabelNumber, userPromptLabel, currentLocationLabel, currentLocationLabelNumber, descriptionLabel,
             descriptionLabelNumber, directionsLabel, directionsLabelNumber, itemsLabel, itemsLabelNumber, creaturesLabel,
             creaturesLabelNumber, volumeSliderLabel, titleGameLabel, outputLabel, outputTitleLabel, winTextLabel, loseTextLabel; //Placed on panel
@@ -54,13 +46,13 @@ public class GUI_Two {
 
     JButton startButton, playButton, playNewButton, choice1, choice2, choice3, choice4, choice5, choice6, arrowUp, arrowDown, arrowLeft, arrowRight, restartButton,
             toggle, quitButton;
-    JTextArea mainTextArea, gameTextDisplayArea, mapPanelLabel;
+    JTextArea mapPanelLabel;
 
     JTextField userInputField;
 
     Icon iconEast, iconWest, iconNorth, iconSouth, iconSettings, iconPlaySound, iconStopSound, iconMap, iconHelp, iconZombie, iconBag,
            iconHB1, iconHB2, iconHB3, iconHB4, iconHB5, iconHB6, iconHB7, iconHB8, iconHB9, iconHB10, iconHB11, iconHB12, iconHB13, iconHB14,
-           iconSave, iconQuit;
+           iconSave, iconQuit, iconKnife, iconKey, iconBat, iconDiary, iconGrimoire, iconJacket, iconPlate;
 
     //  JTextPane titleGameLabel;
 
@@ -68,11 +60,15 @@ public class GUI_Two {
     GamePanel mapPanel;
 
 
-
     int MAX_WIDTH = 880;
     int MAX_HEIGHT = 1000;
 
-    private Mansion mansion;
+    private static Mansion mansion;
+
+    public static Mansion getMansion() {
+        return mansion;
+    }
+
 
     //Private final GUIFunctionality helper;
     private GUIFunctionality_Two helper;
@@ -92,6 +88,7 @@ public class GUI_Two {
     PrintStream printOutput = new PrintStream(basicOutput);
     MoveHandler moveHandler = new MoveHandler();
     VolumeToggleHandler volumeToggleHandler = new VolumeToggleHandler();
+    InventoryHandler inventoryHandler = new InventoryHandler();
 
     Border greenLine = BorderFactory.createLineBorder(Color.green);
 
@@ -372,8 +369,14 @@ public class GUI_Two {
             iconHB1 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-1.png")));
             iconSave = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Save.png")));
             iconQuit = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Quit.png")));
-
-
+            //Inventory
+            iconKnife = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/knife_inventory.png")));
+            iconKey = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/key_inventory.png")));
+            iconBat = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/bat_inventory.png")));
+            iconDiary = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/diary_inventory.png")));
+            iconGrimoire = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/grimoire_inventory.png")));
+            iconJacket = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/jacket_inventory.png")));
+            iconPlate = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/plate_inventory.png")));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -486,7 +489,6 @@ public class GUI_Two {
         outputPanel.setBorder(greenLine);
         outputPanel.setBackground(Color.black);
         outputPanel.setLayout(new GridLayout(2, 1));
-        //con.add(outputPanel);
         window.add(outputPanel);
 
         outputTitleLabel = new JLabel("Dialog:");
@@ -502,39 +504,21 @@ public class GUI_Two {
         outputLabel.setBorder(labelPadding);
         outputPanel.add(outputLabel);
 
-        // Inventory Panel
+        //Player Inventory Panel
         inventoryPanel = new JPanel();
-        inventoryPanel.setBounds(80, 495, 600, 60);
+        inventoryPanel.setBounds(90, 490, 670, 65);
         inventoryPanel.setBackground(Color.black);
-        inventoryPanel.setLayout(new GridBagLayout());
+        inventoryPanel.setLayout(new BorderLayout());
         window.add(inventoryPanel);
 
         inventoryLabel = new JLabel(iconBag);
         inventoryLabel.setFont(normalFont);
-        inventoryLabel.setHorizontalAlignment(JLabel.LEFT);
         inventoryLabel.setForeground(Color.green);
+        inventoryPanel.add(inventoryLabel, BorderLayout.WEST);
 
-// Define constraints for inventoryLabel
-        GridBagConstraints labelConstraints = new GridBagConstraints();
-        labelConstraints.anchor = GridBagConstraints.WEST;
-        labelConstraints.gridx = 0;
-        labelConstraints.gridy = 0;
-        labelConstraints.weightx = 0.0; // No extra horizontal space
-        labelConstraints.insets = new Insets(0, 5, 0, 5); // Add some padding
-
-        inventoryPanel.add(inventoryLabel, labelConstraints);
-        inventoryLabelNumber = new JLabel();
-        inventoryLabelNumber.setFont(normalFont);
-        inventoryLabelNumber.setForeground(Color.yellow);
-
-// Define constraints for inventoryLabelNumber
-        GridBagConstraints numberConstraints = new GridBagConstraints();
-        numberConstraints.anchor = GridBagConstraints.WEST;
-        numberConstraints.gridx = 1;
-        numberConstraints.gridy = 0;
-        numberConstraints.weightx = 1.0; // Fill available horizontal space
-
-        inventoryPanel.add(inventoryLabelNumber, numberConstraints);
+        iconPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        iconPanel.setBackground(Color.black);
+        inventoryPanel.add(iconPanel, BorderLayout.CENTER);
 
 
         //User input area
@@ -542,7 +526,6 @@ public class GUI_Two {
         userPromptPanel.setBounds(90, 580, 200, 25);           //y 415
         userPromptPanel.setBackground(Color.black);//change the color later
         userPromptPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        //con.add(userPromptPanel);
         window.add(userPromptPanel);
 
         // adds the text to the area for the user prompt
@@ -558,17 +541,14 @@ public class GUI_Two {
         userInputField.setBackground(Color.pink);
         userInputField.setForeground(Color.black);
         userInputField.addActionListener(userInputHandler);
-        //con.add(userInputField);
         window.add(userInputField);
 
 
         //Misc buttons area to implement
         choiceButtonPanel = new JPanel();
-        //choiceButtonPanel.setBounds(265, 590, 400, 45);  //y was 480
-        choiceButtonPanel.setBounds(760,75,45, 400);
+        choiceButtonPanel.setBounds(760,90,45, 400);
         choiceButtonPanel.setBackground(Color.black);
         choiceButtonPanel.setLayout(new GridLayout(6, 1));
-        //con.add(choiceButtonPanel);
         window.add(choiceButtonPanel);
 
         choice1 = new JButton(iconHelp);
@@ -615,7 +595,6 @@ public class GUI_Two {
         choice4.setFont(normalFont);
         choiceButtonPanel.add(choice4);
         choice4.setFocusPainted(false);
-        //choice4.addActionListener(volumeToggleHandler);
         choice4.addActionListener(loadAudioWindow);
         choice4.setFocusPainted(false);
         choice4.setContentAreaFilled(false);
@@ -643,12 +622,12 @@ public class GUI_Two {
         choice6.setFocusPainted(false);
         choice6.setContentAreaFilled(false);
         choice6.setActionCommand("c5");
+
         //Move buttons area to implement
         arrowPanel = new JPanel();
         arrowPanel.setBounds(180, 700, 100, 90);    // y was 460
         arrowPanel.setLayout(new GridLayout(3, 3));
         arrowPanel.setBackground(Color.black);
-//        con.add(arrowPanel);
 
         arrowUp = new JButton(iconNorth);
         arrowUp.setBorderPainted(false);
@@ -701,7 +680,6 @@ public class GUI_Two {
         arrowPanel.add(new JPanel());
         arrowPanel.add(arrowRight);
         arrowPanel.add(new JPanel());
-//        arrowPanel.add(new JPanel()); // Leave this cell empty for spacing
         arrowPanel.add(arrowDown);
 
         for (Component component : arrowPanel.getComponents()) {
@@ -709,26 +687,12 @@ public class GUI_Two {
                 component.setBackground(Color.black);
             }
         }
-
-        //con.add(arrowPanel);
         window.add(arrowPanel);
 
-
         // Create an audio window
-
-
-
         audioPanel = new JPanel();
         audioPanel.setBounds(200, 690, 350, 30);        // y was 550
         audioPanel.setBackground(Color.black);
-        //con.add(audioPanel);
-        //window.add(audioPanel);
-
-//        volumeSliderLabel = new JLabel("Volume Level: ");
-//        volumeSliderLabel.setBackground(Color.black);
-//        volumeSliderLabel.setForeground(Color.green);
-//        volumeSliderLabel.setFont(normalFont);
-//        audioPanel.add(volumeSliderLabel);
 
         toggle = new JButton(iconStopSound);
         toggle.setBorderPainted(false);
@@ -741,7 +705,6 @@ public class GUI_Two {
         toggle.setContentAreaFilled(false);
         audioPanel.add(toggle);
 
-
         //volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 70); // Initial volume at 70%
         volumeSlider = new SliderGradient();
         volumeSlider.setBackground(Color.black);
@@ -749,16 +712,10 @@ public class GUI_Two {
         volumeSlider.addChangeListener(volumeHandler);
         audioPanel.add(volumeSlider);
 
-        //create the map area
-//        mapPanel = new JPanel();
-//        mapPanel.setVisible(true);
-//        mapPanel.setBounds(50, 730, 660, 50);
-//        mapPanel.setBackground(Color.green);
-//        window.add(mapPanel);
-
+        //Create the Map Area
         mapPanelLabel = new JTextArea();
         mapPanelLabel.setVisible(true);
-        mapPanelLabel.setBounds(390, 650, 150, 20);
+        mapPanelLabel.setBounds(420, 650, 150, 20);
         mapPanelLabel.setFont(normalFont);
         mapPanelLabel.setBackground(Color.black);
         mapPanelLabel.setForeground(Color.green);
@@ -767,22 +724,16 @@ public class GUI_Two {
 
         mapPanel = new GamePanel();
         mapPanel.setVisible(true);
-        mapPanel.setBounds(350, 675, 200, 180);
-        mapPanel.setBackground(Color.green);
+        mapPanel.setBounds(350, 675, 280, 180);
+        mapPanel.setBackground(Color.black);
         mapPanel.setLayout(new GridLayout(1, 2));
-        mapPanel.startGameThread();
         window.add(mapPanel);
-
 
 
         // Game initialization
         playerSetup();
         roomSetup();
-        // loadRoomMap();
         backgroundMusic.play("music");
-
-        // Refreshing the window
-        //window.revalidate();
         window.repaint();
     }
 
@@ -800,6 +751,8 @@ public class GUI_Two {
         Player player = mansion.getPlayer();
         String playerName = player.getName();
         int playerHealth = player.getHealth();
+
+        playerNameLabelNumber.setText("" + playerName);
 
         if (playerHealth > 130 && playerHealth < 141) healthLabel.setIcon(iconHB14);
         if (playerHealth > 120 && playerHealth < 131) healthLabel.setIcon(iconHB13);
@@ -820,18 +773,128 @@ public class GUI_Two {
             createLoseScreen();
         }
 
+        // This area sets up the icons for the Player's Inventory to Display as Icons
         List playerInventory = player.getInventory();
+        String inventory = player.getInventory().toString();
+        String content = inventory.substring(1, inventory.length() - 1).trim();
+        String[] items = content.split(", ");
+        ArrayList<String> arlist = new ArrayList<String>(java.util.List.of(items));
 
-            //else do this stuff
-            playerNameLabelNumber.setText("" + playerName);
-            inventoryLabelNumber.setText("" + playerInventory);
-            //healthLabelNumber.setText("" + playerHealth);
+        iconPanel.removeAll();
+
+        while(arlist.size() > 0) {
+            String item = arlist.get(0);
+
+            switch (item) {
+                case "key":
+                    JButton dropKey = new JButton(iconKey);
+                    dropKey.setBorderPainted(false);
+                    dropKey.setBackground(Color.black);
+                    dropKey.setForeground(Color.green);
+                    dropKey.setFont(normalFont);
+                    dropKey.setFocusPainted(false);
+                    dropKey.addActionListener(inventoryHandler);
+                    dropKey.setFocusPainted(false);
+                    dropKey.setContentAreaFilled(false);
+                    dropKey.setActionCommand("dropKey");
+                    arlist.remove(item);
+                    iconPanel.add(dropKey);
+                    break;
+                case "knife":
+                    JButton dropKnife = new JButton(iconKnife);
+                    dropKnife.setBorderPainted(false);
+                    dropKnife.setBackground(Color.black);
+                    dropKnife.setForeground(Color.green);
+                    dropKnife.setFont(normalFont);
+                    dropKnife.setFocusPainted(false);
+                    dropKnife.addActionListener(inventoryHandler);
+                    dropKnife.setFocusPainted(false);
+                    dropKnife.setContentAreaFilled(false);
+                    dropKnife.setActionCommand("dropKnife");
+                    arlist.remove(item);
+                    iconPanel.add(dropKnife);
+                    break;
+                case "bat":
+                    JButton dropBat = new JButton(iconBat);
+                    dropBat.setBorderPainted(false);
+                    dropBat.setBackground(Color.black);
+                    dropBat.setForeground(Color.green);
+                    dropBat.setFont(normalFont);
+                    dropBat.setFocusPainted(false);
+                    dropBat.addActionListener(inventoryHandler);
+                    dropBat.setFocusPainted(false);
+                    dropBat.setContentAreaFilled(false);
+                    dropBat.setActionCommand("dropBat");
+                    arlist.remove(item);
+                    iconPanel.add(dropBat);
+                    break;
+                case "diary":
+                    JButton dropDiary = new JButton(iconDiary);
+                    dropDiary.setBorderPainted(false);
+                    dropDiary.setBackground(Color.black);
+                    dropDiary.setForeground(Color.green);
+                    dropDiary.setFont(normalFont);
+                    dropDiary.setFocusPainted(false);
+                    dropDiary.addActionListener(inventoryHandler);
+                    dropDiary.setFocusPainted(false);
+                    dropDiary.setContentAreaFilled(false);
+                    dropDiary.setActionCommand("dropDiary");
+                    arlist.remove(item);
+                    iconPanel.add(dropDiary);
+                    break;
+                case "grimoire":
+                    JButton dropGrimoire = new JButton(iconGrimoire);
+                    dropGrimoire.setBorderPainted(false);
+                    dropGrimoire.setBackground(Color.black);
+                    dropGrimoire.setForeground(Color.green);
+                    dropGrimoire.setFont(normalFont);
+                    dropGrimoire.setFocusPainted(false);
+                    dropGrimoire.addActionListener(inventoryHandler);
+                    dropGrimoire.setFocusPainted(false);
+                    dropGrimoire.setContentAreaFilled(false);
+                    dropGrimoire.setActionCommand("dropGrimoire");
+                    arlist.remove(item);
+                    iconPanel.add(dropGrimoire);
+                    break;
+                case "jacket":
+                    JButton dropJacket = new JButton(iconJacket);
+                    dropJacket.setBorderPainted(false);
+                    dropJacket.setBackground(Color.black);
+                    dropJacket.setForeground(Color.green);
+                    dropJacket.setFont(normalFont);
+                    dropJacket.setFocusPainted(false);
+                    dropJacket.addActionListener(inventoryHandler);
+                    dropJacket.setFocusPainted(false);
+                    dropJacket.setContentAreaFilled(false);
+                    dropJacket.setActionCommand("dropJacket");
+                    arlist.remove(item);
+                    iconPanel.add(dropJacket);
+                    break;
+                case "plate":
+                    JButton dropPlate = new JButton(iconPlate);
+                    dropPlate.setBorderPainted(false);
+                    dropPlate.setBackground(Color.black);
+                    dropPlate.setForeground(Color.green);
+                    dropPlate.setFont(normalFont);
+                    dropPlate.setFocusPainted(false);
+                    dropPlate.addActionListener(inventoryHandler);
+                    dropPlate.setFocusPainted(false);
+                    dropPlate.setContentAreaFilled(false);
+                    dropPlate.setActionCommand("dropPlate");
+                    arlist.remove(item);
+                    iconPanel.add(dropPlate);
+                    break;
+                default:
+                    arlist.remove(item);
+                }
+        }
+        //window.add(iconPanel);
+        iconPanel.repaint();
 
         //check inventory for grim and do win
         if (playerInventory.contains("grimoire")){
             createWinScreen();
         }
-
     }
 
     public void roomSetup() {
@@ -843,6 +906,53 @@ public class GUI_Two {
         directionsLabelNumber.setText("" + currentLocation.getDirections().keySet());
         itemsLabelNumber.setText("" + currentLocation.getItems());
         creaturesLabelNumber.setText(Arrays.toString(currentLocation.getCharacters()));
+        mapPanel.update();
+        mapPanel.repaint();
+
+    }
+
+    public class InventoryHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            String choice = event.getActionCommand();
+            JTextField userInput;
+
+            switch (choice) {
+                case "dropKey":
+                    userInput = new JTextField("drop key");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+                case "dropKnife":
+                    userInput = new JTextField("drop knife");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+                case "dropBat":
+                    userInput = new JTextField("drop bat");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+                case "dropDiary":
+                    userInput = new JTextField("drop diary");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+                case "dropGrimoire":
+                    userInput = new JTextField("drop diary");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+                case "dropJacket":
+                    userInput = new JTextField("drop jacket");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+                case "dropPlate":
+                    userInput = new JTextField("drop plate");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+            }
+            playerSetup();
+            roomSetup();
+
+        }
+
     }
 
     public class UserInputHandler implements ActionListener {
@@ -929,7 +1039,7 @@ public class GUI_Two {
                     e.printStackTrace();
                 }
                 case "c3":
-                    JOptionPane.showMessageDialog(null, "This Function is only available in the Paid version of the game. Please subscribe for full functionality.");
+                    JOptionPane.showMessageDialog(null,  "This Function is only available in the Paid version of the game. Please subscribe for full functionality.", "Settings", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 case "c4":
                     try {
@@ -937,13 +1047,14 @@ public class GUI_Two {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    JOptionPane.showMessageDialog(null, "game saved.");
+                    JOptionPane.showMessageDialog(null, "Game Has Been Saved.");
                     break;
                 case "c5":
                     System.exit(0);
                     break;
             }
         }
+
     }
 
     public class MoveHandler implements ActionListener {
@@ -1056,26 +1167,6 @@ public class GUI_Two {
         }
     }
 
-    private void loadRoomMap()  {
-        Location currentLocation = mansion.getCurrentLocation();
-        JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle(currentLocation.getName().toUpperCase());
-
-        GamePanel gamePanel = new GamePanel();
-
-        window.add(gamePanel);
-
-        window.pack();
-
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
-
-
-        gamePanel.startGameThread();
-    }
-
     public class LoadAudioWindow implements ActionListener {
 
         JFrame audioWindow = new JFrame();
@@ -1095,7 +1186,7 @@ public class GUI_Two {
         }
     }
 
-  
+
     public void winGameTextSetup(){
         System.setOut(printOutput);
         winMusic.play("music");

@@ -13,9 +13,7 @@
         "north": "Hallway 1E"
       },
       "description": "You stand in the entry foyer of the mansion,\n You hear a faint whisper of \u0027It puts the lotion on it\u0027s skin or else it gets the hose again\u0027 \n As you look around, you see a ghost... should you talk to it, or do you think you can fight it?",
-      "items": [
-        "knife"
-      ],
+      "items": [],
       "characters": [
         "ghost"
       ]
@@ -49,9 +47,7 @@
         "west": "Hallway 1E"
       },
       "description": "You see a rack of coats and one very nice-looking leather jacket.",
-      "items": [
-        "leather jacket"
-      ],
+      "items": [],
       "characters": []
     },
     {
@@ -70,9 +66,7 @@
         "west": "Butler\u0027s Room"
       },
       "description": "A hidden room, maybe there\u0027s something good in here.",
-      "items": [
-        "chain bat"
-      ],
+      "items": [],
       "characters": []
     },
     {
@@ -82,9 +76,7 @@
         "east": "Dining Room"
       },
       "description": "A spacious kitchen with various cooking tools.\n It\u0027s obvious whoever owns this house is not the one that uses this room.",
-      "items": [
-        "knife"
-      ],
+      "items": [],
       "characters": [
         "zombie"
       ]
@@ -96,9 +88,7 @@
         "east": "Hallway 2S"
       },
       "description": "A grand dining room with an elegant table.",
-      "items": [
-        "plate of food"
-      ],
+      "items": [],
       "characters": []
     },
     {
@@ -150,9 +140,7 @@
         "east": "Hallway 2N"
       },
       "description": "A study room with a large desk and bookshelves.",
-      "items": [
-        "key"
-      ],
+      "items": [],
       "characters": []
     },
     {
@@ -184,9 +172,7 @@
         "south": "Hallway 3E"
       },
       "description": "A cozy bedroom with a comfortable bed. \nyou see what looks like a diary on the desk.",
-      "items": [
-        "diary"
-      ],
+      "items": [],
       "characters": []
     },
     {
@@ -234,14 +220,14 @@
     },
     {
       "type": "weapon",
-      "name": "chain bat",
+      "name": "bat",
       "description": "The most epic looking bat you\u0027ve seen so far tonight. It has a heavy chain wrapped around the receiving end.",
       "location": "secret room",
       "modifier": 10
     },
     {
       "type": "armor",
-      "name": "leather jacket",
+      "name": "jacket",
       "description": "Brown leather jacket that obviously cost someone a pretty penny.",
       "location": "coat closet",
       "modifier": 10
@@ -262,7 +248,7 @@
     },
     {
       "type": "weapon",
-      "name": "plate of food",
+      "name": "plate",
       "description": "This is a plate of half eaten food.",
       "location": "dining Room",
       "modifier": 0
@@ -318,10 +304,18 @@
       ]
     }
   ],
-  "currentLocationName": "Foyer",
+  "currentLocationName": "Bedroom",
   "player": {
     "name": "Edgar Allen Zombie",
-    "inventory": [],
+    "inventory": [
+      "jacket",
+      "bat",
+      "knife",
+      "knife",
+      "plate",
+      "key",
+      "diary"
+    ],
     "health": 140,
     "armor": 13,
     "damage": 3,

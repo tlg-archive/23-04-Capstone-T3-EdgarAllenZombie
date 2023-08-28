@@ -2,6 +2,9 @@ package eaz.view;
 
 import eaz.controller.GUI_Two;
 import eaz.controller.GUI_Two.*;
+import eaz.model.Location;
+import eaz.model.Mansion;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.*;
@@ -17,7 +20,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int scale = 3;              //scaling vairable
 
     public final int tileSize = originalTileSize * scale;
-    public final int maxScreenCol = 7;
+    public final int maxScreenCol = 9;
     public final int maxScreenRow = 6;
     public final int screenWidth = tileSize * maxScreenCol;   // 768 pixels
     public final int screenHeight = tileSize * maxScreenRow;  // 576 pixels
@@ -29,6 +32,9 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler keyH = new KeyHandler();
     Thread gameThread = new Thread();
     Character character = new Character(this, keyH);
+
+    private Mansion mansion;
+
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -64,34 +70,34 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update(){
-        character.update();
+       tileM.loadMap("textFiles/foyer.txt");
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         tileM.draw(g2);
-        character.draw(g2);
+        //character.draw(g2);
         g2.dispose();
     }
 
-    public static void main(String[] args) {
-
-        JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle("FOYER");
-
-        GamePanel gamePanel = new GamePanel();
-
-        window.add(gamePanel);
-
-        window.pack();
-
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
-
-        gamePanel.startGameThread();
-
-   }
+//    public static void main(String[] args) {
+//
+//        JFrame window = new JFrame();
+//        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        window.setResizable(false);
+//        window.setTitle("FOYER");
+//
+//        GamePanel gamePanel = new GamePanel(mansion);
+//
+//        window.add(gamePanel);
+//
+//        window.pack();
+//
+//        window.setLocationRelativeTo(null);
+//        window.setVisible(true);
+//
+//        gamePanel.startGameThread();
+//
+//   }
 }

@@ -47,7 +47,7 @@
         "west": "Hallway 1E"
       },
       "description": "You see a rack of coats and one very nice-looking leather jacket.",
-      "items": ["leather jacket"],
+      "items": ["jacket"],
       "characters": []
     },
     {
@@ -67,7 +67,7 @@
       },
       "description": "A hidden room, maybe there's something good in here.",
       "items": [
-        "chain bat"
+        "bat"
       ],
       "characters": []
     },
@@ -93,7 +93,7 @@
       },
       "description": "A grand dining room with an elegant table.",
       "items": [
-        "plate of food"
+        "plate"
       ],
       "characters": []
     },
@@ -263,14 +263,14 @@
     },
     {
       "type": "weapon",
-      "name": "chain bat",
+      "name": "bat",
       "description": "The most epic looking bat you've seen so far tonight. It has a heavy chain wrapped around the receiving end.",
       "location": "secret room",
       "modifier": 10
     },
     {
       "type": "armor",
-      "name": "leather jacket",
+      "name": "jacket",
       "description": "Brown leather jacket that obviously cost someone a pretty penny.",
       "location": "coat closet",
       "modifier": 10
@@ -291,7 +291,7 @@
     },
     {
       "type": "weapon",
-      "name": "plate of food",
+      "name": "plate",
       "description": "This is a plate of half eaten food.",
       "location": "dining Room",
       "modifier": 0
