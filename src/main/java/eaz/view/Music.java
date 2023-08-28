@@ -15,7 +15,7 @@ public class Music {
                 case "music":
                     music = AudioSystem.getClip();
                     music.open(audioInputStream);
-//                    music.loop(Clip.LOOP_CONTINUOUSLY);
+ //                   music.loop(Clip.LOOP_CONTINUOUSLY);
                     break;
                 case "fx":
                     fx = AudioSystem.getClip();

@@ -1,11 +1,26 @@
 package eaz.view;
 
+import eaz.controller.GUI_Two;
+import eaz.controller.TextParser;
+import eaz.model.Item;
+import eaz.model.Location;
+import eaz.model.Mansion;
+import eaz.model.MyJsonReader;
+
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class TileManager {
 
@@ -13,15 +28,17 @@ public class TileManager {
     Tile[] tile;
     int mapTileNum[][];
 
+     ChoiceHandler choiceHandler = new ChoiceHandler();
+
 
     public  TileManager(GamePanel gp) {
 
         this.gp = gp;
-        tile = new Tile[10];
+        tile = new Tile[15];
         mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
 
         getTileImage();
-        loadMap("textFiles/Room.txt");
+        loadMap("textFiles/foyer.txt");
     }
 
     public void getTileImage() {
@@ -34,15 +51,52 @@ public class TileManager {
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/ghost.png"));
             tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/key.png"));
+            tile[3].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/key_map.png"));
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/edgar_map.png"));
+            tile[5] = new Tile();
+            tile[5].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/knife_map.png"));
+            tile[6] = new Tile();
+            tile[6].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/bat_map.png"));
+            tile[7] = new Tile();
+            tile[7].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/diary_map.png"));
+            tile[8] = new Tile();
+            tile[8].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/grimoire_map.png"));
+            tile[9] = new Tile();
+            tile[9].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/jacket_map.png"));
+            tile[10] = new Tile();
+            tile[10].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/plate_map.png"));
+            tile[11] = new Tile();
+            tile[11].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Zombie2.png"));
 
         }catch (IOException e) {
             e.printStackTrace();
         }
-
+        tile[2].imageLabel = new JButton(new ImageIcon(tile[2].image));
+        tile[2].imageLabel.addActionListener(choiceHandler);
 
     }
+
+    public class ChoiceHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+
+                    JOptionPane.showMessageDialog(null, "You Clicked on the Ghost");
+        }
+
+    }
+
     public void loadMap(String filePath) {
+
+         Location location = GUI_Two.getMansion().getCurrentLocation();
+         String roomInventory = location.getItems().toString();
+         String content = roomInventory.substring(1, roomInventory.length() - 1).trim();
+         String[] items = content.split(", ");
+         ArrayList<String> arlist = new ArrayList<String>(java.util.List.of(items));
+         //JOptionPane.showMessageDialog(null, "THIS IS THE CURRENT LOCATION " + arlist);
+
+
         try {
 
             InputStream is = getClass().getClassLoader().getResourceAsStream(filePath);
@@ -50,14 +104,52 @@ public class TileManager {
 
             int col = 0;
             int row = 0;
+            int length;
 
             while (col < gp.maxScreenCol && row < gp.maxScreenRow){
                 String line = br.readLine();
 
                 while(col < gp.maxScreenCol) {
                     String numbers[] = line.split(" ");
-                    int num = Integer.parseInt(numbers[col]);
-                    mapTileNum[col][row] = num;
+                    int num = Integer.parseInt(numbers[col]);;
+                    if (row == 4  && col > 0 && arlist.size() > 0) {
+                        String item = arlist.get(0);
+                        switch (item) {
+                            case "key":
+                                mapTileNum[col][row] = 3;
+                                arlist.remove(item);
+                                break;
+                            case "knife":
+                                mapTileNum[col][row] = 5;
+                                arlist.remove(item);
+                                break;
+                            case "bat":
+                                mapTileNum[col][row] = 6;
+                                arlist.remove(item);
+                                break;
+                            case "diary":
+                                mapTileNum[col][row] = 7;
+                                arlist.remove(item);
+                                break;
+                            case "grimoire":
+                                mapTileNum[col][row] = 8;
+                                arlist.remove(item);
+                                break;
+                            case "jacket":
+                                mapTileNum[col][row] = 9;
+                                arlist.remove(item);
+                                break;
+                            case "plate":
+                                mapTileNum[col][row] = 10;
+                                arlist.remove(item);
+                                break;
+                            default:
+                                mapTileNum[col][row] = num;
+                        }
+                    } else {
+                        mapTileNum[col][row] = num;
+
+                    }
                     col++;
                 }
                 if (col == gp.maxScreenCol) {
