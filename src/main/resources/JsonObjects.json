@@ -224,8 +224,8 @@
     {
       "type": "enemy",
       "name": "zombie",
-      "health": 10,
-      "damage": 5,
+      "health": 300,
+      "damage": 18,
       "hit": 5,
       "armor": 12,
       "description": "Exactly what you'd expect an undead monster would look like... Beautiful!",
@@ -234,8 +234,8 @@
     {
       "type": "enemy",
       "name": "ghost",
-      "health": 10,
-      "damage": 10,
+      "health": 300,
+      "damage": 13,
       "hit": 7,
       "armor": 55,
       "description": "A floating humanoid entity",
