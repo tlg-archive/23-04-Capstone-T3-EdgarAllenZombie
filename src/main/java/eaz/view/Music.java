@@ -15,7 +15,7 @@ public class Music {
                 case "music":
                     music = AudioSystem.getClip();
                     music.open(audioInputStream);
-//                    music.loop(Clip.LOOP_CONTINUOUSLY);
+ //                   music.loop(Clip.LOOP_CONTINUOUSLY);
                     break;
                 case "fx":
                     fx = AudioSystem.getClip();
@@ -30,7 +30,7 @@ public class Music {
     public void play(String item) {
         switch (item) {
             case "music":
-                music.start();
+                music.start();    //add the .loop(Clip.LOOP_CONTINUOUSLY) after any start
                 break;
             case "fx":
                 fx.start();
@@ -38,9 +38,10 @@ public class Music {
         }
     }
 
-    public void close(){
+    public void close() {
         music.close();
     }
+
     public void stop() {
         music.stop();
         music.setFramePosition(0); // Rewind to the beginning

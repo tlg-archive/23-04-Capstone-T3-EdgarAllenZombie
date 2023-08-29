@@ -135,8 +135,6 @@ public class Mansion {
         }
     }
 
-
-
     public void dropItem(String itemName){
         Item item = new Item();
         // set the parameters from mansion to use in dropItem

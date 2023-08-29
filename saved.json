@@ -13,7 +13,9 @@
         "north": "Hallway 1E"
       },
       "description": "You stand in the entry foyer of the mansion,\n You hear a faint whisper of \u0027It puts the lotion on it\u0027s skin or else it gets the hose again\u0027 \n As you look around, you see a ghost... should you talk to it, or do you think you can fight it?",
-      "items": [],
+      "items": [
+        "knife"
+      ],
       "characters": [
         "ghost"
       ]
@@ -48,7 +50,7 @@
       },
       "description": "You see a rack of coats and one very nice-looking leather jacket.",
       "items": [
-        "leather jacket"
+        "jacket"
       ],
       "characters": []
     },
@@ -69,7 +71,7 @@
       },
       "description": "A hidden room, maybe there\u0027s something good in here.",
       "items": [
-        "chain bat"
+        "bat"
       ],
       "characters": []
     },
@@ -95,7 +97,7 @@
       },
       "description": "A grand dining room with an elegant table.",
       "items": [
-        "plate of food"
+        "plate"
       ],
       "characters": []
     },
@@ -232,14 +234,14 @@
     },
     {
       "type": "weapon",
-      "name": "chain bat",
+      "name": "bat",
       "description": "The most epic looking bat you\u0027ve seen so far tonight. It has a heavy chain wrapped around the receiving end.",
       "location": "secret room",
       "modifier": 10
     },
     {
       "type": "armor",
-      "name": "leather jacket",
+      "name": "jacket",
       "description": "Brown leather jacket that obviously cost someone a pretty penny.",
       "location": "coat closet",
       "modifier": 10
@@ -255,21 +257,21 @@
       "type": "book",
       "name": "diary",
       "description": "You must find the grimoire.",
-      "location": "Bedroom",
+      "location": "bedroom",
       "modifier": 0
     },
     {
       "type": "weapon",
-      "name": "plate of food",
+      "name": "plate",
       "description": "This is a plate of half eaten food.",
-      "location": "Dining Room",
+      "location": "dining Room",
       "modifier": 0
     },
     {
       "type": "weapon",
       "name": "key",
       "description": "A random key.",
-      "location": "Home Office",
+      "location": "home office",
       "modifier": 0
     }
   ],
@@ -292,9 +294,9 @@
       "type": "enemy",
       "name": "ghost",
       "health": 10,
-      "damage": 3,
+      "damage": 10,
       "hit": 7,
-      "armor": 15,
+      "armor": 55,
       "description": "A floating humanoid entity",
       "dialog": [
         "Please don\u0027t hurt me, I\u0027m not one of the bad ones",
@@ -310,16 +312,17 @@
       "hit": 3,
       "armor": 3,
       "description": "Your sister Sara",
-      "dialog": []
+      "dialog": [
+        "Please look for my diary for a clue!",
+        "I see may need help... check the bedroom."
+      ]
     }
   ],
-  "currentLocationName": "Bedroom",
+  "currentLocationName": "Foyer",
   "player": {
     "name": "Edgar Allen Zombie",
-    "inventory": [
-      "knife"
-    ],
-    "health": 50,
+    "inventory": [],
+    "health": 140,
     "armor": 13,
     "damage": 3,
     "hitChance": 5

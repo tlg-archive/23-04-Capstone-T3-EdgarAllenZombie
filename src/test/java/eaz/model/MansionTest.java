@@ -94,6 +94,28 @@ class MansionTest {
         Assertions.assertEquals(test, expected);
     }
 
+    @Test
+    public void testValidDropItem() {
+        mansion.setCurrentLocationName("Foyer");
+        List<String> inventory;
+        inventory = mansion.pickUpItem("knife");
+        inventory.toString();
+        List<String> pack = mansion.getPlayer().getInventory();
+        mansion.dropItem("knife");
+        System.out.println(pack);
+        //should see dropped knife message, and [] -- passed
+    }
+
+    @Test
+    public void testInvalidDropItem(){
+        mansion.setCurrentLocationName("Foyer");
+        List<String> inventory = mansion.getPlayer().getInventory();
+        inventory.toString();
+        System.out.println(inventory);
+        mansion.dropItem("knife");
+        //should print error message -- passed
+    }
+
 
 }
 

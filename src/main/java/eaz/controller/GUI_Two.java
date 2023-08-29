@@ -1,10 +1,7 @@
 package eaz.controller;
 
 import eaz.model.*;
-import eaz.view.GeneralViewItems;
-import eaz.view.Music;
-import eaz.view.SliderGradient;
-import eaz.view.ViewMain;
+import eaz.view.*;
 
 import eaz.model.MyJsonReader;
 import eaz.model.Player;
@@ -12,61 +9,78 @@ import eaz.view.Music;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
 
 public class GUI_Two {
-
-    JFrame window, frame;   //First Layer
-    Container con;   //Placed on window
-    JPanel titleGamePanel, startButtonPanel, introTextPanel, playButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel,
-            arrowPanel, outputPanel, winTextPanel, winGameButtonPanel, loseTextPanel, loseGameButtonPanel;  //Placed on container
-    JLabel  introTextLabel, healthLabel, healthLabelNumber, inventoryLabel, inventoryLabelNumber, playerNameLabel,
-            playerNameLabelNumber, userPromptLabel, currentLocationLabel, currentLocationLabelNumber, descriptionLabel,
-            descriptionLabelNumber, directionsLabel, directionsLabelNumber, itemsLabel, itemsLabelNumber, creaturesLabel,
-            creaturesLabelNumber, volumeSliderLabel, titleGameLabel, outputLabel, outputTitleLabel, winTextLabel, loseTextLabel; //Placed on panel
 
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 70);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
     Font gameFont = new Font("Times New Roman", Font.PLAIN, 15);
     Font textFileFont = new Font("Monospaced", Font.PLAIN, 8);
 
-    JButton startButton, playButton, playNewButton, choice1, choice2, choice3, choice4, arrowUp, arrowDown, arrowLeft, arrowRight, restartButton, quitButton;
-    JTextArea mainTextArea, gameTextDisplayArea;
+    JFrame window;   //First Layer
+
+    JPanel titleGamePanel, startButtonPanel, introTextPanel, playButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel,
+            arrowPanel, outputPanel, winTextPanel, winGameButtonPanel, loseTextPanel, loseGameButtonPanel, inventoryPanel, iconPanel;//Placed on window
+
+    JLabel introTextLabel, healthLabel, inventoryLabel, playerNameLabel,
+            playerNameLabelNumber, userPromptLabel, currentLocationLabel, currentLocationLabelNumber, descriptionLabel,
+            descriptionLabelNumber, directionsLabel, directionsLabelNumber, itemsLabel, itemsLabelNumber, creaturesLabel,
+            creaturesLabelNumber, volumeSliderLabel, titleGameLabel, outputLabel, outputTitleLabel, winTextLabel, loseTextLabel; //Placed on panel
+
+    JButton startButton, playButton, playNewButton, choice1, choice2, choice3, choice4, choice5, choice6, arrowUp, arrowDown, arrowLeft, arrowRight, restartButton,
+            toggle, quitButton;
+
+    JTextArea mapPanelLabel;
+
     JTextField userInputField;
 
     Icon iconEast, iconWest, iconNorth, iconSouth, iconSettings, iconPlaySound, iconStopSound, iconMap, iconHelp, iconZombie, iconBag,
-           iconHB1, iconHB2, iconHB3, iconHB4, iconHB5, iconHB6, iconHB7, iconHB8, iconHB9, iconHB10, iconHB11, iconHB12, iconHB13, iconHB14;
+            iconHB1, iconHB2, iconHB3, iconHB4, iconHB5, iconHB6, iconHB7, iconHB8, iconHB9, iconHB10, iconHB11, iconHB12, iconHB13, iconHB14,
+            iconSave, iconQuit, iconKnife, iconKey, iconBat, iconDiary, iconGrimoire, iconJacket, iconPlate, iconWin, iconLose;
 
     //  JTextPane titleGameLabel;
 
     SliderGradient volumeSlider;
+    GamePanel mapPanel;
 
-    private Mansion mansion;
+    int MAX_WIDTH = 880;
+    int MAX_HEIGHT = 920;
+
+    private static Mansion mansion;
+
+    public static Mansion getMansion() {
+        return mansion;
+    }
+
+    public GUIFunctionality_Two getHelper() {
+        return helper;
+    }
 
     //Private final GUIFunctionality helper;
-    private GUIFunctionality_Two helper;
+    public GUIFunctionality_Two helper;
     public final Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
     public final Music winMusic = new Music("music", "audioFiles/win.wav");
-
+    public final Music loseMusic = new Music("music", "audioFiles/looseGame.wav");
 
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     IntroScreenHandler isHandler = new IntroScreenHandler();
     ChoiceHandler choiceHandler = new ChoiceHandler();
+    LoadAudioWindow loadAudioWindow = new LoadAudioWindow();
     UserInputHandler userInputHandler = new UserInputHandler();
     VolumeHandler volumeHandler = new VolumeHandler();
     ViewMain playerInfo = new ViewMain();
@@ -75,6 +89,13 @@ public class GUI_Two {
     PrintStream printOutput = new PrintStream(basicOutput);
     MoveHandler moveHandler = new MoveHandler();
     VolumeToggleHandler volumeToggleHandler = new VolumeToggleHandler();
+    InventoryHandler inventoryHandler = new InventoryHandler();
+    //MouseClick mouseClick = new MouseClick();
+
+    Border greenLine = BorderFactory.createLineBorder(Color.green);
+    Border redLine = BorderFactory.createLineBorder(Color.red);
+
+    Border loweredBeveled = BorderFactory.createLoweredBevelBorder();
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -93,17 +114,19 @@ public class GUI_Two {
 
         window = new JFrame();
         window.setTitle("Edgar Allen Zombie");
-        window.setSize(800, 820);                    //height was 650
+        window.setSize(MAX_WIDTH, MAX_HEIGHT);                    //height was 820
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.black);
         window.setLayout(null);
         window.setVisible(true);
-        con = window.getContentPane();
+        window.setResizable(false);
+        //con = window.getContentPane();
 
         titleGamePanel = new JPanel();
-        titleGamePanel.setBounds(150, 100, 800, 300);
+        titleGamePanel.setBounds(150, 100, 600, 300);
         titleGamePanel.setBackground(Color.black);
         titleGamePanel.setLayout(new GridLayout(1, 1));
+
 
         titleGameLabel = new JLabel();
         titleGameLabel.setBackground(Color.black);
@@ -129,8 +152,10 @@ public class GUI_Two {
         titleGamePanel.add(titleGameLabel);
         startButtonPanel.add(startButton);
 
-        con.add(titleGamePanel);
-        con.add(startButtonPanel);
+        //con.add(titleGamePanel);
+        //con.add(startButtonPanel);
+        window.add(titleGamePanel);
+        window.add(startButtonPanel);
 
         //loadFileContent;
         loadFileContent();
@@ -181,17 +206,20 @@ public class GUI_Two {
 
 
         introTextPanel.add(introTextLabel);
-        con.add(introTextPanel);
+        //con.add(introTextPanel);
+        window.add(introTextPanel);
         playButtonPanel.add(playButton);
         playButtonPanel.add(playNewButton);
 
-        con.add(introTextPanel);
-        con.add(playButtonPanel);
+        //con.add(introTextPanel);
+        //con.add(playButtonPanel);
+        window.add(introTextPanel);
+        window.add(playButtonPanel);
 
         introTextSetup();
     }
 
-    public void createWinScreen(){
+    public void createWinScreen() {
         //make the game screen panels (anything attached to the container) to NOT visible
         playerPanel.setVisible(false);
         mainTextPanel.setVisible(false);
@@ -201,13 +229,21 @@ public class GUI_Two {
         choiceButtonPanel.setVisible(false);
         arrowPanel.setVisible(false);
         audioPanel.setVisible(false);
+        inventoryPanel.setVisible(false);
+        inventoryLabel.setVisible(false);
+        mapPanel.setVisible(false);
+        mapPanelLabel.setVisible(false);
 
+        //audio components
+        backgroundMusic.stop();
+        winMusic.play("music");
 
         //make the panel to display the text
         winTextPanel = new JPanel();
-        winTextPanel.setBounds(100,100,600,400);
+        winTextPanel.setBounds(65, 100, 800, 400);
         winTextPanel.setBackground(Color.black); //change to black after testing
-        winTextPanel.setLayout(new GridLayout(1,1));
+        winTextPanel.setLayout(new GridLayout(1, 1));
+        window.add(winTextPanel);
 
         //create the text Label so Rich can work his magic
         winTextLabel = new JLabel();
@@ -215,42 +251,40 @@ public class GUI_Two {
         winTextLabel.setForeground(Color.green);
         winTextLabel.setHorizontalAlignment(JLabel.LEFT);
         winTextLabel.setFont(normalFont);
+        winTextLabel.setIcon(iconWin);
+        winTextPanel.add(winTextLabel);
 
         //setup the button Panel
         winGameButtonPanel = new JPanel();
-        winGameButtonPanel.setBounds(220,600,300,100);
+        winGameButtonPanel.setBounds(20, 600, 800, 100);
         winGameButtonPanel.setBackground(Color.black);//change to black after testing
+        window.add(winGameButtonPanel);
 
         //setup restart button
         restartButton = new JButton("Restart");
         restartButton.setBackground(Color.black);
-        restartButton.setForeground(Color.green);
+        restartButton.setForeground(Color.yellow);
         restartButton.setFont(normalFont);
         restartButton.addActionListener(isHandler);
         restartButton.setActionCommand("restart");
         restartButton.setFocusPainted(false);
+        winGameButtonPanel.add(restartButton);
 
         //setup Quit button
         quitButton = new JButton("Quit");
         quitButton.setBackground(Color.black);
-        quitButton.setForeground(Color.green);
+        quitButton.setForeground(Color.yellow);
         quitButton.setFont(normalFont);
         quitButton.addActionListener(isHandler);
         quitButton.setActionCommand("exit");
         quitButton.setFocusPainted(false);
-
-        //link everything together
-        winTextPanel.add(winTextLabel);
-        winGameButtonPanel.add(restartButton);
         winGameButtonPanel.add(quitButton);
-        con.add(winTextPanel);
-        con.add(winGameButtonPanel);
 
         //print dialogue to screen
-        winGameTextSetup();
+        //winGameTextSetup();
     }
 
-    public void createLoseScreen(){
+    public void createLoseScreen() {
         //make the game screen panels (anything attached to the container) to NOT visible
         playerPanel.setVisible(false);
         mainTextPanel.setVisible(false);
@@ -260,13 +294,21 @@ public class GUI_Two {
         choiceButtonPanel.setVisible(false);
         arrowPanel.setVisible(false);
         audioPanel.setVisible(false);
+        inventoryPanel.setVisible(false);
+        inventoryLabel.setVisible(false);
+        mapPanel.setVisible(false);
+        mapPanelLabel.setVisible(false);
 
+        //audio components
+        backgroundMusic.stop();
+        loseMusic.play("music");
 
         //make the panel to display the text
         loseTextPanel = new JPanel();
-        loseTextPanel.setBounds(100,100,600,400);
+        loseTextPanel.setBounds(65, 100, 800, 400);
         loseTextPanel.setBackground(Color.black); //change to black after testing
-        loseTextPanel.setLayout(new GridLayout(1,1));
+        loseTextPanel.setLayout(new GridLayout(1, 1));
+        window.add(loseTextPanel);
 
         //create the text Label so Rich can work his magic
         loseTextLabel = new JLabel();
@@ -274,39 +316,39 @@ public class GUI_Two {
         loseTextLabel.setForeground(Color.green);
         loseTextLabel.setHorizontalAlignment(JLabel.LEFT);
         loseTextLabel.setFont(normalFont);
+        loseTextLabel.setIcon(iconLose);
+        loseTextPanel.add(loseTextLabel);
+
 
         //setup the button Panel
         loseGameButtonPanel = new JPanel();
-        loseGameButtonPanel.setBounds(220,600,300,100);
+        loseGameButtonPanel.setBounds(20, 600, 800, 100);
         loseGameButtonPanel.setBackground(Color.black);//change to black after testing
+        window.add(loseGameButtonPanel);
 
         //setup restart button
         restartButton = new JButton("Restart");
         restartButton.setBackground(Color.black);
-        restartButton.setForeground(Color.green);
+        restartButton.setForeground(Color.yellow);
         restartButton.setFont(normalFont);
         restartButton.addActionListener(isHandler);
         restartButton.setActionCommand("restart");
         restartButton.setFocusPainted(false);
+        loseGameButtonPanel.add(restartButton);
 
         //setup Quit button
         quitButton = new JButton("Quit");
         quitButton.setBackground(Color.black);
-        quitButton.setForeground(Color.green);
+        quitButton.setForeground(Color.yellow);
         quitButton.setFont(normalFont);
         quitButton.addActionListener(isHandler);
         quitButton.setActionCommand("exit");
         quitButton.setFocusPainted(false);
-
-        //link everything together
-        loseTextPanel.add(loseTextLabel);
-        loseGameButtonPanel.add(restartButton);
         loseGameButtonPanel.add(quitButton);
-        con.add(loseTextPanel);
-        con.add(loseGameButtonPanel);
+
 
         //print dialogue to screen
-        loseGameTextSetup();
+        //loseGameTextSetup();
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -314,6 +356,7 @@ public class GUI_Two {
 
         introTextPanel.setVisible(false);
         playButtonPanel.setVisible(false);
+        EmptyBorder labelPadding = new EmptyBorder(0, 10, 0, 0);
 
         try {
             iconEast = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/East.png")));
@@ -341,26 +384,33 @@ public class GUI_Two {
             iconHB3 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-3.png")));
             iconHB2 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-2.png")));
             iconHB1 = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/HB-1.png")));
-
-
-
-
-
+            iconSave = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Save.png")));
+            iconQuit = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Quit.png")));
+            //Inventory
+            iconKnife = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/knife_inventory.png")));
+            iconKey = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/key_inventory.png")));
+            iconBat = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/bat_inventory.png")));
+            iconDiary = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/diary_inventory.png")));
+            iconGrimoire = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/grimoire_inventory.png")));
+            iconJacket = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/jacket_inventory.png")));
+            iconPlate = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/plate_inventory.png")));
+            iconWin = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/win.png")));
+            iconLose = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/lose.png")));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
 
-
         //Header text area with the Player information
         playerPanel = new JPanel();
-        playerPanel.setBounds(60, 15, 600, 60);
+        playerPanel.setBounds(100, 15, 610, 60);
         playerPanel.setBackground(Color.black);
         playerPanel.setLayout(new GridBagLayout());
-        con.add(playerPanel);
+        //con.add(playerPanel);
+        window.add(playerPanel);
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(0, 0, 0, 20);
+        constraints.insets = new Insets(0, 0, 0, 50);
 
         playerNameLabel = new JLabel(iconZombie);
         playerNameLabel.setFont(normalFont);
@@ -377,106 +427,123 @@ public class GUI_Two {
         healthLabel.setForeground(Color.green);
         playerPanel.add(healthLabel);
 
-//        healthLabelNumber = new JLabel();
-//        healthLabelNumber.setFont(normalFont);
-//        healthLabelNumber.setForeground(Color.yellow);
-//        playerPanel.add(healthLabelNumber, constraints);
-
-        inventoryLabel = new JLabel(iconBag);
-        inventoryLabel.setFont(normalFont);
-        inventoryLabel.setForeground(Color.green);
-        playerPanel.add(inventoryLabel);
-
-        inventoryLabelNumber = new JLabel();
-        inventoryLabelNumber.setFont(normalFont);
-        inventoryLabelNumber.setForeground(Color.yellow);
-        playerPanel.add(inventoryLabelNumber, constraints);
 
         // Main Body of Text
         mainTextPanel = new JPanel();
-        mainTextPanel.setBounds(70, 80, 660, 280);
+        mainTextPanel.setBounds(50, 100, 680, 310);
+        mainTextPanel.setBorder(greenLine);
         mainTextPanel.setBackground(Color.black);
         mainTextPanel.setLayout(new GridLayout(10, 1));
-        con.add(mainTextPanel);
+        //con.add(mainTextPanel);
+        window.add(mainTextPanel);
 
         currentLocationLabel = new JLabel("Current Location: ");
         currentLocationLabel.setFont(gameFont);
         currentLocationLabel.setForeground(Color.green);
+        currentLocationLabel.setBorder(labelPadding);
         mainTextPanel.add(currentLocationLabel);
 
         currentLocationLabelNumber = new JLabel();
         currentLocationLabelNumber.setFont(gameFont);
         currentLocationLabelNumber.setForeground(Color.yellow);
+        currentLocationLabelNumber.setBorder(labelPadding);
         mainTextPanel.add(currentLocationLabelNumber);
 
         descriptionLabel = new JLabel("Room Description: ");
         descriptionLabel.setHorizontalAlignment(JLabel.LEFT);
         descriptionLabel.setFont(gameFont);
         descriptionLabel.setForeground(Color.green);
+        descriptionLabel.setBorder(labelPadding);
         mainTextPanel.add(descriptionLabel);
 
         descriptionLabelNumber = new JLabel();
         descriptionLabelNumber.setFont(gameFont);
         descriptionLabelNumber.setForeground(Color.yellow);
+        descriptionLabelNumber.setBorder(labelPadding);
         mainTextPanel.add(descriptionLabelNumber);
 
         directionsLabel = new JLabel("<html><br>Directions to Move: </html>");
         directionsLabel.setHorizontalAlignment(JLabel.LEFT);
         directionsLabel.setFont(gameFont);
         directionsLabel.setForeground(Color.green);
+        directionsLabel.setBorder(labelPadding);
         mainTextPanel.add(directionsLabel);
 
         directionsLabelNumber = new JLabel();
         directionsLabelNumber.setFont(gameFont);
         directionsLabelNumber.setForeground(Color.yellow);
+        directionsLabelNumber.setBorder(labelPadding);
         mainTextPanel.add(directionsLabelNumber);
 
         itemsLabel = new JLabel("Items in Room: ");
         itemsLabel.setHorizontalAlignment(JLabel.LEFT);
         itemsLabel.setFont(gameFont);
         itemsLabel.setForeground(Color.green);
+        itemsLabel.setBorder(labelPadding);
         mainTextPanel.add(itemsLabel);
 
         itemsLabelNumber = new JLabel();
         itemsLabelNumber.setFont(gameFont);
         itemsLabelNumber.setForeground(Color.yellow);
+        itemsLabelNumber.setBorder(labelPadding);
         mainTextPanel.add(itemsLabelNumber);
 
         creaturesLabel = new JLabel("NPCs in Room: ");
         creaturesLabel.setHorizontalAlignment(JLabel.LEFT);
         creaturesLabel.setFont(gameFont);
         creaturesLabel.setForeground(Color.green);
+        creaturesLabel.setBorder(labelPadding);
         mainTextPanel.add(creaturesLabel);
 
         creaturesLabelNumber = new JLabel();
         creaturesLabelNumber.setFont(gameFont);
         creaturesLabelNumber.setForeground(Color.yellow);
+        creaturesLabelNumber.setBorder(labelPadding);
         mainTextPanel.add(creaturesLabelNumber);
 
         //Output area for various function like talk, look, attack, etc
         outputPanel = new JPanel();
-        outputPanel.setBounds(70, 385, 630, 90);
+        outputPanel.setBounds(50, 415, 680, 80);
+        outputPanel.setBorder(greenLine);
         outputPanel.setBackground(Color.black);
         outputPanel.setLayout(new GridLayout(2, 1));
-        con.add(outputPanel);
+        window.add(outputPanel);
 
         outputTitleLabel = new JLabel("Dialog:");
         outputTitleLabel.setForeground(Color.green);
         outputTitleLabel.setFont(gameFont);
+        outputTitleLabel.setBorder(labelPadding);
         outputPanel.add(outputTitleLabel);
 
         outputLabel = new JLabel();
         outputLabel.setForeground(Color.yellow);
         outputLabel.setHorizontalAlignment(JLabel.LEFT);
         outputLabel.setFont(gameFont);
+        outputLabel.setBorder(labelPadding);
         outputPanel.add(outputLabel);
+
+        //Player Inventory Panel
+        inventoryPanel = new JPanel();
+        inventoryPanel.setBounds(90, 520, 670, 65);
+        inventoryPanel.setBackground(Color.black);
+        inventoryPanel.setLayout(new BorderLayout());
+        window.add(inventoryPanel);
+
+        inventoryLabel = new JLabel(iconBag);
+        inventoryLabel.setFont(normalFont);
+        inventoryLabel.setForeground(Color.green);
+        inventoryPanel.add(inventoryLabel, BorderLayout.WEST);
+
+        iconPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        iconPanel.setBackground(Color.black);
+        inventoryPanel.add(iconPanel, BorderLayout.CENTER);
 
         //User input area
         userPromptPanel = new JPanel();
-        userPromptPanel.setBounds(90, 500, 200, 25);           //y 415
+        userPromptPanel.setBounds(90, 600, 200, 25);           //y 415
         userPromptPanel.setBackground(Color.black);//change the color later
         userPromptPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        con.add(userPromptPanel);
+        window.add(userPromptPanel);
 
         // adds the text to the area for the user prompt
         userPromptLabel = new JLabel("Enter a Command > ");
@@ -486,19 +553,19 @@ public class GUI_Two {
         userPromptPanel.add(userPromptLabel);
 
         userInputField = new JTextField();
-        userInputField.setBounds(300, 505, 350, 25);    //y 420
+        userInputField.setBounds(300, 605, 350, 25);    //y 420
         userInputField.setFont(normalFont);
         userInputField.setBackground(Color.pink);
         userInputField.setForeground(Color.black);
         userInputField.addActionListener(userInputHandler);
-        con.add(userInputField);
+        window.add(userInputField);
 
         //Misc buttons area to implement
         choiceButtonPanel = new JPanel();
-        choiceButtonPanel.setBounds(320, 590, 300, 45);  //y was 480
+        choiceButtonPanel.setBounds(760, 90, 45, 400);
         choiceButtonPanel.setBackground(Color.black);
-        choiceButtonPanel.setLayout(new GridLayout(1, 4));
-        con.add(choiceButtonPanel);
+        choiceButtonPanel.setLayout(new GridLayout(6, 1));
+        window.add(choiceButtonPanel);
 
         choice1 = new JButton(iconHelp);
         choice1.setSize(10, 10);
@@ -537,24 +604,46 @@ public class GUI_Two {
         choice3.setFocusPainted(false);
         choice3.setContentAreaFilled(false);
 
-        choice4 = new JButton(iconStopSound);
+        choice4 = new JButton(iconPlaySound);
         choice4.setBorderPainted(false);
         choice4.setBackground(Color.black);
         choice4.setForeground(Color.green);
         choice4.setFont(normalFont);
         choiceButtonPanel.add(choice4);
         choice4.setFocusPainted(false);
-        choice4.addActionListener(volumeToggleHandler);
+        choice4.addActionListener(loadAudioWindow);
         choice4.setFocusPainted(false);
         choice4.setContentAreaFilled(false);
-//        choice4.setActionCommand("c4");
+
+        choice5 = new JButton(iconSave);
+        choice5.setBorderPainted(false);
+        choice5.setBackground(Color.black);
+        choice5.setForeground(Color.green);
+        choice5.setFont(normalFont);
+        choiceButtonPanel.add(choice5);
+        choice5.setFocusPainted(false);
+        choice5.addActionListener(choiceHandler);
+        choice5.setFocusPainted(false);
+        choice5.setContentAreaFilled(false);
+        choice5.setActionCommand("c4");
+
+        choice6 = new JButton(iconQuit);
+        choice6.setBorderPainted(false);
+        choice6.setBackground(Color.black);
+        choice6.setForeground(Color.green);
+        choice6.setFont(normalFont);
+        choiceButtonPanel.add(choice6);
+        choice6.setFocusPainted(false);
+        choice6.addActionListener(choiceHandler);
+        choice6.setFocusPainted(false);
+        choice6.setContentAreaFilled(false);
+        choice6.setActionCommand("c5");
 
         //Move buttons area to implement
         arrowPanel = new JPanel();
-        arrowPanel.setBounds(160, 570, 100, 90);    // y was 460
+        arrowPanel.setBounds(180, 700, 100, 90);    // y was 460
         arrowPanel.setLayout(new GridLayout(3, 3));
         arrowPanel.setBackground(Color.black);
-//        con.add(arrowPanel);
 
         arrowUp = new JButton(iconNorth);
         arrowUp.setBorderPainted(false);
@@ -607,7 +696,6 @@ public class GUI_Two {
         arrowPanel.add(new JPanel());
         arrowPanel.add(arrowRight);
         arrowPanel.add(new JPanel());
-//        arrowPanel.add(new JPanel()); // Leave this cell empty for spacing
         arrowPanel.add(arrowDown);
 
         for (Component component : arrowPanel.getComponents()) {
@@ -615,20 +703,23 @@ public class GUI_Two {
                 component.setBackground(Color.black);
             }
         }
+        window.add(arrowPanel);
 
-        con.add(arrowPanel);
-
-        // Create an audio panel
+        // Create an audio window
         audioPanel = new JPanel();
         audioPanel.setBounds(200, 690, 350, 30);        // y was 550
         audioPanel.setBackground(Color.black);
-        con.add(audioPanel);
 
-        volumeSliderLabel = new JLabel("Volume Level: ");
-        volumeSliderLabel.setBackground(Color.black);
-        volumeSliderLabel.setForeground(Color.green);
-        volumeSliderLabel.setFont(normalFont);
-        audioPanel.add(volumeSliderLabel);
+        toggle = new JButton(iconStopSound);
+        toggle.setBorderPainted(false);
+        toggle.setBackground(Color.black);
+        toggle.setForeground(Color.green);
+        toggle.setFont(normalFont);
+        toggle.setFocusPainted(false);
+        toggle.addActionListener(volumeToggleHandler);
+        toggle.setFocusPainted(false);
+        toggle.setContentAreaFilled(false);
+        audioPanel.add(toggle);
 
         //volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 70); // Initial volume at 70%
         volumeSlider = new SliderGradient();
@@ -637,16 +728,42 @@ public class GUI_Two {
         volumeSlider.addChangeListener(volumeHandler);
         audioPanel.add(volumeSlider);
 
+        //Create the Map Area
+        mapPanelLabel = new JTextArea();
+        mapPanelLabel.setVisible(true);
+        mapPanelLabel.setBounds(420, 650, 150, 20);
+        mapPanelLabel.setFont(normalFont);
+        mapPanelLabel.setBackground(Color.black);
+        mapPanelLabel.setForeground(Color.green);
+        mapPanelLabel.setFont(gameFont);
+        window.add(mapPanelLabel);
+
+        mapPanel = new GamePanel(this);
+        mapPanel.setVisible(true);
+        mapPanel.setBounds(350, 675, 280, 180);
+        mapPanel.setBackground(Color.black);
+        mapPanel.setLayout(new GridLayout(1, 2));
+        //mapPanel.addMouseListener(mouseClick);
+        window.add(mapPanel);
+
         // Game initialization
         playerSetup();
         roomSetup();
         backgroundMusic.play("music");
-
-        // Refreshing the window
-        window.revalidate();
+        window.repaint();
     }
 
-    public void introTextSetup(){
+    //Getters and Setters
+
+    public JPanel getOutputPanel() {
+        return outputPanel;
+    }
+
+    public JLabel getOutputLabel() {
+        return outputLabel;
+    }
+
+    public void introTextSetup() {
         System.setOut(printOutput);
         viewMain.gameStart();
         String textOutput = basicOutput.toString();
@@ -660,6 +777,8 @@ public class GUI_Two {
         Player player = mansion.getPlayer();
         String playerName = player.getName();
         int playerHealth = player.getHealth();
+
+        playerNameLabelNumber.setText("" + playerName);
 
         if (playerHealth > 130 && playerHealth < 141) healthLabel.setIcon(iconHB14);
         if (playerHealth > 120 && playerHealth < 131) healthLabel.setIcon(iconHB13);
@@ -676,32 +795,190 @@ public class GUI_Two {
         if (playerHealth > 10 && playerHealth < 21) healthLabel.setIcon(iconHB2);
         if (playerHealth > 0 && playerHealth < 11) healthLabel.setIcon(iconHB1);
         // Loose statements go here.
-        if (playerHealth <= 0){
+        if (playerHealth <= 0) {
             createLoseScreen();
         }
 
+        // This area sets up the icons for the Player's Inventory to Display as Icons
         List playerInventory = player.getInventory();
+        String inventory = player.getInventory().toString();
+        String content = inventory.substring(1, inventory.length() - 1).trim();
+        String[] items = content.split(", ");
+        ArrayList<String> arlist = new ArrayList<String>(java.util.List.of(items));
 
-            //else do this stuff
-            playerNameLabelNumber.setText("" + playerName);
-            inventoryLabelNumber.setText("" + playerInventory);
-            //healthLabelNumber.setText("" + playerHealth);
+        iconPanel.removeAll();
+
+        while (arlist.size() > 0) {
+            String item = arlist.get(0);
+
+            switch (item) {
+                case "key":
+                    JButton dropKey = new JButton(iconKey);
+                    dropKey.setBorderPainted(false);
+                    dropKey.setBackground(Color.black);
+                    dropKey.setForeground(Color.green);
+                    dropKey.setFont(normalFont);
+                    dropKey.setFocusPainted(false);
+                    dropKey.addActionListener(inventoryHandler);
+                    dropKey.setFocusPainted(false);
+                    dropKey.setContentAreaFilled(false);
+                    dropKey.setActionCommand("dropKey");
+                    arlist.remove(item);
+                    iconPanel.add(dropKey);
+                    break;
+                case "knife":
+                    JButton dropKnife = new JButton(iconKnife);
+                    dropKnife.setBorderPainted(false);
+                    dropKnife.setBackground(Color.black);
+                    dropKnife.setForeground(Color.green);
+                    dropKnife.setFont(normalFont);
+                    dropKnife.setFocusPainted(false);
+                    dropKnife.addActionListener(inventoryHandler);
+                    dropKnife.setFocusPainted(false);
+                    dropKnife.setContentAreaFilled(false);
+                    dropKnife.setActionCommand("dropKnife");
+                    arlist.remove(item);
+                    iconPanel.add(dropKnife);
+                    break;
+                case "bat":
+                    JButton dropBat = new JButton(iconBat);
+                    dropBat.setBorderPainted(false);
+                    dropBat.setBackground(Color.black);
+                    dropBat.setForeground(Color.green);
+                    dropBat.setFont(normalFont);
+                    dropBat.setFocusPainted(false);
+                    dropBat.addActionListener(inventoryHandler);
+                    dropBat.setFocusPainted(false);
+                    dropBat.setContentAreaFilled(false);
+                    dropBat.setActionCommand("dropBat");
+                    arlist.remove(item);
+                    iconPanel.add(dropBat);
+                    break;
+                case "diary":
+                    JButton dropDiary = new JButton(iconDiary);
+                    dropDiary.setBorderPainted(false);
+                    dropDiary.setBackground(Color.black);
+                    dropDiary.setForeground(Color.green);
+                    dropDiary.setFont(normalFont);
+                    dropDiary.setFocusPainted(false);
+                    dropDiary.addActionListener(inventoryHandler);
+                    dropDiary.setFocusPainted(false);
+                    dropDiary.setContentAreaFilled(false);
+                    dropDiary.setActionCommand("dropDiary");
+                    arlist.remove(item);
+                    iconPanel.add(dropDiary);
+                    break;
+                case "grimoire":
+                    JButton dropGrimoire = new JButton(iconGrimoire);
+                    dropGrimoire.setBorderPainted(false);
+                    dropGrimoire.setBackground(Color.black);
+                    dropGrimoire.setForeground(Color.green);
+                    dropGrimoire.setFont(normalFont);
+                    dropGrimoire.setFocusPainted(false);
+                    dropGrimoire.addActionListener(inventoryHandler);
+                    dropGrimoire.setFocusPainted(false);
+                    dropGrimoire.setContentAreaFilled(false);
+                    dropGrimoire.setActionCommand("dropGrimoire");
+                    arlist.remove(item);
+                    iconPanel.add(dropGrimoire);
+                    break;
+                case "jacket":
+                    JButton dropJacket = new JButton(iconJacket);
+                    dropJacket.setBorderPainted(false);
+                    dropJacket.setBackground(Color.black);
+                    dropJacket.setForeground(Color.green);
+                    dropJacket.setFont(normalFont);
+                    dropJacket.setFocusPainted(false);
+                    dropJacket.addActionListener(inventoryHandler);
+                    dropJacket.setFocusPainted(false);
+                    dropJacket.setContentAreaFilled(false);
+                    dropJacket.setActionCommand("dropJacket");
+                    arlist.remove(item);
+                    iconPanel.add(dropJacket);
+                    break;
+                case "plate":
+                    JButton dropPlate = new JButton(iconPlate);
+                    dropPlate.setBorderPainted(false);
+                    dropPlate.setBackground(Color.black);
+                    dropPlate.setForeground(Color.green);
+                    dropPlate.setFont(normalFont);
+                    dropPlate.setFocusPainted(false);
+                    dropPlate.addActionListener(inventoryHandler);
+                    dropPlate.setFocusPainted(false);
+                    dropPlate.setContentAreaFilled(false);
+                    dropPlate.setActionCommand("dropPlate");
+                    arlist.remove(item);
+                    iconPanel.add(dropPlate);
+                    break;
+                default:
+                    arlist.remove(item);
+            }
+        }
+        //window.add(iconPanel);
+        iconPanel.repaint();
 
         //check inventory for grim and do win
-        if (playerInventory.contains("grimoire")){
+        if (playerInventory.contains("grimoire")) {
             createWinScreen();
         }
-
     }
 
     public void roomSetup() {
 
         Location currentLocation = mansion.getCurrentLocation();
         currentLocationLabelNumber.setText(currentLocation.getName());
+        mapPanelLabel.setText("Room: " + currentLocation.getName());
         descriptionLabelNumber.setText("<html>" + currentLocation.getDescription() + "<html>");
         directionsLabelNumber.setText("" + currentLocation.getDirections().keySet());
         itemsLabelNumber.setText("" + currentLocation.getItems());
         creaturesLabelNumber.setText(Arrays.toString(currentLocation.getCharacters()));
+        mapPanel.update();
+        mapPanel.repaint();
+
+    }
+
+    public class InventoryHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            String choice = event.getActionCommand();
+            JTextField userInput;
+
+            switch (choice) {
+                case "dropKey":
+                    userInput = new JTextField("drop key");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+                case "dropKnife":
+                    userInput = new JTextField("drop knife");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+                case "dropBat":
+                    userInput = new JTextField("drop bat");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+                case "dropDiary":
+                    userInput = new JTextField("drop diary");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+                case "dropGrimoire":
+                    userInput = new JTextField("drop diary");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+                case "dropJacket":
+                    userInput = new JTextField("drop jacket");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+                case "dropPlate":
+                    userInput = new JTextField("drop plate");
+                    helper.handleUserInput(userInput, outputLabel);
+                    break;
+            }
+            playerSetup();
+            roomSetup();
+
+        }
+
     }
 
     public class UserInputHandler implements ActionListener {
@@ -771,27 +1048,39 @@ public class GUI_Two {
             String choice = event.getActionCommand();
 
             switch (choice) {
-                case "c1":
+                case "c1": //help
+                    //TextParser.handleInput(mansion, "help", "");
+                    //helper.handleButtons("help", "", outputLabel);
                     try {
-                        TextParser.handleInput(mansion, "help", "");
-                        helper.handleButtons("help", "", outputLabel);
+                        iconHelp = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/helpscreen.png")));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    JOptionPane.showMessageDialog(null, iconHelp, "Help", JOptionPane.PLAIN_MESSAGE);
                     break;
-                case "c2":
-                try {
-                    TextParser.handleInput(mansion, "map", "");
-                    helper.handleButtons("map", "", outputLabel);
+                case "c2"://map
+                    //TextParser.handleInput(mansion, "map", "");
+                    //helper.handleButtons("map", "", outputLabel);
+                    try {
+                        iconMap = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/whole_map.png")));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    JOptionPane.showMessageDialog(null, iconMap, "Map", JOptionPane.PLAIN_MESSAGE);
                     break;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                case "c3":
-                    JOptionPane.showMessageDialog(null, "This Function is only available in the Paid version of the game. Please subscribe for full functionality.");
+                case "c3"://settings
+                    JOptionPane.showMessageDialog(null, "This Function is only available in the Paid version of the game. Please subscribe for full functionality.", "Settings", JOptionPane.INFORMATION_MESSAGE);
                     break;
-
-                case "c4":
+                case "c4"://save game
+                    try {
+                        MyJsonReader.writeMansion(mansion, "saved.json");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    JOptionPane.showMessageDialog(null, "Game Has Been Saved.");
+                    break;
+                case "c5": //quit
+                    System.exit(0);
                     break;
             }
         }
@@ -805,71 +1094,53 @@ public class GUI_Two {
 
             switch (choice) {
                 case "a1":
-                    try {
-                        TextParser.handleInput(mansion, "move", "north");
-                        helper.handleButtons("move", "north", outputLabel);
-                        playerSetup();
-                        roomSetup();
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    //TextParser.handleInput(mansion, "move", "north");
+                    helper.handleButtons("move", "north", outputLabel);
+                    playerSetup();
+                    roomSetup();
                     break;
                 case "a2":
-                    try {
-                        TextParser.handleInput(mansion, "move", "south");
-                        helper.handleButtons("move", "south", outputLabel);
-                        playerSetup();
-                        roomSetup();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    //TextParser.handleInput(mansion, "move", "south");
+                    helper.handleButtons("move", "south", outputLabel);
+                    playerSetup();
+                    roomSetup();
                     break;
                 case "a3":
-                    try {
-                        TextParser.handleInput(mansion, "move", "west");
-                        helper.handleButtons("move", "west", outputLabel);
-                        playerSetup();
-                        roomSetup();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    //TextParser.handleInput(mansion, "move", "west");
+                    helper.handleButtons("move", "west", outputLabel);
+                    playerSetup();
+                    roomSetup();
                     break;
                 case "a4":
-                    try {
-                        TextParser.handleInput(mansion, "move", "east");
-                        helper.handleButtons("move", "east", outputLabel);
-                        playerSetup();
-                        roomSetup();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    //TextParser.handleInput(mansion, "move", "east");
+                    helper.handleButtons("move", "east", outputLabel);
+                    playerSetup();
+                    roomSetup();
                     break;
             }
         }
-
     }
 
     public class VolumeToggleHandler implements ActionListener {
         boolean isMuted = false; //changed to start the game muted
         Icon iconSound;
+
         @Override
         public void actionPerformed(ActionEvent event) {
-            if(!isMuted) {
+            if (!isMuted) {
                 backgroundMusic.stop();
-                choice4.setIcon(iconPlaySound);
+                toggle.setIcon(iconPlaySound);
                 isMuted = true;
                 //JOptionPane.showMessageDialog(null, "Music muted");
             } else {
                 backgroundMusic.play("music");
-                choice4.setIcon(iconStopSound);
+                toggle.setIcon(iconStopSound);
                 isMuted = false;
                 //JOptionPane.showMessageDialog(null, "Music unMuted");
             }
             choice4.setFocusPainted(false);
             choice4.setContentAreaFilled(false);
         }
-
     }
 
     public class VolumeHandler implements ChangeListener {
@@ -879,7 +1150,7 @@ public class GUI_Two {
             JSlider source = (JSlider) event.getSource();
             if (!source.getValueIsAdjusting()) {
                 float volume = (float) source.getValue() / 100;
-                if(volumeToggleHandler.isMuted == false) {
+                if (volumeToggleHandler.isMuted == false) {
                     backgroundMusic.setVolume("music", volume);
                 }
             }
@@ -908,8 +1179,27 @@ public class GUI_Two {
         }
     }
 
-    public void winGameTextSetup(){
-        System.setOut(printOutput);
+    public class LoadAudioWindow implements ActionListener {
+
+        JFrame audioWindow = new JFrame();
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            audioWindow.setResizable(false);
+            audioWindow.setTitle("Audio Panel");
+
+            audioWindow.add(audioPanel);
+
+            audioWindow.pack();
+            audioWindow.setLocationRelativeTo(null);
+            audioWindow.setVisible(true);
+
+        }
+    }
+
+    public void winGameTextSetup() {
+        backgroundMusic.stop();
         winMusic.play("music");
         String fileName = "textFiles/Win_Text.txt";
         StringBuilder htmlText = new StringBuilder("<html>");
@@ -922,33 +1212,28 @@ public class GUI_Two {
                 //titleGameLabel.setText(titleGameLabel.getText() + "<html>" + line + "<br></html>");
             }
             htmlText.append("</html>");
-            String textOutput = basicOutput.toString();
-            basicOutput.reset();
+            winTextLabel.setVisible(true);
+            winTextLabel.setForeground(Color.green);
             winTextLabel.setText(htmlText.toString());
+            winTextLabel.repaint();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void loseGameTextSetup(){
-        System.setOut(printOutput);
+    public void loseGameTextSetup() {
         String fileName = "textFiles/Lose_Text.txt";
         StringBuilder htmlText = new StringBuilder("<html>");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(GUI_Two.class.getClassLoader().getResourceAsStream(fileName)))) {
             String line;
             while ((line = br.readLine()) != null) {
                 line = line.replace(" ", "&nbsp;");
-                System.out.println(line + "\n");
                 htmlText.append(line).append("<br>");
-                //titleGameLabel.setText(titleGameLabel.getText() + "<html>" + line + "<br></html>");
             }
             htmlText.append("</html>");
-            String textOutput = basicOutput.toString();
-            basicOutput.reset();
             loseTextLabel.setText(htmlText.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 }
