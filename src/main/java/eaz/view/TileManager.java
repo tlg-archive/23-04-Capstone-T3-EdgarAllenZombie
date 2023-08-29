@@ -29,9 +29,6 @@ public class TileManager {
     int mapTileNum[][];
 
 
-
-
-
     public  TileManager(GamePanel gp) {
 
         this.gp = gp;
@@ -40,13 +37,70 @@ public class TileManager {
 
         getTileImage();
         Location location = GUI_Two.getMansion().getCurrentLocation();
-        String locationName = location.getName();
+//        String locationName = location.getName();
+//        String filePath = "textFiles/foyer.txt";
+//
+//        switch (locationName){
+//            case "Foyer":
+//                filePath = "textFiles/foyer.txt";
+//                break;
+//            case "Hallway 1E":
+//                filePath = "textFiles/hallway1e.txt";
+//                break;
+//            case "Hallway 1W":
+//                filePath = "textFiles/hallway1w.txt";
+//                break;
+//            case "Coat Closet":
+//                filePath = "textFiles/coatcloset.txt";
+//                break;
+//            case "Butler's Room":
+//                filePath = "textFiles/butlersroom.txt";
+//                break;
+//            case "Secret Room":
+//                filePath = "textFiles/secretroom.txt";
+//                break;
+//            case "Kitchen":
+//                filePath = "textFiles/kitchen.txt";
+//                break;
+//            case "Dining Room":
+//                filePath = "textFiles/diningroom.txt";
+//                break;
+//            case "Hallway 2S":
+//                filePath = "textFiles/hallway2s.txt";
+//                break;
+//            case "Hallway 2N":
+//                filePath = "textFiles/hallway2n.txt";
+//                break;
+//            case "Ballroom":
+//                filePath = "textFiles/ballroom.txt";
+//                break;
+//            case "Storage Room":
+//                filePath = "textFiles/storageroom.txt";
+//                break;
+//            case "Home Office":
+//                filePath = "textFiles/homeoffice.txt";
+//                break;
+//            case "Hallway 3E":
+//                filePath = "textFiles/hallway3e.txt";
+//                break;
+//            case "Hallway 3W":
+//                filePath = "textFiles/hallway3w.txt";
+//                break;
+//            case "Bedroom":
+//                filePath = "textFiles/bedroom.txt";
+//                break;
+//            case "Master Bedroom":
+//                filePath = "textFiles/masterbedroom.txt";
+//                break;
+//            case "Bathroom":
+//                filePath = "textFiles/bathroom.txt";
+//                break;
+//            case "Library":
+//                filePath = "textFiles/library.txt";
+//                break;
+//        }
 
-
-
-
-        loadMap("textFiles/foyer.txt");
-
+        //loadMap();
         gp.addMouseListener(new MouseClick());
     }
 
@@ -84,7 +138,7 @@ public class TileManager {
     }
 
 
-    public void loadMap(String filePath) {
+    public void loadMap() {
 
          Location location = GUI_Two.getMansion().getCurrentLocation();
          String roomInventory = location.getItems().toString();
@@ -92,7 +146,68 @@ public class TileManager {
          String[] items = content.split(", ");
          ArrayList<String> arlist = new ArrayList<String>(java.util.List.of(items));
          //JOptionPane.showMessageDialog(null, "THIS IS THE CURRENT LOCATION " + arlist);
+        String locationName = location.getName();
+        String filePath = "textFiles/foyer.txt";
 
+        switch (locationName){
+            case "Foyer":
+                filePath = "textFiles/foyer.txt";
+                break;
+            case "Hallway 1E":
+                filePath = "textFiles/hallway1e.txt";
+                break;
+            case "Hallway 1W":
+                filePath = "textFiles/hallway1w.txt";
+                break;
+            case "Coat Closet":
+                filePath = "textFiles/coatcloset.txt";
+                break;
+            case "Butler's Room":
+                filePath = "textFiles/butlersroom.txt";
+                break;
+            case "Secret Room":
+                filePath = "textFiles/secretroom.txt";
+                break;
+            case "Kitchen":
+                filePath = "textFiles/kitchen.txt";
+                break;
+            case "Dining Room":
+                filePath = "textFiles/diningroom.txt";
+                break;
+            case "Hallway 2S":
+                filePath = "textFiles/hallway2s.txt";
+                break;
+            case "Hallway 2N":
+                filePath = "textFiles/hallway2n.txt";
+                break;
+            case "Ballroom":
+                filePath = "textFiles/ballroom.txt";
+                break;
+            case "Storage Room":
+                filePath = "textFiles/storageroom.txt";
+                break;
+            case "Home Office":
+                filePath = "textFiles/homeoffice.txt";
+                break;
+            case "Hallway 3E":
+                filePath = "textFiles/hallway3e.txt";
+                break;
+            case "Hallway 3W":
+                filePath = "textFiles/hallway3w.txt";
+                break;
+            case "Bedroom":
+                filePath = "textFiles/bedroom.txt";
+                break;
+            case "Master Bedroom":
+                filePath = "textFiles/masterbedroom.txt";
+                break;
+            case "Bathroom":
+                filePath = "textFiles/bathroom.txt";
+                break;
+            case "Library":
+                filePath = "textFiles/library.txt";
+                break;
+        }
 
         try {
 
