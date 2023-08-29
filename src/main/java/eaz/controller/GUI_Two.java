@@ -1044,11 +1044,17 @@ public class GUI_Two {
             String choice = event.getActionCommand();
 
             switch (choice) {
-                case "c1":
+                case "c1": //help
                     //TextParser.handleInput(mansion, "help", "");
-                    helper.handleButtons("help", "", outputLabel);
+                    //helper.handleButtons("help", "", outputLabel);
+                    try {
+                        iconHelp = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/helpscreen.png")));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    JOptionPane.showMessageDialog(null, iconHelp, "Help", JOptionPane.PLAIN_MESSAGE);
                     break;
-                case "c2":
+                case "c2"://map
                     //TextParser.handleInput(mansion, "map", "");
                     //helper.handleButtons("map", "", outputLabel);
                     try {
@@ -1058,10 +1064,10 @@ public class GUI_Two {
                     }
                     JOptionPane.showMessageDialog(null, iconMap, "Map", JOptionPane.PLAIN_MESSAGE);
                     break;
-                case "c3":
+                case "c3"://settings
                     JOptionPane.showMessageDialog(null, "This Function is only available in the Paid version of the game. Please subscribe for full functionality.", "Settings", JOptionPane.INFORMATION_MESSAGE);
                     break;
-                case "c4":
+                case "c4"://save game
                     try {
                         MyJsonReader.writeMansion(mansion, "saved.json");
                     } catch (IOException e) {
@@ -1069,7 +1075,7 @@ public class GUI_Two {
                     }
                     JOptionPane.showMessageDialog(null, "Game Has Been Saved.");
                     break;
-                case "c5":
+                case "c5": //quit
                     System.exit(0);
                     break;
             }
