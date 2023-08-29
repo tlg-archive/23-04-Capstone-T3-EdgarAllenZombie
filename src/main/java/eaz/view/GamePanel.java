@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update(){
-       tileM.loadMap("textFiles/foyer.txt");
+       tileM.loadMap();
     }
 
     public void paintComponent(Graphics g){

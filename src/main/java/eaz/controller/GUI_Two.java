@@ -922,7 +922,7 @@ public class GUI_Two {
 
         Location currentLocation = mansion.getCurrentLocation();
         currentLocationLabelNumber.setText(currentLocation.getName());
-        mapPanelLabel.setText("Map For " + currentLocation.getName() + ":");
+        mapPanelLabel.setText("Room: " + currentLocation.getName());
         descriptionLabelNumber.setText("<html>" + currentLocation.getDescription() + "<html>");
         directionsLabelNumber.setText("" + currentLocation.getDirections().keySet());
         itemsLabelNumber.setText("" + currentLocation.getItems());
@@ -1045,21 +1045,19 @@ public class GUI_Two {
 
             switch (choice) {
                 case "c1":
-                    try {
-                        TextParser.handleInput(mansion, "help", "");
-                        helper.handleButtons("help", "", outputLabel);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    //TextParser.handleInput(mansion, "help", "");
+                    helper.handleButtons("help", "", outputLabel);
                     break;
                 case "c2":
+                    //TextParser.handleInput(mansion, "map", "");
+                    //helper.handleButtons("map", "", outputLabel);
                     try {
-                        TextParser.handleInput(mansion, "map", "");
-                        helper.handleButtons("map", "", outputLabel);
-                        break;
+                        iconMap = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/whole_map.png")));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    JOptionPane.showMessageDialog(null, iconMap, "Map", JOptionPane.PLAIN_MESSAGE);
+                    break;
                 case "c3":
                     JOptionPane.showMessageDialog(null, "This Function is only available in the Paid version of the game. Please subscribe for full functionality.", "Settings", JOptionPane.INFORMATION_MESSAGE);
                     break;
