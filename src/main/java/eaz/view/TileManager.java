@@ -37,70 +37,6 @@ public class TileManager {
 
         getTileImage();
         Location location = GUI_Two.getMansion().getCurrentLocation();
-//        String locationName = location.getName();
-//        String filePath = "textFiles/foyer.txt";
-//
-//        switch (locationName){
-//            case "Foyer":
-//                filePath = "textFiles/foyer.txt";
-//                break;
-//            case "Hallway 1E":
-//                filePath = "textFiles/hallway1e.txt";
-//                break;
-//            case "Hallway 1W":
-//                filePath = "textFiles/hallway1w.txt";
-//                break;
-//            case "Coat Closet":
-//                filePath = "textFiles/coatcloset.txt";
-//                break;
-//            case "Butler's Room":
-//                filePath = "textFiles/butlersroom.txt";
-//                break;
-//            case "Secret Room":
-//                filePath = "textFiles/secretroom.txt";
-//                break;
-//            case "Kitchen":
-//                filePath = "textFiles/kitchen.txt";
-//                break;
-//            case "Dining Room":
-//                filePath = "textFiles/diningroom.txt";
-//                break;
-//            case "Hallway 2S":
-//                filePath = "textFiles/hallway2s.txt";
-//                break;
-//            case "Hallway 2N":
-//                filePath = "textFiles/hallway2n.txt";
-//                break;
-//            case "Ballroom":
-//                filePath = "textFiles/ballroom.txt";
-//                break;
-//            case "Storage Room":
-//                filePath = "textFiles/storageroom.txt";
-//                break;
-//            case "Home Office":
-//                filePath = "textFiles/homeoffice.txt";
-//                break;
-//            case "Hallway 3E":
-//                filePath = "textFiles/hallway3e.txt";
-//                break;
-//            case "Hallway 3W":
-//                filePath = "textFiles/hallway3w.txt";
-//                break;
-//            case "Bedroom":
-//                filePath = "textFiles/bedroom.txt";
-//                break;
-//            case "Master Bedroom":
-//                filePath = "textFiles/masterbedroom.txt";
-//                break;
-//            case "Bathroom":
-//                filePath = "textFiles/bathroom.txt";
-//                break;
-//            case "Library":
-//                filePath = "textFiles/library.txt";
-//                break;
-//        }
-
-        //loadMap();
         gp.addMouseListener(new MouseClick());
     }
 
@@ -131,12 +67,10 @@ public class TileManager {
             tile[10].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/plate_map.png"));
             tile[11] = new Tile();
             tile[11].image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/Zombie2.png"));
-
         }catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     public void loadMap() {
 
@@ -348,6 +282,15 @@ public class TileManager {
                 case 3:
                     gp.getGui().getHelper().handleButtons("get", "key", gp.getGui().getOutputLabel());
                     break;
+                case 4:
+                    icon = new ImageIcon(getClass().getClassLoader().getResource("images/Edgar.png"));
+                    JOptionPane.showOptionDialog(null, "This is you!!!", "Edgar Allen Zombie",
+                            JOptionPane.PLAIN_MESSAGE,
+                            JOptionPane.PLAIN_MESSAGE,
+                            icon,
+                            null,
+                            0);
+                    break;
                 case 5:
                     gp.getGui().getHelper().handleButtons("get", "knife", gp.getGui().getOutputLabel());
                     break;
@@ -367,7 +310,6 @@ public class TileManager {
                     gp.getGui().getHelper().handleButtons("get", "plate", gp.getGui().getOutputLabel());
                     break;
                 case 11:
-
                     icon = new ImageIcon(getClass().getClassLoader().getResource("images/iconZombie.png"));
                     getResponse = JOptionPane.showOptionDialog(null,
                             "Do you want to talk to or attack the Zombie?",

@@ -25,43 +25,41 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
-
-
 public class GUI_Two {
-
-    JFrame window;   //First Layer
-    JPanel titleGamePanel, startButtonPanel, introTextPanel, playButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel,
-            arrowPanel, outputPanel, winTextPanel, winGameButtonPanel, loseTextPanel, loseGameButtonPanel, inventoryPanel, iconPanel;//Placed on window
-    JLabel introTextLabel, healthLabel, inventoryLabel, playerNameLabel,
-            playerNameLabelNumber, userPromptLabel, currentLocationLabel, currentLocationLabelNumber, descriptionLabel,
-            descriptionLabelNumber, directionsLabel, directionsLabelNumber, itemsLabel, itemsLabelNumber, creaturesLabel,
-            creaturesLabelNumber, volumeSliderLabel, titleGameLabel, outputLabel, outputTitleLabel, winTextLabel, loseTextLabel; //Placed on panel
 
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 70);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
     Font gameFont = new Font("Times New Roman", Font.PLAIN, 15);
     Font textFileFont = new Font("Monospaced", Font.PLAIN, 8);
 
+    JFrame window;   //First Layer
+
+    JPanel titleGamePanel, startButtonPanel, introTextPanel, playButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, userPromptPanel, audioPanel,
+            arrowPanel, outputPanel, winTextPanel, winGameButtonPanel, loseTextPanel, loseGameButtonPanel, inventoryPanel, iconPanel;//Placed on window
+
+    JLabel introTextLabel, healthLabel, inventoryLabel, playerNameLabel,
+            playerNameLabelNumber, userPromptLabel, currentLocationLabel, currentLocationLabelNumber, descriptionLabel,
+            descriptionLabelNumber, directionsLabel, directionsLabelNumber, itemsLabel, itemsLabelNumber, creaturesLabel,
+            creaturesLabelNumber, volumeSliderLabel, titleGameLabel, outputLabel, outputTitleLabel, winTextLabel, loseTextLabel; //Placed on panel
 
     JButton startButton, playButton, playNewButton, choice1, choice2, choice3, choice4, choice5, choice6, arrowUp, arrowDown, arrowLeft, arrowRight, restartButton,
             toggle, quitButton;
+
     JTextArea mapPanelLabel;
 
     JTextField userInputField;
 
     Icon iconEast, iconWest, iconNorth, iconSouth, iconSettings, iconPlaySound, iconStopSound, iconMap, iconHelp, iconZombie, iconBag,
             iconHB1, iconHB2, iconHB3, iconHB4, iconHB5, iconHB6, iconHB7, iconHB8, iconHB9, iconHB10, iconHB11, iconHB12, iconHB13, iconHB14,
-            iconSave, iconQuit, iconKnife, iconKey, iconBat, iconDiary, iconGrimoire, iconJacket, iconPlate;
+            iconSave, iconQuit, iconKnife, iconKey, iconBat, iconDiary, iconGrimoire, iconJacket, iconPlate, iconWin, iconLose;
 
     //  JTextPane titleGameLabel;
 
     SliderGradient volumeSlider;
     GamePanel mapPanel;
 
-
     int MAX_WIDTH = 880;
-    int MAX_HEIGHT = 1000;
+    int MAX_HEIGHT = 920;
 
     private static Mansion mansion;
 
@@ -77,7 +75,7 @@ public class GUI_Two {
     public GUIFunctionality_Two helper;
     public final Music backgroundMusic = new Music("music", "audioFiles/zombies.wav");
     public final Music winMusic = new Music("music", "audioFiles/win.wav");
-
+    public final Music loseMusic = new Music("music", "audioFiles/looseGame.wav");
 
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     IntroScreenHandler isHandler = new IntroScreenHandler();
@@ -94,9 +92,8 @@ public class GUI_Two {
     InventoryHandler inventoryHandler = new InventoryHandler();
     //MouseClick mouseClick = new MouseClick();
 
-
-
     Border greenLine = BorderFactory.createLineBorder(Color.green);
+    Border redLine = BorderFactory.createLineBorder(Color.red);
 
     Border loweredBeveled = BorderFactory.createLoweredBevelBorder();
 
@@ -237,11 +234,16 @@ public class GUI_Two {
         mapPanel.setVisible(false);
         mapPanelLabel.setVisible(false);
 
+        //audio components
+        backgroundMusic.stop();
+        winMusic.play("music");
+
         //make the panel to display the text
         winTextPanel = new JPanel();
-        winTextPanel.setBounds(100, 100, 600, 400);
+        winTextPanel.setBounds(65, 100, 800, 400);
         winTextPanel.setBackground(Color.black); //change to black after testing
         winTextPanel.setLayout(new GridLayout(1, 1));
+        window.add(winTextPanel);
 
         //create the text Label so Rich can work his magic
         winTextLabel = new JLabel();
@@ -249,39 +251,37 @@ public class GUI_Two {
         winTextLabel.setForeground(Color.green);
         winTextLabel.setHorizontalAlignment(JLabel.LEFT);
         winTextLabel.setFont(normalFont);
+        winTextLabel.setIcon(iconWin);
+        winTextPanel.add(winTextLabel);
 
         //setup the button Panel
         winGameButtonPanel = new JPanel();
-        winGameButtonPanel.setBounds(220, 600, 300, 100);
+        winGameButtonPanel.setBounds(20, 600, 800, 100);
         winGameButtonPanel.setBackground(Color.black);//change to black after testing
+        window.add(winGameButtonPanel);
 
         //setup restart button
         restartButton = new JButton("Restart");
         restartButton.setBackground(Color.black);
-        restartButton.setForeground(Color.green);
+        restartButton.setForeground(Color.yellow);
         restartButton.setFont(normalFont);
         restartButton.addActionListener(isHandler);
         restartButton.setActionCommand("restart");
         restartButton.setFocusPainted(false);
+        winGameButtonPanel.add(restartButton);
 
         //setup Quit button
         quitButton = new JButton("Quit");
         quitButton.setBackground(Color.black);
-        quitButton.setForeground(Color.green);
+        quitButton.setForeground(Color.yellow);
         quitButton.setFont(normalFont);
         quitButton.addActionListener(isHandler);
         quitButton.setActionCommand("exit");
         quitButton.setFocusPainted(false);
-
-        //link everything together
-        winTextPanel.add(winTextLabel);
-        winGameButtonPanel.add(restartButton);
         winGameButtonPanel.add(quitButton);
-        //con.add(winTextPanel);
-        //con.add(winGameButtonPanel);
 
         //print dialogue to screen
-        winGameTextSetup();
+        //winGameTextSetup();
     }
 
     public void createLoseScreen() {
@@ -294,13 +294,21 @@ public class GUI_Two {
         choiceButtonPanel.setVisible(false);
         arrowPanel.setVisible(false);
         audioPanel.setVisible(false);
+        inventoryPanel.setVisible(false);
+        inventoryLabel.setVisible(false);
+        mapPanel.setVisible(false);
+        mapPanelLabel.setVisible(false);
 
+        //audio components
+        backgroundMusic.stop();
+        loseMusic.play("music");
 
         //make the panel to display the text
         loseTextPanel = new JPanel();
-        loseTextPanel.setBounds(100, 100, 600, 400);
+        loseTextPanel.setBounds(65, 100, 800, 400);
         loseTextPanel.setBackground(Color.black); //change to black after testing
         loseTextPanel.setLayout(new GridLayout(1, 1));
+        window.add(loseTextPanel);
 
         //create the text Label so Rich can work his magic
         loseTextLabel = new JLabel();
@@ -308,39 +316,39 @@ public class GUI_Two {
         loseTextLabel.setForeground(Color.green);
         loseTextLabel.setHorizontalAlignment(JLabel.LEFT);
         loseTextLabel.setFont(normalFont);
+        loseTextLabel.setIcon(iconLose);
+        loseTextPanel.add(loseTextLabel);
+
 
         //setup the button Panel
         loseGameButtonPanel = new JPanel();
-        loseGameButtonPanel.setBounds(220, 600, 300, 100);
+        loseGameButtonPanel.setBounds(20, 600, 800, 100);
         loseGameButtonPanel.setBackground(Color.black);//change to black after testing
+        window.add(loseGameButtonPanel);
 
         //setup restart button
         restartButton = new JButton("Restart");
         restartButton.setBackground(Color.black);
-        restartButton.setForeground(Color.green);
+        restartButton.setForeground(Color.yellow);
         restartButton.setFont(normalFont);
         restartButton.addActionListener(isHandler);
         restartButton.setActionCommand("restart");
         restartButton.setFocusPainted(false);
+        loseGameButtonPanel.add(restartButton);
 
         //setup Quit button
         quitButton = new JButton("Quit");
         quitButton.setBackground(Color.black);
-        quitButton.setForeground(Color.green);
+        quitButton.setForeground(Color.yellow);
         quitButton.setFont(normalFont);
         quitButton.addActionListener(isHandler);
         quitButton.setActionCommand("exit");
         quitButton.setFocusPainted(false);
-
-        //link everything together
-        loseTextPanel.add(loseTextLabel);
-        loseGameButtonPanel.add(restartButton);
         loseGameButtonPanel.add(quitButton);
-        //con.add(loseTextPanel);
-        //con.add(loseGameButtonPanel);
+
 
         //print dialogue to screen
-        loseGameTextSetup();
+        //loseGameTextSetup();
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -386,11 +394,12 @@ public class GUI_Two {
             iconGrimoire = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/grimoire_inventory.png")));
             iconJacket = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/jacket_inventory.png")));
             iconPlate = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/plate_inventory.png")));
+            iconWin = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/win.png")));
+            iconLose = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/lose.png")));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
 
         //Header text area with the Player information
         playerPanel = new JPanel();
@@ -421,7 +430,7 @@ public class GUI_Two {
 
         // Main Body of Text
         mainTextPanel = new JPanel();
-        mainTextPanel.setBounds(70, 100, 670, 290);
+        mainTextPanel.setBounds(50, 100, 680, 310);
         mainTextPanel.setBorder(greenLine);
         mainTextPanel.setBackground(Color.black);
         mainTextPanel.setLayout(new GridLayout(10, 1));
@@ -494,7 +503,7 @@ public class GUI_Two {
 
         //Output area for various function like talk, look, attack, etc
         outputPanel = new JPanel();
-        outputPanel.setBounds(70, 395, 670, 80);
+        outputPanel.setBounds(50, 415, 680, 80);
         outputPanel.setBorder(greenLine);
         outputPanel.setBackground(Color.black);
         outputPanel.setLayout(new GridLayout(2, 1));
@@ -515,7 +524,7 @@ public class GUI_Two {
 
         //Player Inventory Panel
         inventoryPanel = new JPanel();
-        inventoryPanel.setBounds(90, 490, 670, 65);
+        inventoryPanel.setBounds(90, 520, 670, 65);
         inventoryPanel.setBackground(Color.black);
         inventoryPanel.setLayout(new BorderLayout());
         window.add(inventoryPanel);
@@ -529,10 +538,9 @@ public class GUI_Two {
         iconPanel.setBackground(Color.black);
         inventoryPanel.add(iconPanel, BorderLayout.CENTER);
 
-
         //User input area
         userPromptPanel = new JPanel();
-        userPromptPanel.setBounds(90, 580, 200, 25);           //y 415
+        userPromptPanel.setBounds(90, 600, 200, 25);           //y 415
         userPromptPanel.setBackground(Color.black);//change the color later
         userPromptPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         window.add(userPromptPanel);
@@ -545,13 +553,12 @@ public class GUI_Two {
         userPromptPanel.add(userPromptLabel);
 
         userInputField = new JTextField();
-        userInputField.setBounds(300, 585, 350, 25);    //y 420
+        userInputField.setBounds(300, 605, 350, 25);    //y 420
         userInputField.setFont(normalFont);
         userInputField.setBackground(Color.pink);
         userInputField.setForeground(Color.black);
         userInputField.addActionListener(userInputHandler);
         window.add(userInputField);
-
 
         //Misc buttons area to implement
         choiceButtonPanel = new JPanel();
@@ -739,7 +746,6 @@ public class GUI_Two {
         //mapPanel.addMouseListener(mouseClick);
         window.add(mapPanel);
 
-
         // Game initialization
         playerSetup();
         roomSetup();
@@ -748,7 +754,6 @@ public class GUI_Two {
     }
 
     //Getters and Setters
-
 
     public JPanel getOutputPanel() {
         return outputPanel;
@@ -1036,7 +1041,6 @@ public class GUI_Two {
         }
     }
 
-
     public class ChoiceHandler implements ActionListener {
 
         @Override
@@ -1080,7 +1084,6 @@ public class GUI_Two {
                     break;
             }
         }
-
     }
 
     public class MoveHandler implements ActionListener {
@@ -1116,7 +1119,6 @@ public class GUI_Two {
                     break;
             }
         }
-
     }
 
     public class VolumeToggleHandler implements ActionListener {
@@ -1139,7 +1141,6 @@ public class GUI_Two {
             choice4.setFocusPainted(false);
             choice4.setContentAreaFilled(false);
         }
-
     }
 
     public class VolumeHandler implements ChangeListener {
@@ -1197,7 +1198,6 @@ public class GUI_Two {
         }
     }
 
-
     public void winGameTextSetup() {
         backgroundMusic.stop();
         winMusic.play("music");
@@ -1222,94 +1222,18 @@ public class GUI_Two {
     }
 
     public void loseGameTextSetup() {
-        System.setOut(printOutput);
         String fileName = "textFiles/Lose_Text.txt";
         StringBuilder htmlText = new StringBuilder("<html>");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(GUI_Two.class.getClassLoader().getResourceAsStream(fileName)))) {
             String line;
             while ((line = br.readLine()) != null) {
                 line = line.replace(" ", "&nbsp;");
-                System.out.println(line + "\n");
                 htmlText.append(line).append("<br>");
-                //titleGameLabel.setText(titleGameLabel.getText() + "<html>" + line + "<br></html>");
             }
             htmlText.append("</html>");
-            String textOutput = basicOutput.toString();
-            basicOutput.reset();
             loseTextLabel.setText(htmlText.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
-//    public class MouseClick implements MouseListener {
-//
-//        private Mansion mansion = GUI_Two.getMansion();
-//        private GUI_Two g2;
-//
-//
-//        @Override
-//        public void mouseClicked(MouseEvent e) {
-//
-//            int x = e.getX();
-//            int y = e.getY();
-//            int row = y/mapPanel.tileSize;
-//            int col = x/mapPanel.tileSize;
-//            int tileNumber;
-//            int mapTileNum[][];
-//
-//            mapTileNum = new int[mapPanel.maxScreenCol][mapPanel.maxScreenRow];
-//            JTextField userInput;
-//
-//            tileNumber = mapTileNum[col][row];
-//
-//            switch (tileNumber){
-//                case 0:
-//                    //JOptionPane.showMessageDialog(null, "Ghost was clicked on");
-//                    userInput = new JTextField("talk ghost");
-//                    helper.handleUserInput(userInput, outputLabel);
-//                    break;
-//            }
-//
-////            for(Item currItem : mansion.getItems()) {
-////                String clickedItem = currItem.getName();
-////                if(itemClicked(currItem, x, y)) {
-////                    try {
-////                        TextParser.handleInput(mansion, "get", clickedItem);
-////                        break;
-////                    } catch (IOException ex) {
-////                        ex.printStackTrace();
-////                    }
-////                }
-////            }
-////
-////            for (eaz.model.Character currChar : mansion.getCharacters()) {
-////                String clickedChar = currChar.getName();
-////                if(characterClicked(currChar, x, y)) {
-////                    try {
-////                        TextParser.handleInput(mansion, "talk", clickedChar);
-////                    } catch (IOException ex) {
-////                        ex.printStackTrace();
-////                    }
-////                }
-////            }
-//        }
-//
-//        @Override
-//        public void mousePressed(MouseEvent e) {
-//        }
-//
-//        @Override
-//        public void mouseReleased(MouseEvent e) {
-//        }
-//
-//        @Override
-//        public void mouseEntered(MouseEvent e) {
-//        }
-//
-//        @Override
-//        public void mouseExited(MouseEvent e) {
-//        }
-//    }
-
 }
