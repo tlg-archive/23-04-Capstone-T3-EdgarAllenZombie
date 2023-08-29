@@ -206,36 +206,73 @@ public class TileManager {
             int row = y/gp.tileSize;
             int col = x/gp.tileSize;
             int tileNumber = mapTileNum[col][row];
+            int getResponse;
+            String[] responses = {"Talk", "Attack"};
+            ImageIcon icon;
 
             switch (tileNumber){
                 case 2:
-                    //JOptionPane.showMessageDialog(null, "You Clicked on the Ghost");
-                    gp.getGui().getHelper().handleButtons("talk", "ghost", gp.getGui().getOutputLabel());
+                    icon = new ImageIcon(getClass().getClassLoader().getResource("images/iconGhost.png"));
+                    getResponse = JOptionPane.showOptionDialog(null,
+                            "Do you want to talk to or attack the Ghost?",
+                            "Talk/Attack Ghost?",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            icon,
+                            responses,
+                            0);
+                    switch (getResponse){
+                        case 0:
+                            gp.getGui().getHelper().handleButtons("talk", "ghost", gp.getGui().getOutputLabel());
+                            break;
+                        case 1:
+                            gp.getGui().getHelper().handleButtons("attack", "ghost", gp.getGui().getOutputLabel());
+                            break;
+                    }
                     break;
-            }
+                case 3:
+                    gp.getGui().getHelper().handleButtons("get", "key", gp.getGui().getOutputLabel());
+                    break;
+                case 5:
+                    gp.getGui().getHelper().handleButtons("get", "knife", gp.getGui().getOutputLabel());
+                    break;
+                case 6:
+                    gp.getGui().getHelper().handleButtons("get", "bat", gp.getGui().getOutputLabel());
+                    break;
+                case 7:
+                    gp.getGui().getHelper().handleButtons("get", "diary", gp.getGui().getOutputLabel());
+                    break;
+                case 8:
+                    gp.getGui().getHelper().handleButtons("get", "grimoire", gp.getGui().getOutputLabel());
+                    break;
+                case 9:
+                    gp.getGui().getHelper().handleButtons("get", "jacket", gp.getGui().getOutputLabel());
+                    break;
+                case 10:
+                    gp.getGui().getHelper().handleButtons("get", "plate", gp.getGui().getOutputLabel());
+                    break;
+                case 11:
 
-//            for(Item currItem : mansion.getItems()) {
-//                String clickedItem = currItem.getName();
-//                if(itemClicked(currItem, x, y)) {
-//                    try {
-//                        TextParser.handleInput(mansion, "get", clickedItem);
-//                        break;
-//                    } catch (IOException ex) {
-//                        ex.printStackTrace();
-//                    }
-//                }
-//            }
-//
-//            for (eaz.model.Character currChar : mansion.getCharacters()) {
-//                String clickedChar = currChar.getName();
-//                if(characterClicked(currChar, x, y)) {
-//                    try {
-//                        TextParser.handleInput(mansion, "talk", clickedChar);
-//                    } catch (IOException ex) {
-//                        ex.printStackTrace();
-//                    }
-//                }
-//            }
+                    icon = new ImageIcon(getClass().getClassLoader().getResource("images/iconZombie.png"));
+                    getResponse = JOptionPane.showOptionDialog(null,
+                            "Do you want to talk to or attack the Zombie?",
+                            "Talk/Attack Zombie?",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            icon,
+                            responses,
+                            0);
+                    switch (getResponse){
+                        case 0:
+                            gp.getGui().getHelper().handleButtons("talk", "zombie", gp.getGui().getOutputLabel());
+                            break;
+                        case 1:
+                            gp.getGui().getHelper().handleButtons("attack", "zombie", gp.getGui().getOutputLabel());
+                            break;
+                    }
+            }
+            gp.getGui().playerSetup();
+            gp.getGui().roomSetup();
         }
 
         @Override
@@ -253,25 +290,5 @@ public class TileManager {
         @Override
         public void mouseExited(MouseEvent e) {
         }
-    }
-
-
-    private boolean itemClicked(Item item, int mouseX, int mouseY) {
-        int itemBoundX = 0;
-        int itemBoundY = 0;
-        // Implement logic to check if the mouse click is within the item's bounds
-        if(mouseX == itemBoundX && mouseY == itemBoundY) {
-            // Return true if clicked, false otherwise
-            return true;
-        }
-        return false;
-    }
-
-    private boolean characterClicked(eaz.model.Character character, int mouseX, int mouseY) {
-        int charBoundX = 0;
-        int charBoundY = 0;
-        // Implement logic to check if the mouse click is within the character's bounds
-        return (mouseX == charBoundX && mouseY == charBoundY);
-            // Return true if clicked, false otherwise
     }
 }

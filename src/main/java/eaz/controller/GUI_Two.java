@@ -232,7 +232,10 @@ public class GUI_Two {
         choiceButtonPanel.setVisible(false);
         arrowPanel.setVisible(false);
         audioPanel.setVisible(false);
-
+        inventoryPanel.setVisible(false);
+        inventoryLabel.setVisible(false);
+        mapPanel.setVisible(false);
+        mapPanelLabel.setVisible(false);
 
         //make the panel to display the text
         winTextPanel = new JPanel();
@@ -1084,44 +1087,28 @@ public class GUI_Two {
 
             switch (choice) {
                 case "a1":
-                    try {
-                        TextParser.handleInput(mansion, "move", "north");
-                        helper.handleButtons("move", "north", outputLabel);
-                        playerSetup();
-                        roomSetup();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    //TextParser.handleInput(mansion, "move", "north");
+                    helper.handleButtons("move", "north", outputLabel);
+                    playerSetup();
+                    roomSetup();
                     break;
                 case "a2":
-                    try {
-                        TextParser.handleInput(mansion, "move", "south");
-                        helper.handleButtons("move", "south", outputLabel);
-                        playerSetup();
-                        roomSetup();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    //TextParser.handleInput(mansion, "move", "south");
+                    helper.handleButtons("move", "south", outputLabel);
+                    playerSetup();
+                    roomSetup();
                     break;
                 case "a3":
-                    try {
-                        TextParser.handleInput(mansion, "move", "west");
-                        helper.handleButtons("move", "west", outputLabel);
-                        playerSetup();
-                        roomSetup();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    //TextParser.handleInput(mansion, "move", "west");
+                    helper.handleButtons("move", "west", outputLabel);
+                    playerSetup();
+                    roomSetup();
                     break;
                 case "a4":
-                    try {
-                        TextParser.handleInput(mansion, "move", "east");
-                        helper.handleButtons("move", "east", outputLabel);
-                        playerSetup();
-                        roomSetup();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    //TextParser.handleInput(mansion, "move", "east");
+                    helper.handleButtons("move", "east", outputLabel);
+                    playerSetup();
+                    roomSetup();
                     break;
             }
         }
@@ -1208,7 +1195,7 @@ public class GUI_Two {
 
 
     public void winGameTextSetup() {
-        System.setOut(printOutput);
+        backgroundMusic.stop();
         winMusic.play("music");
         String fileName = "textFiles/Win_Text.txt";
         StringBuilder htmlText = new StringBuilder("<html>");
@@ -1221,9 +1208,10 @@ public class GUI_Two {
                 //titleGameLabel.setText(titleGameLabel.getText() + "<html>" + line + "<br></html>");
             }
             htmlText.append("</html>");
-            String textOutput = basicOutput.toString();
-            basicOutput.reset();
+            winTextLabel.setVisible(true);
+            winTextLabel.setForeground(Color.green);
             winTextLabel.setText(htmlText.toString());
+            winTextLabel.repaint();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
